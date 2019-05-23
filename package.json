@@ -1,0 +1,30 @@
+{
+  "name": "project2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "install": "cd client; npm i",
+    "build": "cd client && npm run build",
+    "heroku-pustbuild": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hsalahud/project2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hsalahud/project2/issues"
+  },
+  "homepage": "https://github.com/hsalahud/project2#readme",
+  "dependencies": {
+    "express": "^4.17.0",
+    "sequelize": "^5.8.6"
+  }
+}
