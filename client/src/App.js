@@ -1,10 +1,8 @@
-import React from 'react';
-
+import React from 'react'
 
 const App = _ => 
   <div>
     <h1>Hello World!</h1>
   </div>
 
-
-export default App;
+export default App
