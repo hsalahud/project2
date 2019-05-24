@@ -10,7 +10,7 @@
     "client": "cd client && npm run start",
     "install": "cd client; npm i",
     "build": "cd client && npm run build",
-    "heroku-pustbuild": "npm run build"
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   "dependencies": {
     "express": "^4.17.0",
     "mysql2": "^1.6.5",
+    "randomstring": "^1.1.5",
     "sequelize": "^5.8.6"
   }
 }

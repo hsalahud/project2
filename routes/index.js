@@ -1,3 +1,5 @@
 module.exports = app => {
-  // require ('./nameofRoutesfile.js)(app)
+  // require('./itemRoutes.js')(app)
+  // require('./listRoutes.js')(app)
+  require('./userRoutes.js')(app)
 }
