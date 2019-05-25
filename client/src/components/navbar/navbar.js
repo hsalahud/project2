@@ -25,6 +25,8 @@ function NavBar () {
     console.log(newValue)
   }
 
+  // create function to go to new routes when icons are clicked
+  
   return (
     <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
       <BottomNavigationAction label='Stats' value='stats' icon={<PieChartIcon />} />
