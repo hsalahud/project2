@@ -15,8 +15,7 @@ const useStyles = makeStyles({
   }
 })
 
-class NavBar extends Component () {
-  render () {
+function NavBar () {
   const classes = useStyles()
   const [value, setValue] = React.useState('recents')
 
