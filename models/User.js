@@ -48,6 +48,9 @@ module.exports = (sequelize, Sequelize) => {
         type:Sequelize.STRING(500),
         notNull: true,
         len: [10, 500]
+      },
+      firebaseId: {
+        type: Sequelize.STRING
       }
     },
     {
