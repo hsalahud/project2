@@ -6,6 +6,7 @@ import PieChartIcon from '@material-ui/icons/PieChart'
 import PersonIcon from '@material-ui/icons/Person'
 import MoodIcon from '@material-ui/icons/Mood'
 import ChatIcon from '@material-ui/icons/Chat'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
   root: {
@@ -18,19 +19,29 @@ const useStyles = makeStyles({
 function NavBar () {
   const classes = useStyles()
   // This line of code is using React hooks
-  const [value, setValue] = useState('recents')
+  const [value, setValue] = useState('stats')
 
   function handleChange (event, newValue) {
     setValue(newValue)
     console.log(newValue)
   }
 
+  // create function to go to new routes when icons are clicked
+
   return (
     <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-      <BottomNavigationAction label='Stats' value='stats' icon={<PieChartIcon />} />
-      <BottomNavigationAction label='Profile' value='profile' icon={<PersonIcon />} />
-      <BottomNavigationAction label='Matches' value='matches' icon={<MoodIcon />} />
-      <BottomNavigationAction label='Chat' value='chat' icon={<ChatIcon />} />
+      <Link to='/stats'>
+        <BottomNavigationAction label='Stats' value='stats' icon={<PieChartIcon />} />
+      </Link>
+      <Link to='/profile'>
+        <BottomNavigationAction label='Profile' value='profile' icon={<PersonIcon />} />
+      </Link>
+      <Link to='/matches'>
+        <BottomNavigationAction label='Matches' value='matches' icon={<MoodIcon />} />
+      </Link>
+      <Link to='/chat'>
+        <BottomNavigationAction label='Chat' value='chat' icon={<ChatIcon />} />
+      </Link>
     </BottomNavigation>
   )
 }
