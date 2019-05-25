@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
@@ -17,10 +17,12 @@ const useStyles = makeStyles({
 
 function NavBar () {
   const classes = useStyles()
-  const [value, setValue] = React.useState('recents')
+  // This line of code is using React hooks
+  const [value, setValue] = useState('recents')
 
   function handleChange (event, newValue) {
     setValue(newValue)
+    console.log(newValue)
   }
 
   return (
