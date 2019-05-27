@@ -3,10 +3,12 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import NavBar from './components/navbar'
 import Login from './components/login'
-import Stats from './components/stats'
-import Profile from './components/profile'
-import Matches from './components/matches'
-import Chat from './components/chat'
+// import Stats from './components/stats'
+// import Profile from './components/profile'
+// import Matches from './components/matches'
+// import Chat from './components/chat'
+import LogHoursForm from './components/logHoursForm'
+import BarExample from './components/stats'
 import firebase from 'firebase'
 
 // Configure Firebase.
@@ -83,6 +85,8 @@ class App extends Component {
             <>
               <NavBar />
               <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid} />
+              <LogHoursForm/>
+              <BarExample/>
 
             </>
           )
