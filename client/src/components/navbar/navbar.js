@@ -6,6 +6,7 @@ import PieChartIcon from '@material-ui/icons/PieChart'
 import PersonIcon from '@material-ui/icons/Person'
 import MoodIcon from '@material-ui/icons/Mood'
 import ChatIcon from '@material-ui/icons/Chat'
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom'
 import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
@@ -40,6 +41,7 @@ function NavBar () {
       <Link to='/chat'>
         <BottomNavigationAction label='Chat' value='chat' icon={<ChatIcon />} />
       </Link>
+      <BottomNavigationAction label='Sign Out' value='signout' icon={<MeetingRoomIcon />} />
     </BottomNavigation>
   )
 }
