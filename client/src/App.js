@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+// installed npm i react-router-dom
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import NavBar from './components/navbar'
 import Login from './components/login'
+import Stats from './components/stats'
+import Profile from './components/profile'
+import Matches from './components/matches'
+import Chat from './components/chat'
 import firebase from 'firebase'
 
 // Configure Firebase.
@@ -29,14 +34,13 @@ const uiConfig = {
   ]
 }
 
-
 class App extends Component {
 
   state = {
     isSignedIn: false,
     displayName: null,
     email: null,
-    uid:null
+    uid: null
   }
 
   // retrieveLoginInfo = _ => {
@@ -48,9 +52,9 @@ class App extends Component {
 
   componentWillMount() {
     firebase.auth().onAuthStateChanged(user => {
-      if (user){
+      if (user) {
         this.setState({ isSignedIn: !!user, displayName: user.displayName, email: user.email, uid: user.uid })
-      }else{
+      } else {
         this.setState({ isSignedIn: !!user, displayName: null, email: null, uid: null })
       }
     })
@@ -59,7 +63,7 @@ class App extends Component {
   // Listen to the Firebase Auth state and set the local state.
   componentDidMount() {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
-      (user) => this.setState({ isSignedIn: !!user})
+      (user) => this.setState({ isSignedIn: !!user })
     )
   }
 
@@ -70,23 +74,24 @@ class App extends Component {
 
   render() {
     console.log(this.state)
-    const { isSignedIn, displayName, email, uid} = this.state
+    const { isSignedIn, displayName, email, uid } = this.state
     return (
       <>
         <Router>
           <div>
-            <Route exact path='/' component={() => isSignedIn ? (
-              <>
-                <NavBar/>
-                <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid}/>
+          <Route path='/' component={() => isSignedIn ? (
+            <>
+              <NavBar />
+              <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid} />
 
-              </>
-            )
-              :
-              (<Login uiConfig={uiConfig} isSignedIn={isSignedIn}/>)
-            } />
+            </>
+          )
+            :
+            (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
+          } />
+
           </div>
-        </Router>
+      </Router>
       </>
     )
   }
