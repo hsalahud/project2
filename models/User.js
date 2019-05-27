@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
         isEmail: true
       },
       phone_number: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         notNull: true,
         isNumeric: true
       },
@@ -51,6 +51,11 @@ module.exports = (sequelize, Sequelize) => {
       },
       firebaseId: {
         type: Sequelize.STRING
+      },
+      formCompleted: {
+        type: Sequelize.BOOLEAN,
+        notNull: true,
+        defaultValue: 0
       }
     },
     {
