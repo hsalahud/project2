@@ -14,7 +14,7 @@ let sequelize
 if (process.env.NODE_ENV === 'production') {
   sequelize = new Sequelize(process.env.JAWSDB_URL)
 } else {
-  sequelize = new Sequelize('mysql://root:MYSQLPASSWORD@localhost:3306/bcDate_db')
+  sequelize = new Sequelize('mysql://root:Toronto!7@localhost:3306/bcDate_db')
 }
 
 module.exports = sequelize

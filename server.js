@@ -10,6 +10,6 @@ require('./routes')(app)
 
 // require('./data')
 
-require('./config').sync()
+require('./config').sync({force:true})
   .then(_ => app.listen(process.env.PORT || 3001))
   .catch(e => console.log(e))
