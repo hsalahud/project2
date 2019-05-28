@@ -7,6 +7,7 @@ import Login from './components/login'
 // import Profile from './components/profile'
 // import Matches from './components/matches'
 // import Chat from './components/chat'
+import Form from './components/form'
 import LogHoursForm from './components/logHoursForm'
 import BarExample from './components/stats'
 import firebase from 'firebase'
@@ -43,6 +44,16 @@ class App extends Component {
     displayName: null,
     email: null,
     uid: null,
+    dob: null,
+    phone_number: null,
+    isMale: null,
+    interestedIn: null,
+    skillInterest: null,
+    int1: null,
+    int2: null,
+    int3: null,
+    bio: null,
+    formCompleted: null,
     userId: null
   }
 
@@ -57,6 +68,8 @@ class App extends Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ isSignedIn: !!user, displayName: user.displayName, email: user.email, uid: user.uid })
+
+
       } else {
         this.setState({ isSignedIn: !!user, displayName: null, email: null, uid: null })
       }
@@ -86,9 +99,9 @@ class App extends Component {
             <>
               <NavBar />
               <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid} />
-              <LogHoursForm/>
-              <BarExample/>
-
+              {/* <LogHoursForm/> */}
+              {/* <BarExample/> */}
+              <Form />
             </>
           )
             :
