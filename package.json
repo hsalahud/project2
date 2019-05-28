@@ -25,8 +25,9 @@
   "homepage": "https://github.com/hsalahud/project2#readme",
   "dependencies": {
     "@material-ui/pickers": "^3.0.0",
-    "express": "^4.17.0",
+    "express": "^4.17.1",
     "mysql2": "^1.6.5",
+    "node": "^12.3.1",
     "randomstring": "^1.1.5",
     "sequelize": "^5.8.6"
   }
