@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 
 class Login extends Component {
   render () {
-    const { uiConfig, isSignedIn, email, displayName, uid} = this.props
+    const { uiConfig, isSignedIn, email, displayName, uid } = this.props
     return (
       <>
         {
