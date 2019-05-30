@@ -20,6 +20,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
 
+
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -89,7 +90,7 @@ TextMaskCustom.propTypes = {
   inputRef: PropTypes.func.isRequired
 }
 
-function Form () {
+const Form = ({storeImage}) => {
   const classes = useStyles()
   const [values, setValues] = React.useState({
     multiline: '',
@@ -106,11 +107,18 @@ function Form () {
   function handleDateChange (date) {
     setSelectedDate(date)
   }
-  const [value, setValue] = React.useState('female')
+  const [valueGender, setValueGender] = React.useState('female')
 
-  function handleChangeRb (event) {
-    setValue(event.target.value)
+  const [valueInterestedIn, setValueInterestedIn] = React.useState('female')
+
+  function handleChangeRbGender (event) {
+    setValueGender(event.target.value)
   }
+
+  function handleChangeRbInterestedIn (event) {
+    setValueInterestedIn(event.target.value)
+  }
+
   function handleChangeSkills (event) {
     setValues(oldValues => ({
       ...oldValues,
@@ -120,6 +128,11 @@ function Form () {
 
   function testrb (event) {
     console.log(event.target.value)
+  }
+
+  function testUpload (event) {
+    event.preventDefault()
+    console.log(document.querySelector('#contained-button-file').files)
   }
 
   return (
@@ -178,8 +191,8 @@ function Form () {
             id='isMale'
             name='gender'
             className={classes.group}
-            value={value}
-            onChange={handleChangeRb}
+            value={valueGender}
+            onChange={handleChangeRbGender}
             onClick={testrb}
           >
             <FormControlLabel value='0' control={<Radio />} label='Female' />
@@ -195,8 +208,8 @@ function Form () {
             id='interestedIn'
             name='interested in'
             className={classes.group}
-            value={value}
-            onChange={handleChangeRb}
+            value={valueInterestedIn}
+            onChange={handleChangeRbInterestedIn}
           >
             <FormControlLabel value='0' control={<Radio />} label='Female' />
             <FormControlLabel value='1' control={<Radio />} label='Male' />
@@ -233,6 +246,7 @@ function Form () {
           Upload
         </Button>
       </label>
+      <Button id = 'submit' onClick={storeImage}>Submit</Button>
     </form>
   )
 }
