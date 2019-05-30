@@ -72,6 +72,7 @@ const useStyles = makeStyles(theme => ({
 function TextMaskCustom (props) {
   const { inputRef, ...other } = props
 
+  console.log("TextMaskCustom")
   return (
     <MaskedInput
       {...other}
@@ -90,6 +91,7 @@ TextMaskCustom.propTypes = {
 }
 
 function Form () {
+  console.log("Form")
   const classes = useStyles()
   const [values, setValues] = React.useState({
     multiline: '',
@@ -99,19 +101,23 @@ function Form () {
   })
 
   const handleChange = name => event => {
+    console.log("handleChange")
     setValues({ ...values, [name]: event.target.value })
   }
   const [selectedDate, setSelectedDate] = React.useState(new Date())
 
   function handleDateChange (date) {
+    console.log("handleDateChange")
     setSelectedDate(date)
   }
   const [value, setValue] = React.useState('female')
 
   function handleChangeRb (event) {
+    console.log("handleChangeRb")
     setValue(event.target.value)
   }
   function handleChangeSkills (event) {
+    console.log("handleChangeSkills")
     setValues(oldValues => ({
       ...oldValues,
       [event.target.name]: event.target.value
@@ -119,6 +125,7 @@ function Form () {
   }
 
   function testrb (event) {
+    console.log("TestRb")
     console.log(event.target.value)
   }
 

@@ -41,8 +41,10 @@ function NavBar () {
       <Link to='/chat'>
         <BottomNavigationAction label='Chat' value='chat' icon={<ChatIcon />} />
       </Link>
+      <Link>
       <BottomNavigationAction label='Sign Out' value='signout' icon={<MeetingRoomIcon />} />
-    </BottomNavigation>
+      </Link>
+      </BottomNavigation>
   )
 }
 

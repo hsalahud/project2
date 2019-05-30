@@ -8,6 +8,7 @@ import Login from './components/login'
 // import Matches from './components/matches'
 // import Chat from './components/chat'
 import Form from './components/form'
+import Profile from './components/profile'
 import LogHoursForm from './components/logHoursForm'
 import BarExample from './components/stats'
 import firebase from 'firebase'
@@ -101,6 +102,7 @@ class App extends Component {
               <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid} />
               {/* <LogHoursForm/> */}
               {/* <BarExample/> */}
+              <Profile uid={uid}/>
               <Form />
             </>
           )
