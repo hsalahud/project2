@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
@@ -92,9 +92,9 @@ TextMaskCustom.propTypes = {
 
 const Form = ({storeImage}) => {
   const classes = useStyles()
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     multiline: '',
-    textmask: '(1  )    -    ',
+    textmask: '(  )    -    ',
     numberformat: '1320',
     skills: ''
   })
@@ -102,21 +102,19 @@ const Form = ({storeImage}) => {
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value })
   }
-  const [selectedDate, setSelectedDate] = React.useState(new Date())
+  const [selectedDate, setSelectedDate] = useState(new Date())
 
   function handleDateChange (date) {
     setSelectedDate(date)
   }
-  const [valueGender, setValueGender] = React.useState('female')
+  const [valueG, setValueG] = useState('female')
+  const [valueI, setValueI] = useState('male')
 
-  const [valueInterestedIn, setValueInterestedIn] = React.useState('female')
-
-  function handleChangeRbGender (event) {
-    setValueGender(event.target.value)
+  function handleChangeRb (event) {
+    setValueG(event.target.value)
   }
-
-  function handleChangeRbInterestedIn (event) {
-    setValueInterestedIn(event.target.value)
+  function handleChangeRb2 (event) {
+    setValueI(event.target.value)
   }
 
   function handleChangeSkills (event) {
@@ -191,8 +189,8 @@ const Form = ({storeImage}) => {
             id='isMale'
             name='gender'
             className={classes.group}
-            value={valueGender}
-            onChange={handleChangeRbGender}
+            value={valueG}
+            onChange={handleChangeRb}
             onClick={testrb}
           >
             <FormControlLabel value='0' control={<Radio />} label='Female' />
@@ -206,10 +204,11 @@ const Form = ({storeImage}) => {
           <RadioGroup
             aria-label='Interested In'
             id='interestedIn'
-            name='interested in'
+            name='interested_in'
             className={classes.group}
-            value={valueInterestedIn}
-            onChange={handleChangeRbInterestedIn}
+            value={valueI}
+            onChange={handleChangeRb2}
+            onClick={testrb}
           >
             <FormControlLabel value='0' control={<Radio />} label='Female' />
             <FormControlLabel value='1' control={<Radio />} label='Male' />
