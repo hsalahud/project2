@@ -64,7 +64,7 @@ function NavBar () {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {['/Form', '/LogHours'].map((text, index) => (
+        {['/Profile', '/LogHours'].map((text, index) => (
           <Link to={text} ><ListItem button key={text}>
             <ListItemIcon>{index % 2 === 0 ? <BallotIcon /> : <ScheduleIcon />}</ListItemIcon>
             {/* <ListItemText primary={text} /> */}
