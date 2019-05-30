@@ -11,6 +11,9 @@ import Form from './components/form'
 import LogHoursForm from './components/logHoursForm'
 import BarExample from './components/stats'
 import firebase from 'firebase'
+import Users from './utils/Users.js'
+import randomString from'randomstring'
+
 
 // Configure Firebase.
 const config = {
@@ -37,6 +40,9 @@ const uiConfig = {
   ]
 }
 
+const storage = firebase.storage()
+
+
 class App extends Component {
 
   state = {
@@ -54,24 +60,59 @@ class App extends Component {
     int3: null,
     bio: null,
     formCompleted: null,
-    userId: null
+    userId: null,
+    text: []
   }
 
-  // retrieveLoginInfo = _ => {
-  //   firebase.auth().onAuthStateChanged(({ email, uid, displayName }) => {
-  //     this.setState({ displayName, email, uid })
-  //   })
-  //   console.log(this.state)
+  //To test --- it works!
+  storeImage = event => {
+    event.preventDefault()
+    const file = document.querySelector('#contained-button-file').files[0]
+    let newFileName = randomString.generate()
+    const newFile = new File([file], newFileName, {type: file.type});
+    console.log(file)
+    console.log(newFile)
+    storage.ref(`profileImage/${newFile.name}`).put(newFile)
+      .catch(e => console.log(e))
+
+     //Create function to store new file name in database
+  }
+
+  // retrieveImages = text => {
+  //   text.forEach(image, index => {
+  //     storage.ref(`profileImages/${image[index]}.jpg` || `profileImages/${image[index]}.png`).getDownloadURL()
+  //     .then (url => {
+  //       document.querySelector(`#profileImage${index}`).setAttribute('src', url)
+  //     })
+  //   });
+    
   // }
 
   componentWillMount() {
+    let user = {}
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({ isSignedIn: !!user, displayName: user.displayName, email: user.email, uid: user.uid })
 
+        user = {
+          name: this.state.displayName,
+          email: this.state.email,
+          firebaseId: this.state.uid
+        }
 
+        Users.getOne(this.state.uid)
+          .then(({ data }) => {
+            if (data === null) {
+              Users.postOne(user)
+              this.state.userId = data.id
+            } else {
+              this.state.userId = data.id
+            }
+          }
+
+          )
       } else {
-        this.setState({ isSignedIn: !!user, displayName: null, email: null, uid: null })
+        this.setState({ isSignedIn: !!user, displayName: null, email: null, uid: null, userId: null })
       }
     })
   }
@@ -95,21 +136,21 @@ class App extends Component {
       <>
         <Router>
           <div>
-          <Route path='/' component={() => isSignedIn ? (
-            <>
-              <NavBar />
-              <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid} />
-              {/* <LogHoursForm/> */}
-              {/* <BarExample/> */}
-              <Form />
-            </>
-          )
-            :
-            (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
-          } />
+            <Route path='/' component={() => isSignedIn ? (
+              <>
+                <NavBar />
+                <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid} />
+                {/* <LogHoursForm/> */}
+                {/* <BarExample/> */}
+                <Form storeImage = {this.storeImage} />
+              </>
+            )
+              :
+              (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
+            } />
 
           </div>
-      </Router>
+        </Router>
       </>
     )
   }
