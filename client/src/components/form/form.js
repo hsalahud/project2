@@ -20,6 +20,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
 
+
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -89,7 +90,7 @@ TextMaskCustom.propTypes = {
   inputRef: PropTypes.func.isRequired
 }
 
-function Form () {
+const Form = ({storeImage}) => {
   const classes = useStyles()
   const [values, setValues] = useState({
     multiline: '',
@@ -115,6 +116,7 @@ function Form () {
   function handleChangeRb2 (event) {
     setValueI(event.target.value)
   }
+
   function handleChangeSkills (event) {
     setValues(oldValues => ({
       ...oldValues,
@@ -124,6 +126,11 @@ function Form () {
 
   function testrb (event) {
     console.log(event.target.value)
+  }
+
+  function testUpload (event) {
+    event.preventDefault()
+    console.log(document.querySelector('#contained-button-file').files)
   }
 
   return (
@@ -238,6 +245,7 @@ function Form () {
           Upload
         </Button>
       </label>
+      <Button id = 'submit' onClick={storeImage}>Submit</Button>
     </form>
   )
 }
