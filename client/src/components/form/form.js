@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
@@ -19,6 +19,7 @@ import FormLabel from '@material-ui/core/FormLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
+
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -90,12 +91,11 @@ TextMaskCustom.propTypes = {
   inputRef: PropTypes.func.isRequired
 }
 
-function Form () {
-  console.log("Form")
+const Form = ({storeImage}) => {
   const classes = useStyles()
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     multiline: '',
-    textmask: '(1  )    -    ',
+    textmask: '(  )    -    ',
     numberformat: '1320',
     skills: ''
   })
@@ -104,18 +104,22 @@ function Form () {
     console.log("handleChange")
     setValues({ ...values, [name]: event.target.value })
   }
-  const [selectedDate, setSelectedDate] = React.useState(new Date())
+  const [selectedDate, setSelectedDate] = useState(new Date())
 
   function handleDateChange (date) {
     console.log("handleDateChange")
     setSelectedDate(date)
   }
-  const [value, setValue] = React.useState('female')
+  const [valueG, setValueG] = useState('female')
+  const [valueI, setValueI] = useState('male')
 
   function handleChangeRb (event) {
-    console.log("handleChangeRb")
-    setValue(event.target.value)
+    setValueG(event.target.value)
   }
+  function handleChangeRb2 (event) {
+    setValueI(event.target.value)
+  }
+
   function handleChangeSkills (event) {
     console.log("handleChangeSkills")
     setValues(oldValues => ({
@@ -127,6 +131,11 @@ function Form () {
   function testrb (event) {
     console.log("TestRb")
     console.log(event.target.value)
+  }
+
+  function testUpload (event) {
+    event.preventDefault()
+    console.log(document.querySelector('#contained-button-file').files)
   }
 
   return (
@@ -185,7 +194,7 @@ function Form () {
             id='isMale'
             name='gender'
             className={classes.group}
-            value={value}
+            value={valueG}
             onChange={handleChangeRb}
             onClick={testrb}
           >
@@ -200,10 +209,11 @@ function Form () {
           <RadioGroup
             aria-label='Interested In'
             id='interestedIn'
-            name='interested in'
+            name='interested_in'
             className={classes.group}
-            value={value}
-            onChange={handleChangeRb}
+            value={valueI}
+            onChange={handleChangeRb2}
+            onClick={testrb}
           >
             <FormControlLabel value='0' control={<Radio />} label='Female' />
             <FormControlLabel value='1' control={<Radio />} label='Male' />
@@ -240,6 +250,7 @@ function Form () {
           Upload
         </Button>
       </label>
+      <Button id = 'submit' onClick={storeImage}>Submit</Button>
     </form>
   )
 }

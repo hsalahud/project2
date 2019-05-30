@@ -25,8 +25,9 @@ function Profile() {
       <Avatar alt="Remy Sharp" src="./Jaga.JPG" className={classes.bigAvatar} />
     </Grid>
   );
-}
 
+
+  }
 // class Profile extends Component {
 //   render () {
 //     const {uid } = this.props
