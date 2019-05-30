@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
@@ -91,9 +91,9 @@ TextMaskCustom.propTypes = {
 
 function Form () {
   const classes = useStyles()
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     multiline: '',
-    textmask: '(1  )    -    ',
+    textmask: '(  )    -    ',
     numberformat: '1320',
     skills: ''
   })
@@ -101,15 +101,19 @@ function Form () {
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value })
   }
-  const [selectedDate, setSelectedDate] = React.useState(new Date())
+  const [selectedDate, setSelectedDate] = useState(new Date())
 
   function handleDateChange (date) {
     setSelectedDate(date)
   }
-  const [value, setValue] = React.useState('female')
+  const [valueG, setValueG] = useState('female')
+  const [valueI, setValueI] = useState('male')
 
   function handleChangeRb (event) {
-    setValue(event.target.value)
+    setValueG(event.target.value)
+  }
+  function handleChangeRb2 (event) {
+    setValueI(event.target.value)
   }
   function handleChangeSkills (event) {
     setValues(oldValues => ({
@@ -178,7 +182,7 @@ function Form () {
             id='isMale'
             name='gender'
             className={classes.group}
-            value={value}
+            value={valueG}
             onChange={handleChangeRb}
             onClick={testrb}
           >
@@ -193,10 +197,11 @@ function Form () {
           <RadioGroup
             aria-label='Interested In'
             id='interestedIn'
-            name='interested in'
+            name='interested_in'
             className={classes.group}
-            value={value}
-            onChange={handleChangeRb}
+            value={valueI}
+            onChange={handleChangeRb2}
+            onClick={testrb}
           >
             <FormControlLabel value='0' control={<Radio />} label='Female' />
             <FormControlLabel value='1' control={<Radio />} label='Male' />
