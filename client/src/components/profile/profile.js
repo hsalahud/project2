@@ -1,34 +1,117 @@
 import React, { Component } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+// import { makeStyles } from '@material-ui/core/styles'
 // import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 // import Button from '@material-ui/core/Button'
-import Avatar from '@material-ui/core/Avatar'
-
-// import './profile.css'
-const useStyles = makeStyles({
-  avatar: {
-    margin: 10,
+// import Avatar from '@material-ui/core/Avatar'
+import './profile.css'
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
+// import placeholder from components
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
   },
-  bigAvatar: {
-    margin: 10,
-    width: 60,
-    height: 60,
+  paper: {
+    padding: theme.spacing(2),
+    margin: 'auto',
+    maxWidth: 500,
+  },
+  image: {
+    width: 128,
+    height: 128,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
   },
 });
-function Profile() {
-  const classes = useStyles();
 
+function ComplexGrid(props) {
+  const { classes } = props;
   return (
-    <Grid container justify="center" alignItems="center">
-      <Avatar alt="Remy Sharp" src="./Jaga.JPG" className={classes.avatar} />
-      <Avatar alt="Remy Sharp" src="./Jaga.JPG" className={classes.bigAvatar} />
-    </Grid>
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
+          <Grid item>
+            <ButtonBase className={classes.image}>
+              <img className={classes.img} alt="complex" src="/static/images/grid/complex.jpg" />
+            </ButtonBase>
+          </Grid>
+          <Grid item xs={12} sm container>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1">
+                  Standard license
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  Full resolution 1920x1080 • JPEG
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  ID: 1030114
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="body2" style={{ cursor: 'pointer' }}>
+                  Remove
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Typography variant="subtitle1">$19.00</Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Paper>
+    </div>
   );
+}
+
+ComplexGrid.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(ComplexGrid);
+
+// const useStyles = makeStyles({
+//   avatar: {
+//     margin: 10,
+//   },
+//   bigAvatar: {
+//     margin: 10,
+//     width: 60,
+//     height: 60,
+//   },
+// });
+
+//Write back-end with consoles to make sure you are recieving right responses
+//Write front-end with variables for info that you want to display 
+//Pass the response from the database to front end into variables that are created (name, photo ... etc)
 
 
-  }
+// function Profile() {
+//   const classes = useStyles();
+//   return (
+//     <div className = "img-container">
+//     <Grid container justify="center" alignItems="center">
+//       <Avatar alt="Remy Sharp" src={placeholder} className= "avatar" />
+//       <Avatar alt="Remy Sharp" src="./Jaga.JPG" className={classes.bigAvatar} />
+//     </Grid>
+//     </div>
+//   );
+
+  
+// }
+// export default Profile
+
 // class Profile extends Component {
+//   classes = useStyles()
+
 //   render () {
 //     const {uid } = this.props
 //     console.log("This is profile page")
@@ -36,9 +119,13 @@ function Profile() {
 //     return (
 //       <>
 //         <h1>Hello this is the Profile Page</h1>
+//         <Grid container justify="center" alignItems="center">
+//       <Avatar alt="Remy Sharp" src="./Jaga.JPG" className={this.classes.avatar} />
+//       <Avatar alt="Remy Sharp" src="./Jaga.JPG" className={this.classes.bigAvatar} />
+//     </Grid>
 //       </>
 //     )
 //   }
 // }
 
-export default Profile
+// export default Profile

@@ -6,12 +6,15 @@ module.exports = app => {
       .then(users => res.json(users))
       .catch(e => console.log(e))
   })
+  // //Make sure you are grabbing correct information 
   // app.get('/users/:id', (req, res) => {
+  //   console.log(`The id is: ${req.params.id}`)
   //   db.User.findOne({ where: { id: req.params.id }, include: [{ model: db.Image}, {model: db.Timelog}] })
-  //     .then(user => res.json(user))
+  //     .then(user => res.json(user)).then(console.log(user.name, user.image))
   //     .catch(e => console.log(e))
   // })
-  app.get('/users/:firebaseId', (req, res) => {
+
+  app.get('/users/:firebaseId', (req, res) => {  
     db.User.findOne({ where: { firebaseId: req.params.firebaseId }, include: [{ model: db.Image}, {model: db.Timelog}] })
       .then(user => res.json(user))
       .catch(e => console.log(e))

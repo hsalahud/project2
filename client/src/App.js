@@ -91,8 +91,11 @@ class App extends Component {
 
   componentWillMount() {
     let user = {}
+    console.log("willmount")
     firebase.auth().onAuthStateChanged(user => {
+      console.log(user)
       if (user) {
+        console.log("1")
         this.setState({ isSignedIn: !!user, displayName: user.displayName, email: user.email, uid: user.uid })
 
         user = {
@@ -115,8 +118,35 @@ class App extends Component {
       } else {
         this.setState({ isSignedIn: !!user, displayName: null, email: null, uid: null, userId: null })
       }
+
+      console.log(this.state.uid)
+      this.retrieveUser(this.state.uid)
+      console.log(this.state.uid)
+  
     })
+
+    this.retrieveUser(this.state.uid)
+    console.log(this.state.uid)
+
   }
+
+//   /////////////////////////////////////////////////////
+retrieveUser = uniqueId => {
+  console.log(uniqueId)
+  Users.getOne(uniqueId)
+    .then(({data}) => {
+      this.state.dob = data.dob
+      this.state['phone_number'] = data.phone_number
+      this.state.isMale = data.isMale
+      this.state.interestedIn = data.interestedIn
+      this.state.skillInterest = data.skillInterest
+      this.state.int1 = data.int1
+      this.state.int2 = data.int2
+      this.state.int3 = data.int3
+      this.state.bio = data.bio
+    }).catch(e => console.log(e))
+}
+  ////////////////////////////////////////////////////
 
   // Listen to the Firebase Auth state and set the local state.
   componentDidMount() {
@@ -144,7 +174,7 @@ class App extends Component {
               {/* <LogHoursForm/> */}
               {/* <BarExample/> */}
               <Profile uid={uid}/>
-              <Form storeImage = {this.storeImage} />
+              {/* <Form storeImage = {this.storeImage} /> */}
               </>
             )
               :
