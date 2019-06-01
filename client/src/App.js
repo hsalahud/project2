@@ -12,8 +12,7 @@ import LogHoursForm from './components/logHoursForm'
 import BarExample from './components/stats'
 import firebase from 'firebase'
 import Users from './utils/Users.js'
-import randomString from'randomstring'
-
+import randomString from 'randomstring'
 
 // Configure Firebase.
 const config = {
@@ -50,18 +49,59 @@ class App extends Component {
     displayName: null,
     email: null,
     uid: null,
-    dob: null,
+    dob: new Date(),
     phone_number: null,
-    isMale: null,
+    isMale: '',
     interestedIn: null,
-    skillInterest: null,
-    int1: null,
-    int2: null,
-    int3: null,
-    bio: null,
+    skillInterest: '',
+    int1: '',
+    int2: '',
+    int3: '',
+    bio: '',
     formCompleted: null,
     userId: null,
     text: []
+  }
+// handles bio input
+  handleInputChange = event => {
+    this.setState({ [event.target.id]: event.target.value })
+    console.log(event.target.id)
+    console.log(event.target.value)
+  }
+// handles date of birth
+  handleDateChange = event => {
+    console.log(event)
+    this.setState({ dob: new Date(event._d) })
+  }
+// handles 'gender' selection
+  handleChangeRb = event => {
+    console.log(event)
+    this.setState({ isMale: event.target.value})
+  }
+// handles 'interested in' selection
+  handleChangeRb2 = event => {
+    console.log(event)
+    this.setState({ interestedIn: event.target.value })
+  }
+// handles 'skill interests' selection
+  handleChangeSkills = event => {
+    console.log(event)
+    this.setState({ skillInterest: event.target.value })
+  }
+// handles 'personal interest 1' selection
+  handleInterest1 = event => {
+    console.log(event)
+    this.setState({ int1: event.target.value })
+  }
+// handles 'personal interest 2' selection
+  handleInterest2 = event => {
+    console.log(event)
+    this.setState({ int2: event.target.value })
+  }
+// handles 'personal interest 3' selection
+  handleInterest3 = event => {
+    console.log(event)
+    this.setState({ int3: event.target.value })
   }
 
   //To test --- it works!
@@ -69,13 +109,14 @@ class App extends Component {
     event.preventDefault()
     const file = document.querySelector('#contained-button-file').files[0]
     let newFileName = randomString.generate()
-    const newFile = new File([file], newFileName, {type: file.type});
+    const newFile = new File([file], newFileName, { type: file.type });
     console.log(file)
     console.log(newFile)
     storage.ref(`profileImage/${newFile.name}`).put(newFile)
       .catch(e => console.log(e))
 
-     //Create function to store new file name in database
+
+    //Create function to store new file name in database
   }
 
   // retrieveImages = text => {
@@ -85,7 +126,7 @@ class App extends Component {
   //       document.querySelector(`#profileImage${index}`).setAttribute('src', url)
   //     })
   //   });
-    
+
   // }
 
   componentWillMount() {
@@ -99,7 +140,6 @@ class App extends Component {
           email: this.state.email,
           firebaseId: this.state.uid
         }
-
         Users.getOne(this.state.uid)
           .then(({ data }) => {
             if (data === null) {
@@ -131,24 +171,15 @@ class App extends Component {
 
   render() {
     console.log(this.state)
-    const { isSignedIn, displayName, email, uid } = this.state
+    const { isSignedIn, displayName, email, uid, bio, dob, radioButton1, skillInterest, int1, int2, int3 } = this.state
     return (
       <>
         <Router>
           <div>
-            <Route path='/' component={() => isSignedIn ? (
-              <>
-                <NavBar />
-                <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid} />
-                {/* <LogHoursForm/> */}
-                {/* <BarExample/> */}
-                <Form storeImage = {this.storeImage} />
-              </>
-            )
+            <Route exact path='/' render={() => isSignedIn ? (<Form key='form1' handleInputChange={this.handleInputChange} handleDateChange={this.handleDateChange} handleChangeRb={this.handleChangeRb} handleChangeRb2={this.handleChangeRb2} handleChangeSkills={this.handleChangeSkills} handleInterest1={this.handleInterest1} handleInterest2={this.handleInterest2} handleInterest3={this.handleInterest3} bio={bio} dob={dob} radioButton1={radioButton1} skillInterest={skillInterest} int1={int1} int2={int2} int3={int3} />)
               :
               (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
             } />
-
           </div>
         </Router>
       </>
@@ -157,5 +188,3 @@ class App extends Component {
 }
 
 export default App
-
-
