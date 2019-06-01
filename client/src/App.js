@@ -13,6 +13,8 @@ import BarExample from './components/stats'
 import firebase from 'firebase'
 import Users from './utils/Users.js'
 import randomString from 'randomstring'
+import BioInput from './components/form/Textfield'
+
 
 
 // Configure Firebase.
@@ -67,8 +69,13 @@ class App extends Component {
   ///////////////////////////////////////
   handleInputChange = event => {
     this.setState({ [event.target.id]: event.target.value })
-    console.log('hey')
+    console.log(this.state)
   }
+
+  // handleInputChange = event => {
+  //   this.state.bio = event.target.value
+  //   console.log(this.state)
+  // }
 
   ///////////////////////////////////////
 
@@ -145,7 +152,7 @@ class App extends Component {
       <>
         <Router>
           <div>
-            <Route exact path='/' component={() => isSignedIn ? (<Form handleInputChange = {this.handleInputChange} bio = {bio}/>)
+            <Route exact path='/' render={() => isSignedIn ? (<Form key = 'form1' handleInputChange = {this.handleInputChange} bio = {bio}/>)
               :
               (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
             } />

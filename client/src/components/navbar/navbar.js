@@ -77,8 +77,6 @@ function NavBar () {
   )
 
   return (
-    <>
-    <Form/>
     <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
       <Link to='/stats'>
         <BottomNavigationAction label='Stats' value='stats' icon={<PieChartIcon />} />
@@ -101,7 +99,6 @@ function NavBar () {
         <BottomNavigationAction label='Sign Out' value='signout' icon={<MeetingRoomIcon />} onClick={() => firebase.auth().signOut()} />
       </Link>
     </BottomNavigation>
-    </>
   )
 }
 

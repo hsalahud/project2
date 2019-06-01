@@ -130,11 +130,22 @@ const useStyles = makeStyles(theme => ({
 //   console.log(event.target.value)
 // }
 
-const Form = ({handleInputChange, bio}) => (
+const Form = (props) => {
+ 
+// class Form extends Component {
 
-    <BioInput onChange = {handleInputChange} handleInputChange={handleInputChange} bio = {bio}/>
+  // render() {
+  //   const { handleInputChange, bio } = this.props
 
-)
+    return (
+      <>
+      <BioInput key='bioTextfield1' handleInputChange={props.handleInputChange} userBio={props.bio} />
+      </>
+    )
+  }
+// }
+
+
 
 export default Form
 
