@@ -12,7 +12,7 @@ import LogHoursForm from './components/logHoursForm'
 import BarExample from './components/stats'
 import firebase from 'firebase'
 import Users from './utils/Users.js'
-import randomString from'randomstring'
+import randomString from 'randomstring'
 
 
 // Configure Firebase.
@@ -47,7 +47,7 @@ class App extends Component {
 
   state = {
     isSignedIn: false,
-    displayName: null,
+    displayName: '',
     email: null,
     uid: null,
     dob: null,
@@ -55,37 +55,46 @@ class App extends Component {
     isMale: null,
     interestedIn: null,
     skillInterest: null,
-    int1: null,
-    int2: null,
-    int3: null,
-    bio: null,
+    int1: '',
+    int2: '',
+    int3: '',
+    bio: '',
     formCompleted: null,
     userId: null,
     text: []
   }
+
+  ///////////////////////////////////////
+  handleInputChange = event => {
+    this.setState({ [event.target.id]: event.target.value })
+    console.log('hey')
+  }
+
+  ///////////////////////////////////////
 
   //To test --- it works!
   storeImage = event => {
     event.preventDefault()
     const file = document.querySelector('#contained-button-file').files[0]
     let newFileName = randomString.generate()
-    const newFile = new File([file], newFileName, {type: file.type});
+    const newFile = new File([file], newFileName, { type: file.type });
     console.log(file)
     console.log(newFile)
     storage.ref(`profileImage/${newFile.name}`).put(newFile)
       .catch(e => console.log(e))
 
-     //Create function to store new file name in database
+    //Create function to store new file name in database
   }
 
   // retrieveImages = text => {
   //   text.forEach(image, index => {
   //     storage.ref(`profileImages/${image[index]}.jpg` || `profileImages/${image[index]}.png`).getDownloadURL()
   //     .then (url => {
-  //       document.querySelector(`#profileImage${index}`).setAttribute('src', url)
+  //       // document.querySelector(`#profileImage${index}`).setAttribute('src', url)
+
   //     })
   //   });
-    
+
   // }
 
   componentWillMount() {
@@ -131,24 +140,15 @@ class App extends Component {
 
   render() {
     console.log(this.state)
-    const { isSignedIn, displayName, email, uid } = this.state
+    const { isSignedIn, displayName, email, uid, bio } = this.state
     return (
       <>
         <Router>
           <div>
-            <Route path='/' component={() => isSignedIn ? (
-              <>
-                <NavBar />
-                <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid} />
-                {/* <LogHoursForm/> */}
-                {/* <BarExample/> */}
-                <Form storeImage = {this.storeImage} />
-              </>
-            )
+            <Route exact path='/' component={() => isSignedIn ? (<Form handleInputChange = {this.handleInputChange} bio = {bio}/>)
               :
               (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
             } />
-
           </div>
         </Router>
       </>
@@ -157,5 +157,8 @@ class App extends Component {
 }
 
 export default App
+
+
+
 
 

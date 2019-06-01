@@ -16,6 +16,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ScheduleIcon from '@material-ui/icons/Schedule'
 import BallotIcon from '@material-ui/icons/Ballot'
 import firebase from 'firebase'
+import Form from '../form'
 
 const useStyles = makeStyles({
   root: {
@@ -76,6 +77,8 @@ function NavBar () {
   )
 
   return (
+    <>
+    <Form/>
     <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
       <Link to='/stats'>
         <BottomNavigationAction label='Stats' value='stats' icon={<PieChartIcon />} />
@@ -98,6 +101,7 @@ function NavBar () {
         <BottomNavigationAction label='Sign Out' value='signout' icon={<MeetingRoomIcon />} onClick={() => firebase.auth().signOut()} />
       </Link>
     </BottomNavigation>
+    </>
   )
 }
 
