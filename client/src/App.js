@@ -107,6 +107,7 @@ class App extends Component {
         Users.getOne(this.state.uid)
           .then(({ data }) => {
             if (data === null) {
+              console.log("Posting User")
               Users.postOne(user)
               this.state.userId = data.id
             } else {
@@ -119,9 +120,9 @@ class App extends Component {
         this.setState({ isSignedIn: !!user, displayName: null, email: null, uid: null, userId: null })
       }
 
-      console.log(this.state.uid)
+      // console.log(this.state.uid)
       this.retrieveUser(this.state.uid)
-      console.log(this.state.uid)
+      // console.log(this.state.uid)
   
     })
 
@@ -131,20 +132,38 @@ class App extends Component {
   }
 
 //   /////////////////////////////////////////////////////
+//This is retrieving user and console logs out all of user info
 retrieveUser = uniqueId => {
-  console.log(uniqueId)
+  console.log(`Retrieving user ${uniqueId}`)
   Users.getOne(uniqueId)
-    .then(({data}) => {
-      this.state.dob = data.dob
-      this.state['phone_number'] = data.phone_number
-      this.state.isMale = data.isMale
-      this.state.interestedIn = data.interestedIn
-      this.state.skillInterest = data.skillInterest
-      this.state.int1 = data.int1
-      this.state.int2 = data.int2
-      this.state.int3 = data.int3
-      this.state.bio = data.bio
-    }).catch(e => console.log(e))
+  //   .then(({data}) => {
+  //     this.state.dob = data.dob
+  //     this.state['phone_number'] = data.phone_number
+  //     this.state.isMale = data.isMale
+  //     this.state.interestedIn = data.interestedIn
+  //     this.state.skillInterest = data.skillInterest
+  //     this.state.int1 = data.int1
+  //     this.state.int2 = data.int2
+  //     this.state.int3 = data.int3
+  //     this.state.bio = data.bio
+  //     this.state.formCompleted = data.formCompleted
+// })
+  .then(r => { 
+    this.setState({
+    dob: r.data.dob,
+    phone_number: r.data.phone_number,
+    isMale: r.data.isMale,
+    interestedIn: r.data.interestedIn,
+    skillInterest: r.data.skillInterest,
+    int1: r.data.int1,
+    int2: r.data.int2,
+    int3: r.data.int3,
+    bio: r.data.bio,
+    formCompleted: r.data.formCompleted,
+    // text: []
+    })
+  })
+  .catch(e => console.log(e))
 }
   ////////////////////////////////////////////////////
 
@@ -161,8 +180,10 @@ retrieveUser = uniqueId => {
   }
 
   render() {
-    console.log(this.state)
-    const { isSignedIn, displayName, email, uid } = this.state
+    // let person = JSON.stringify(this.state)
+    // console.log(`The current state is` + person)
+    console.log(this.state.displayName)
+    const { isSignedIn, displayName, email, uid, dob, phone_number, skillInterest, int1, int2, int3, bio } = this.state
     return (
       <>
         <Router>
@@ -170,10 +191,10 @@ retrieveUser = uniqueId => {
           <Route path='/' component={() => isSignedIn ? (
             <>
               <NavBar />
-              <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid} />
+              <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid}/>
               {/* <LogHoursForm/> */}
               {/* <BarExample/> */}
-              <Profile uid={uid}/>
+              <Profile uid={uid} displayName = {displayName} dob ={dob} phone_number = {phone_number} skillInterest = {skillInterest} int1 = {int1} int2 = {int2} int3 = {int3} bio = {bio}/>
               {/* <Form storeImage = {this.storeImage} /> */}
               </>
             )

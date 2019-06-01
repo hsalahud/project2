@@ -5,11 +5,19 @@ import Grid from '@material-ui/core/Grid'
 // import Button from '@material-ui/core/Button'
 // import Avatar from '@material-ui/core/Avatar'
 import './profile.css'
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+import ButtonBase from '@material-ui/core/ButtonBase'
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Breadcrumbs from '@material-ui/core/Breadcrumbs'
+import Users from '../../utils/Users.js'
+import trialImg from './assets/images/pf1.jpg'
 // import placeholder from components
 const styles = theme => ({
   root: {
@@ -20,6 +28,7 @@ const styles = theme => ({
     margin: 'auto',
     maxWidth: 500,
   },
+  
   image: {
     width: 128,
     height: 128,
@@ -30,42 +39,104 @@ const styles = theme => ({
     maxWidth: '100%',
     maxHeight: '100%',
   },
+  card: {
+    maxWidth: 345,
+  },
 });
+let qresponse = null
+let name = null
 
 function ComplexGrid(props) {
-  const { classes } = props;
+  const { classes, displayName, bio, skillInterest, int1, int2, int3} = props
+//   console.log(props.uid)
+//   Users.getOne(props.uid)
+//     .then(({data}) => {
+//       // this.state.dob = data.dob
+//       // this.state['phone_number'] = data.phone_number
+//       // this.state.isMale = data.isMale
+//       // this.state.interestedIn = data.interestedIn
+//       // this.state.skillInterest = data.skillInterest
+//       // this.state.int1 = data.int1
+//       // this.state.int2 = data.int2
+//       // this.state.int3 = data.int3
+//       // this.state.bio = data.bio
+//       // this.state.formCompleted = data.formCompleted
+//       qresponse = data
+//       name = data.name
+//       console.log(qresponse.name)
+//   }).catch(e => console.log(e))
+
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
-          <Grid item>
-            <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src="/static/images/grid/complex.jpg" />
-            </ButtonBase>
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
-                  Standard license
+          <Card className={classes.card}>
+            <CardActionArea>
+              <div className={CardMedia}>
+              <CardMedia component="img"
+                alt="Profile Picture"
+                height="200"
+                image ={trialImg} alt="trial image"
+                title="My Picture"
+              />
+              </div>
+              {/* <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Name
                 </Typography>
-                <Typography variant="body2" gutterBottom>
-                  Full resolution 1920x1080 • JPEG
+                <Typography variant="body2" color="textSecondary" component="p">
+                  This is about me
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  ID: 1030114
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                  Remove
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Typography variant="subtitle1">$19.00</Typography>
-            </Grid>
-          </Grid>
+                <Breadcrumbs aria-label="Breadcrumb">
+                  <Typography color="textPrimary">Breadcrumb</Typography>
+                </Breadcrumbs>
+              </CardContent> */}
+            </CardActionArea>
+          </Card>          
+        </Grid>
+      </Paper>
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
+          <Breadcrumbs aria-label="Breadcrumb">
+            <Typography color="textPrimary">{displayName}</Typography>
+          </Breadcrumbs>
+        </Grid>
+      </Paper>
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
+          <Breadcrumbs aria-label="Breadcrumb">
+            <Typography color="textPrimary">{bio}</Typography>
+          </Breadcrumbs>
+        </Grid>
+      </Paper>
+
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
+          <Breadcrumbs aria-label="Breadcrumb">
+            <Typography color="textPrimary">{skillInterest}</Typography>
+          </Breadcrumbs>
+        </Grid>
+      </Paper>
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
+          <Breadcrumbs aria-label="Breadcrumb">
+            <Typography color="textPrimary">{int1}</Typography>
+          </Breadcrumbs>
+        </Grid>
+      </Paper>
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
+          <Breadcrumbs aria-label="Breadcrumb">
+            <Typography color="textPrimary">{int2}</Typography>
+          </Breadcrumbs>
+        </Grid>
+      </Paper>
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
+          <Breadcrumbs aria-label="Breadcrumb">
+            <Typography color="textPrimary">{int3}</Typography>
+          </Breadcrumbs>
         </Grid>
       </Paper>
     </div>
