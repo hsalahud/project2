@@ -8,4 +8,4 @@ const Images = {
   deleteOne: id => axios.delete(`/images/${id}`)
 }
 
-export default Users
+export default Images

@@ -12,8 +12,8 @@ import LogHoursForm from './components/logHoursForm'
 import BarExample from './components/stats'
 import firebase from 'firebase'
 import Users from './utils/Users.js'
+import Images from './utils/Images.js'
 import randomString from 'randomstring'
-import BioInput from './components/form/Textfield'
 
 
 
@@ -63,7 +63,10 @@ class App extends Component {
     bio: '',
     formCompleted: null,
     userId: null,
-    text: []
+    text: [],
+    imageURL: [],
+    currentUser: {},
+    potentialMatches: []
   }
 
   ///////////////////////////////////////
@@ -72,37 +75,65 @@ class App extends Component {
     console.log(this.state)
   }
 
-  // handleInputChange = event => {
-  //   this.state.bio = event.target.value
-  //   console.log(this.state)
-  // }
-
   ///////////////////////////////////////
 
-  //To test --- it works!
-  storeImage = event => {
+  //THIS FUNCTION STORES THE IMAGE WE UPLOAD INTO THE DATABASE.
+  //KU
+  storeForm = event => {
     event.preventDefault()
+
+    ////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////
     const file = document.querySelector('#contained-button-file').files[0]
     let newFileName = randomString.generate()
     const newFile = new File([file], newFileName, { type: file.type });
-    console.log(file)
-    console.log(newFile)
+
+    //Enter variables here
+
+
+    //process to store newly created file in firebase
     storage.ref(`profileImage/${newFile.name}`).put(newFile)
+      .then ( () => {
+
+        ///Kumiko must creat an object for form like this
+        //we create an object with the state of our inputs
+        let newImage = {
+          text: newFileName,
+          userId: this.state.userId
+        }
+
+        //Here we create a new row in our mysql db and post the image details there
+        //Kumiko will use Users.put
+        Images.postOne(newImage)
+        //As soon as we submit the form, we get the image URL from firebase
+        this.retrieveImages(newFileName)
+
+      })
       .catch(e => console.log(e))
 
-    //Create function to store new file name in database
+      //Enter form data transfer to db here - Kumiko
+
+
+
+
+
+
   }
 
-  // retrieveImages = text => {
-  //   text.forEach(image, index => {
-  //     storage.ref(`profileImages/${image[index]}.jpg` || `profileImages/${image[index]}.png`).getDownloadURL()
-  //     .then (url => {
-  //       // document.querySelector(`#profileImage${index}`).setAttribute('src', url)
+      ////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////
 
-  //     })
-  //   });
+    //Function to retrieve image URL from firebase
+  retrieveImages = image => {
+      storage.ref(`profileImage/${image}`).getDownloadURL()
+      .then (url => {
+        let imageURL = this.state.imageURL
+        imageURL.push(url)
+        this.setState({ imageURL })
+      }).catch (e => console.log(e))
+  }
 
-  // }
+  
 
   componentWillMount() {
     let user = {}
@@ -120,9 +151,17 @@ class App extends Component {
           .then(({ data }) => {
             if (data === null) {
               Users.postOne(user)
-              this.state.userId = data.id
+              this.setState({
+                userId: data.id,
+                currentUser: data
+              })
             } else {
-              this.state.userId = data.id
+              this.setState({
+                userId: data.id,
+                currentUser: data
+              })
+              data.images.forEach(({ text }) => this.retrieveImages(text))
+              this.setState({ text: data.images.map(({text}) => text) })
             }
           }
 
@@ -138,6 +177,7 @@ class App extends Component {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
       (user) => this.setState({ isSignedIn: !!user })
     )
+    // console.log(this.state)
   }
 
   // Make sure we un-register Firebase observers when the component unmounts.
@@ -152,7 +192,7 @@ class App extends Component {
       <>
         <Router>
           <div>
-            <Route exact path='/' render={() => isSignedIn ? (<Form key = 'form1' handleInputChange = {this.handleInputChange} bio = {bio}/>)
+            <Route exact path='/' render={() => isSignedIn ? (<Form key = 'form1' handleInputChange = {this.handleInputChange} bio = {bio} storeForm = {this.storeForm}/>)
               :
               (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
             } />

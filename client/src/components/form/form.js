@@ -140,6 +140,19 @@ const Form = (props) => {
     return (
       <>
       <BioInput key='bioTextfield1' handleInputChange={props.handleInputChange} userBio={props.bio} />
+      <input
+        accept='image/*'
+        // className={classes.input}
+        id='contained-button-file'
+        multiple
+        type='file'
+      />
+      <label htmlFor='contained-button-file'>
+        <Button variant='contained' component='span'>
+          Upload
+        </Button>
+      </label>
+      <Button id = 'submit' onClick={props.storeForm}>Submit</Button>
       </>
     )
   }
