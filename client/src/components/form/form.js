@@ -22,13 +22,26 @@ const Form = (props) => {
   //   render () {
   //     const { handleInputChange, bio } = this.props
   return (
-      <>
-        <BioInput key='bioTextfield1' handleInputChange={props.handleInputChange} userBio={props.userBio} />
-        <DateofBirth key='dateOfBirth' handleInputChange={props.handleInputChange} handleDateChange={props.handleDateChange} selectedDate={props.dob} />
-        <RadioButtons key='radioButton1' handleInputChange={props.handleInputChange} handleChangeRb={props.handleChangeRb} handleChangeRb2={props.handleChangeRb2} ValueG={props.isMale} ValueI={props.interestedIn} />
-        <SkillInterests key='skillInterests' handleInputChange={props.handleInputChange} handleChangeSkills={props.handleChangeSkills} Skills={props.skillInterest} />
-        <PersonalInterests key='personalInterestCollection' handleInputChange={props.handleInputChange} handleInterest1={props.handleInterest1} handleInterest2={props.handleInterest2} handleInterest3={props.handleInterest3} int1={props.int1} int2={props.int2} int3={props.int3} />
-      </>
+    <>
+      <BioInput key='bioTextfield1' handleInputChange={props.handleInputChange} userBio={props.userBio} />
+      <DateofBirth key='dateOfBirth' handleInputChange={props.handleInputChange} handleDateChange={props.handleDateChange} selectedDate={props.dob} />
+      <RadioButtons key='radioButton1' handleInputChange={props.handleInputChange} handleChangeRb={props.handleChangeRb} handleChangeRb2={props.handleChangeRb2} ValueG={props.isMale} ValueI={props.interestedIn} />
+      <SkillInterests key='skillInterests' handleInputChange={props.handleInputChange} handleChangeSkills={props.handleChangeSkills} Skills={props.skillInterest} />
+      <PersonalInterests key='personalInterestCollection' handleInputChange={props.handleInputChange} handleInterest1={props.handleInterest1} handleInterest2={props.handleInterest2} handleInterest3={props.handleInterest3} int1={props.int1} int2={props.int2} int3={props.int3} />
+      <input
+        accept='image/*'
+        // className={classes.input}
+        id='contained-button-file'
+        multiple
+        type='file'
+      />
+      <label htmlFor='contained-button-file'>
+        <Button variant='contained' component='span'>
+          Upload
+        </Button>
+      </label>
+      <Button id='submit' onClick={props.storeForm}>Submit</Button>
+    </>
   )
 }
 // }
@@ -89,3 +102,21 @@ const Form = (props) => {
 // }
 
 export default Form
+
+// <Router>
+// <div>
+//   <Route path='/' component={() => isSignedIn ? (
+//     <>
+//       <NavBar />
+//       {/* <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid} /> */}
+//       {/* <LogHoursForm/> */}
+//       {/* <BarExample/> */}
+//       <Form storeImage = {this.storeImage} handleInputChange = {this.handleInputChange} bio = {bio}/>
+//     </>
+//   )
+//     :
+//     (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
+//   } />
+
+// </div>
+// </Router>
