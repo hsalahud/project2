@@ -52,11 +52,11 @@ class App extends Component {
     displayName: '',
     email: null,
     uid: null,
-    dob: null,
+    dob: new Date(),
     phone_number: null,
-    isMale: null,
+    isMale: '',
     interestedIn: null,
-    skillInterest: null,
+    skillInterest: '',
     int1: '',
     int2: '',
     int3: '',
@@ -73,6 +73,47 @@ class App extends Component {
   handleInputChange = event => {
     this.setState({ [event.target.id]: event.target.value })
     console.log(this.state)
+  }
+// handles bio input
+  handleInputChange = event => {
+    this.setState({ [event.target.id]: event.target.value })
+    console.log(event.target.id)
+    console.log(event.target.value)
+  }
+// handles date of birth
+  handleDateChange = event => {
+    console.log(event)
+    this.setState({ dob: new Date(event._d) })
+  }
+// handles 'gender' selection
+  handleChangeRb = event => {
+    console.log(event)
+    this.setState({ isMale: event.target.value})
+  }
+// handles 'interested in' selection
+  handleChangeRb2 = event => {
+    console.log(event)
+    this.setState({ interestedIn: event.target.value })
+  }
+// handles 'skill interests' selection
+  handleChangeSkills = event => {
+    console.log(event)
+    this.setState({ skillInterest: event.target.value })
+  }
+// handles 'personal interest 1' selection
+  handleInterest1 = event => {
+    console.log(event)
+    this.setState({ int1: event.target.value })
+  }
+// handles 'personal interest 2' selection
+  handleInterest2 = event => {
+    console.log(event)
+    this.setState({ int2: event.target.value })
+  }
+// handles 'personal interest 3' selection
+  handleInterest3 = event => {
+    console.log(event)
+    this.setState({ int3: event.target.value })
   }
 
   ///////////////////////////////////////
@@ -146,7 +187,6 @@ class App extends Component {
           email: this.state.email,
           firebaseId: this.state.uid
         }
-
         Users.getOne(this.state.uid)
           .then(({ data }) => {
             if (data === null) {
@@ -187,12 +227,12 @@ class App extends Component {
 
   render() {
     console.log(this.state)
-    const { isSignedIn, displayName, email, uid, bio } = this.state
+    const { isSignedIn, displayName, email, uid, bio, dob, radioButton1, skillInterest, int1, int2, int3 } = this.state
     return (
       <>
         <Router>
           <div>
-            <Route exact path='/' render={() => isSignedIn ? (<Form key = 'form1' handleInputChange = {this.handleInputChange} bio = {bio} storeForm = {this.storeForm}/>)
+            <Route exact path='/' render={() => isSignedIn ? (<Form key='form1' handleInputChange={this.handleInputChange} handleDateChange={this.handleDateChange} handleChangeRb={this.handleChangeRb} handleChangeRb2={this.handleChangeRb2} handleChangeSkills={this.handleChangeSkills} handleInterest1={this.handleInterest1} handleInterest2={this.handleInterest2} handleInterest3={this.handleInterest3} bio={bio} dob={dob} radioButton1={radioButton1} skillInterest={skillInterest} int1={int1} int2={int2} int3={int3} storeForm = {this.storeForm} />)
               :
               (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
             } />
