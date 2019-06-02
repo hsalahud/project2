@@ -1,258 +1,122 @@
-import React, { useState } from 'react'
+import React, { useState, Component } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import Grid from '@material-ui/core/Grid'
-import MomentUtils from '@date-io/moment'
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker
-} from '@material-ui/pickers'
-import MaskedInput from 'react-text-mask'
 import PropTypes from 'prop-types'
 import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
-import Radio from '@material-ui/core/Radio'
-import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormLabel from '@material-ui/core/FormLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button'
+import BioInput from './components/textfield/BioInput'
+import DateofBirth from './components/dateofbirth/DateofBirth'
+import RadioButtons from './components/radiobuttons/radiobuttons'
+import SkillInterests from './components/skillInterests/skillInterests'
+import PersonalInterests from './components/personalInterests/personalInterests'
 
+const Form = (props) => {
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap'
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200
-  },
-  grid: {
-    width: '60%'
-  },
-  formControl: {
-    margin: theme.spacing(1)
-  },
-  root: {
-    display: 'flex'
-  },
-  formControlRb: {
-    margin: theme.spacing(3)
-  },
-  group: {
-    margin: theme.spacing(1, 0),
-    width: 'auto',
-    height: 'auto',
-    display: 'flex',
-    flexWrap: 'nowrap',
-    flexDirection: 'row'
-  },
-  formControlSkills: {
-    margin: theme.spacing(1),
-    minWidth: 120
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2)
-  },
-  rootSkills: {
-    display: 'flex',
-    flexWrap: 'wrap'
-  },
-  button: {
-    margin: theme.spacing(1)
-  },
-  input: {
-    display: 'none'
-  }
-}))
-
-function TextMaskCustom (props) {
-  const { inputRef, ...other } = props
-
-  console.log("TextMaskCustom")
+  // class Form extends Component {
+  //   render () {
+  //     const { handleInputChange, bio } = this.props
   return (
-    <MaskedInput
-      {...other}
-      ref={ref => {
-        inputRef(ref ? ref.inputElement : null)
-      }}
-      mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-      placeholderChar={'\u2000'}
-      showMask
-    />
-  )
-}
-
-TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired
-}
-
-const Form = ({storeImage}) => {
-  const classes = useStyles()
-  const [values, setValues] = useState({
-    multiline: '',
-    textmask: '(  )    -    ',
-    numberformat: '1320',
-    skills: ''
-  })
-
-  const handleChange = name => event => {
-    console.log("handleChange")
-    setValues({ ...values, [name]: event.target.value })
-  }
-  const [selectedDate, setSelectedDate] = useState(new Date())
-
-  function handleDateChange (date) {
-    console.log("handleDateChange")
-    setSelectedDate(date)
-  }
-  const [valueG, setValueG] = useState('female')
-  const [valueI, setValueI] = useState('male')
-
-  function handleChangeRb (event) {
-    setValueG(event.target.value)
-  }
-  function handleChangeRb2 (event) {
-    setValueI(event.target.value)
-  }
-
-  function handleChangeSkills (event) {
-    console.log("handleChangeSkills")
-    setValues(oldValues => ({
-      ...oldValues,
-      [event.target.name]: event.target.value
-    }))
-  }
-
-  function testrb (event) {
-    console.log("TestRb")
-    console.log(event.target.value)
-  }
-
-  function testUpload (event) {
-    event.preventDefault()
-    console.log(document.querySelector('#contained-button-file').files)
-  }
-
-  return (
-    <form className={classes.container} noValidate autoComplete='off'>
-      <TextField
-        id='bio'
-        label='Bio'
-        multiline
-        rowsMax='10'
-        variant='outlined'
-        value={values.multiline}
-        onChange={handleChange('multiline')}
-        className={classes.textField}
-        margin='normal'
-      />
-      <MuiPickersUtilsProvider utils={MomentUtils}>
-        <Grid container className={classes.grid} justify='space-around'>
-          <KeyboardDatePicker
-            id='dob'
-            margin='normal'
-            label='DOB'
-            value={selectedDate}
-            onChange={handleDateChange}
-          />
-        </Grid>
-      </MuiPickersUtilsProvider>
-      <div className={classes.container}>
-        <FormControl className={classes.formControl}>
-          <InputLabel htmlFor='formatted-text-mask-input'>Phone Number</InputLabel>
-          <Input
-            value={values.textmask}
-            onChange={handleChange('textmask')}
-            id='phone_number'
-            inputComponent={TextMaskCustom}
-          />
-        </FormControl>
-      </div>
-      <FormControl className={classes.formControlSkills}>
-        <InputLabel htmlFor='skills-helper'>Skill Interests</InputLabel>
-        <Select
-          value={values.skills}
-          onChange={handleChangeSkills}
-          input={<Input name='skills' id='skillInterest' />}
-        >
-          <MenuItem value={1}>Frontend</MenuItem>
-          <MenuItem value={2}>Backend</MenuItem>
-          <MenuItem value={3}>Full Stack</MenuItem>
-        </Select>
-      </FormControl>
-
-      <div className={classes.root}>
-        <FormControl component='fieldset' className={classes.formControlRb}>
-          <FormLabel component='legend'>Gender</FormLabel>
-          <RadioGroup
-            aria-label='Gender'
-            id='isMale'
-            name='gender'
-            className={classes.group}
-            value={valueG}
-            onChange={handleChangeRb}
-            onClick={testrb}
-          >
-            <FormControlLabel value='0' control={<Radio />} label='Female' />
-            <FormControlLabel value='1' control={<Radio />} label='Male' />
-          </RadioGroup>
-        </FormControl>
-      </div>
-      <div className={classes.root}>
-        <FormControl component='fieldset' className={classes.formControlRb}>
-          <FormLabel component='legend'>Interested In</FormLabel>
-          <RadioGroup
-            aria-label='Interested In'
-            id='interestedIn'
-            name='interested_in'
-            className={classes.group}
-            value={valueI}
-            onChange={handleChangeRb2}
-            onClick={testrb}
-          >
-            <FormControlLabel value='0' control={<Radio />} label='Female' />
-            <FormControlLabel value='1' control={<Radio />} label='Male' />
-          </RadioGroup>
-        </FormControl>
-      </div>
-
-      <TextField
-        id='int1'
-        label='Interest 1'
-        className={classes.textField}
-        margin='normal'
-      /><TextField
-        id='int2'
-        label='Interest 2'
-        className={classes.textField}
-        margin='normal'
-      />
-      <TextField
-        id='int3'
-        label='Interest 3'
-        className={classes.textField}
-        margin='normal'
-      />
+    <>
+      <BioInput key='bioTextfield1' handleInputChange={props.handleInputChange} userBio={props.userBio} />
+      <DateofBirth key='dateOfBirth' handleInputChange={props.handleInputChange} handleDateChange={props.handleDateChange} selectedDate={props.dob} />
+      <RadioButtons key='radioButton1' handleInputChange={props.handleInputChange} handleChangeRb={props.handleChangeRb} handleChangeRb2={props.handleChangeRb2} ValueG={props.isMale} ValueI={props.interestedIn} />
+      <SkillInterests key='skillInterests' handleInputChange={props.handleInputChange} handleChangeSkills={props.handleChangeSkills} Skills={props.skillInterest} />
+      <PersonalInterests key='personalInterestCollection' handleInputChange={props.handleInputChange} handleInterest1={props.handleInterest1} handleInterest2={props.handleInterest2} handleInterest3={props.handleInterest3} int1={props.int1} int2={props.int2} int3={props.int3} />
       <input
         accept='image/*'
-        className={classes.input}
+        // className={classes.input}
         id='contained-button-file'
         multiple
         type='file'
       />
       <label htmlFor='contained-button-file'>
-        <Button variant='contained' component='span' className={classes.button}>
+        <Button variant='contained' component='span'>
           Upload
         </Button>
       </label>
-      <Button id = 'submit' onClick={storeImage}>Submit</Button>
-    </form>
+      <Button id='submit' onClick={props.storeForm}>Submit</Button>
+    </>
   )
 }
+// }
+// const useStyles = makeStyles(theme => ({
+//   container: {
+//     display: 'flex',
+//     flexWrap: 'wrap'
+//   },
+//   textField: {
+//     marginLeft: theme.spacing(1),
+//     marginRight: theme.spacing(1),
+//     width: 200
+//   },
+//   root: {
+//     display: 'flex'
+//   },
+//   group: {
+//     margin: theme.spacing(1, 0),
+//     width: 'auto',
+//     height: 'auto',
+//     display: 'flex',
+//     flexWrap: 'nowrap',
+//     flexDirection: 'row'
+//   },
+//   button: {
+//     margin: theme.spacing(1)
+//   },
+//   input: {
+//     display: 'none'
+//   }
+// }))
+
+// const Form = ({ storeImage, handleInputChange }) => {
+//   const classes = useStyles()
+//   const [values, setValues] = useState({
+//     multiline: '',
+//   })
+
+//   const handleChange = name => event => {
+//     setValues({ ...values, [name]: event.target.value })
+//   }
+
+// return (
+//       <input
+//         accept='image/*'
+//         className={classes.input}
+//         id='contained-button-file'
+//         multiple
+//         type='file'
+//       />
+//       <label htmlFor='contained-button-file'>
+//         <Button variant='contained' component='span' className={classes.button}>
+//           Upload
+//         </Button>
+//       </label>
+//       <Button id='submit' onClick={storeImage}>Submit</Button>
+//   )
+// }
 
 export default Form
+
+// <Router>
+// <div>
+//   <Route path='/' component={() => isSignedIn ? (
+//     <>
+//       <NavBar />
+//       {/* <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid} /> */}
+//       {/* <LogHoursForm/> */}
+//       {/* <BarExample/> */}
+//       <Form storeImage = {this.storeImage} handleInputChange = {this.handleInputChange} bio = {bio}/>
+//     </>
+//   )
+//     :
+//     (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
+//   } />
+
+// </div>
+// </Router>

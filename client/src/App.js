@@ -13,7 +13,9 @@ import LogHoursForm from './components/logHoursForm'
 import BarExample from './components/stats'
 import firebase from 'firebase'
 import Users from './utils/Users.js'
-import randomString from'randomstring'
+import Images from './utils/Images.js'
+import randomString from 'randomstring'
+
 
 
 // Configure Firebase.
@@ -48,46 +50,132 @@ class App extends Component {
 
   state = {
     isSignedIn: false,
-    displayName: null,
+    displayName: '',
     email: null,
     uid: null,
-    dob: null,
+    dob: new Date(),
     phone_number: null,
-    isMale: null,
+    isMale: '',
     interestedIn: null,
-    skillInterest: null,
-    int1: null,
-    int2: null,
-    int3: null,
-    bio: null,
+    skillInterest: '',
+    int1: '',
+    int2: '',
+    int3: '',
+    bio: '',
     formCompleted: null,
     userId: null,
-    text: []
+    text: [],
+    imageURL: [],
+    currentUser: {},
+    potentialMatches: []
   }
 
-  //To test --- it works!
-  storeImage = event => {
+  ///////////////////////////////////////
+  handleInputChange = event => {
+    this.setState({ [event.target.id]: event.target.value })
+    console.log(this.state)
+  }
+// handles bio input
+  handleInputChange = event => {
+    this.setState({ [event.target.id]: event.target.value })
+    console.log(event.target.id)
+    console.log(event.target.value)
+  }
+// handles date of birth
+  handleDateChange = event => {
+    console.log(event)
+    this.setState({ dob: new Date(event._d) })
+  }
+// handles 'gender' selection
+  handleChangeRb = event => {
+    console.log(event)
+    this.setState({ isMale: event.target.value})
+  }
+// handles 'interested in' selection
+  handleChangeRb2 = event => {
+    console.log(event)
+    this.setState({ interestedIn: event.target.value })
+  }
+// handles 'skill interests' selection
+  handleChangeSkills = event => {
+    console.log(event)
+    this.setState({ skillInterest: event.target.value })
+  }
+// handles 'personal interest 1' selection
+  handleInterest1 = event => {
+    console.log(event)
+    this.setState({ int1: event.target.value })
+  }
+// handles 'personal interest 2' selection
+  handleInterest2 = event => {
+    console.log(event)
+    this.setState({ int2: event.target.value })
+  }
+// handles 'personal interest 3' selection
+  handleInterest3 = event => {
+    console.log(event)
+    this.setState({ int3: event.target.value })
+  }
+
+  ///////////////////////////////////////
+
+  //THIS FUNCTION STORES THE IMAGE WE UPLOAD INTO THE DATABASE.
+  //KU
+  storeForm = event => {
     event.preventDefault()
+
+    ////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////
     const file = document.querySelector('#contained-button-file').files[0]
     let newFileName = randomString.generate()
-    const newFile = new File([file], newFileName, {type: file.type});
-    console.log(file)
-    console.log(newFile)
+    const newFile = new File([file], newFileName, { type: file.type });
+
+    //Enter variables here
+
+
+    //process to store newly created file in firebase
     storage.ref(`profileImage/${newFile.name}`).put(newFile)
+      .then ( () => {
+
+        ///Kumiko must creat an object for form like this
+        //we create an object with the state of our inputs
+        let newImage = {
+          text: newFileName,
+          userId: this.state.userId
+        }
+
+        //Here we create a new row in our mysql db and post the image details there
+        //Kumiko will use Users.put
+        Images.postOne(newImage)
+        //As soon as we submit the form, we get the image URL from firebase
+        this.retrieveImages(newFileName)
+
+      })
       .catch(e => console.log(e))
 
-     //Create function to store new file name in database
+      //Enter form data transfer to db here - Kumiko
+
+
+
+
+
+
   }
 
-  // retrieveImages = text => {
-  //   text.forEach(image, index => {
-  //     storage.ref(`profileImages/${image[index]}.jpg` || `profileImages/${image[index]}.png`).getDownloadURL()
-  //     .then (url => {
-  //       document.querySelector(`#profileImage${index}`).setAttribute('src', url)
-  //     })
-  //   });
-    
-  // }
+      ////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////
+
+    //Function to retrieve image URL from firebase
+  retrieveImages = image => {
+      storage.ref(`profileImage/${image}`).getDownloadURL()
+      .then (url => {
+        let imageURL = this.state.imageURL
+        imageURL.push(url)
+        this.setState({ imageURL })
+      }).catch (e => console.log(e))
+  }
+
+  
 
   componentWillMount() {
     let user = {}
@@ -103,15 +191,22 @@ class App extends Component {
           email: this.state.email,
           firebaseId: this.state.uid
         }
-
         Users.getOne(this.state.uid)
           .then(({ data }) => {
             if (data === null) {
               console.log("Posting User")
               Users.postOne(user)
-              this.state.userId = data.id
+              this.setState({
+                userId: data.id,
+                currentUser: data
+              })
             } else {
-              this.state.userId = data.id
+              this.setState({
+                userId: data.id,
+                currentUser: data
+              })
+              data.images.forEach(({ text }) => this.retrieveImages(text))
+              this.setState({ text: data.images.map(({text}) => text) })
             }
           }
 
@@ -172,6 +267,7 @@ retrieveUser = uniqueId => {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
       (user) => this.setState({ isSignedIn: !!user })
     )
+    // console.log(this.state)
   }
 
   // Make sure we un-register Firebase observers when the component unmounts.
@@ -180,28 +276,20 @@ retrieveUser = uniqueId => {
   }
 
   render() {
-    // let person = JSON.stringify(this.state)
-    // console.log(`The current state is` + person)
-    console.log(this.state.displayName)
-    const { isSignedIn, displayName, email, uid, dob, phone_number, skillInterest, int1, int2, int3, bio } = this.state
+    console.log(this.state)
+    const { isSignedIn, displayName, email, uid, bio, dob, radioButton1, skillInterest, int1, int2, int3 } = this.state
     return (
       <>
         <Router>
           <div>
-          <Route path='/' component={() => isSignedIn ? (
-            <>
-              <NavBar />
-              <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid}/>
-              {/* <LogHoursForm/> */}
-              {/* <BarExample/> */}
-              <Profile uid={uid} displayName = {displayName} dob ={dob} phone_number = {phone_number} skillInterest = {skillInterest} int1 = {int1} int2 = {int2} int3 = {int3} bio = {bio}/>
-              {/* <Form storeImage = {this.storeImage} /> */}
-              </>
+            <Route exact path='/' render={() => isSignedIn ? (<><Form key='form1' handleInputChange={this.handleInputChange} handleDateChange={this.handleDateChange} handleChangeRb={this.handleChangeRb} handleChangeRb2={this.handleChangeRb2} handleChangeSkills={this.handleChangeSkills} handleInterest1={this.handleInterest1} handleInterest2={this.handleInterest2} handleInterest3={this.handleInterest3} bio={bio} dob={dob} radioButton1={radioButton1} skillInterest={skillInterest} int1={int1} int2={int2} int3={int3} storeForm = {this.storeForm} />
+            
+            <NavBar />
+            </>
             )
               :
               (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
             } />
-
           </div>
         </Router>
       </>
@@ -210,5 +298,8 @@ retrieveUser = uniqueId => {
 }
 
 export default App
+
+
+
 
 
