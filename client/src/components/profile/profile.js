@@ -18,6 +18,34 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
 import Users from '../../utils/Users.js'
 import trialImg from './assets/images/pf1.jpg'
+// import { makeStyles } from '@material-ui/core/styles';
+// import Fab from '@material-ui/core/Fab';
+// import Icon from '@material-ui/core/Icon';
+
+
+// const useStyles = makeStyles(theme => ({
+//   fab: {
+//     margin: theme.spacing(1),
+//   },
+//   extendedIcon: {
+//     marginRight: theme.spacing(1),
+//   },
+// }));
+
+// function FloatingActionButtons() {
+//   const classes = useStyles();
+
+//   return (
+//     <div>
+//       <Fab color="secondary" aria-label="Edit" className={classes.fab}>
+//         <Icon>edit_icon</Icon>
+//       </Fab>
+//     </div>
+//   );
+// }
+
+// export default FloatingActionButtons;
+
 // import placeholder from components
 const styles = theme => ({
   root: {
@@ -48,25 +76,6 @@ let name = null
 
 function ComplexGrid(props) {
   const { classes, displayName, bio, skillInterest, int1, int2, int3} = props
-//   console.log(props.uid)
-//   Users.getOne(props.uid)
-//     .then(({data}) => {
-//       // this.state.dob = data.dob
-//       // this.state['phone_number'] = data.phone_number
-//       // this.state.isMale = data.isMale
-//       // this.state.interestedIn = data.interestedIn
-//       // this.state.skillInterest = data.skillInterest
-//       // this.state.int1 = data.int1
-//       // this.state.int2 = data.int2
-//       // this.state.int3 = data.int3
-//       // this.state.bio = data.bio
-//       // this.state.formCompleted = data.formCompleted
-//       qresponse = data
-//       name = data.name
-//       console.log(qresponse.name)
-//   }).catch(e => console.log(e))
-
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -110,7 +119,6 @@ function ComplexGrid(props) {
           </Breadcrumbs>
         </Grid>
       </Paper>
-
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Breadcrumbs aria-label="Breadcrumb">
@@ -149,54 +157,9 @@ ComplexGrid.propTypes = {
 
 export default withStyles(styles)(ComplexGrid);
 
-// const useStyles = makeStyles({
-//   avatar: {
-//     margin: 10,
-//   },
-//   bigAvatar: {
-//     margin: 10,
-//     width: 60,
-//     height: 60,
-//   },
-// });
 
 //Write back-end with consoles to make sure you are recieving right responses
 //Write front-end with variables for info that you want to display 
 //Pass the response from the database to front end into variables that are created (name, photo ... etc)
 
 
-// function Profile() {
-//   const classes = useStyles();
-//   return (
-//     <div className = "img-container">
-//     <Grid container justify="center" alignItems="center">
-//       <Avatar alt="Remy Sharp" src={placeholder} className= "avatar" />
-//       <Avatar alt="Remy Sharp" src="./Jaga.JPG" className={classes.bigAvatar} />
-//     </Grid>
-//     </div>
-//   );
-
-  
-// }
-// export default Profile
-
-// class Profile extends Component {
-//   classes = useStyles()
-
-//   render () {
-//     const {uid } = this.props
-//     console.log("This is profile page")
-//     console.log(uid)
-//     return (
-//       <>
-//         <h1>Hello this is the Profile Page</h1>
-//         <Grid container justify="center" alignItems="center">
-//       <Avatar alt="Remy Sharp" src="./Jaga.JPG" className={this.classes.avatar} />
-//       <Avatar alt="Remy Sharp" src="./Jaga.JPG" className={this.classes.bigAvatar} />
-//     </Grid>
-//       </>
-//     )
-//   }
-// }
-
-// export default Profile
