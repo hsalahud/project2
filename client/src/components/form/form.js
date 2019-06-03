@@ -15,6 +15,7 @@ import DateofBirth from './components/dateofbirth/DateofBirth'
 import RadioButtons from './components/radiobuttons/radiobuttons'
 import SkillInterests from './components/skillInterests/skillInterests'
 import PersonalInterests from './components/personalInterests/personalInterests'
+import { Link } from "react-router-dom";
 
 const Form = (props) => {
 
@@ -23,7 +24,7 @@ const Form = (props) => {
   //     const { handleInputChange, bio } = this.props
   return (
     <>
-      <BioInput key='bioTextfield1' handleInputChange={props.handleInputChange} userBio={props.userBio} />
+      <BioInput key='bioTextfield1' handleInputChange={props.handleInputChange} userBio={props.bio} />
       <DateofBirth key='dateOfBirth' handleInputChange={props.handleInputChange} handleDateChange={props.handleDateChange} selectedDate={props.dob} />
       <RadioButtons key='radioButton1' handleInputChange={props.handleInputChange} handleChangeRb={props.handleChangeRb} handleChangeRb2={props.handleChangeRb2} ValueG={props.isMale} ValueI={props.interestedIn} />
       <SkillInterests key='skillInterests' handleInputChange={props.handleInputChange} handleChangeSkills={props.handleChangeSkills} Skills={props.skillInterest} />
@@ -40,7 +41,19 @@ const Form = (props) => {
           Upload
         </Button>
       </label>
-      <Button id='submit' onClick={props.storeForm}>Submit</Button>
+      {
+        props.formCompleted ? (
+          <Link to="../profile">
+          <Button id='update' onClick = {props.updateProfile}>Update</Button>
+          </Link>
+          
+          ) :
+          
+          (
+            <Button id='submit' onClick={props.storeForm}>Submit</Button>
+        )
+
+      }
     </>
   )
 }
