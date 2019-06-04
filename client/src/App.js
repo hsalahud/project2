@@ -14,6 +14,7 @@ import firebase from 'firebase'
 import Users from './utils/Users.js'
 import Images from './utils/Images.js'
 import randomString from 'randomstring'
+import BioInput from './components/form/components/textfield/BioInput';
 
 
 
@@ -130,7 +131,14 @@ class App extends Component {
     const newFile = new File([file], newFileName, { type: file.type });
 
     //Enter variables here
-
+      const bio = document.querySelector('#bio')
+      const dateOfBirth = document.querySelector('dob')
+      const gender = document.querySelector('isMale')
+      const interestedIn = document.querySelector('interestedIn')
+      const skillInterests = document.querySelector('skillInterests')
+      const interest1 = document.querySelector('int1')
+      const interest2 = document.querySelector('int2')
+      const interest3 = document.querySelector('int3')
 
     //process to store newly created file in firebase
     storage.ref(`profileImage/${newFile.name}`).put(newFile)
@@ -153,12 +161,28 @@ class App extends Component {
       .catch(e => console.log(e))
 
       //Enter form data transfer to db here - Kumiko
-
-
-
-
-
-
+      let newForm = {
+        text: bio,
+        bio: this.state.bio,
+        text: dateOfBirth,
+        dob: this.state.dob,
+        text: gender,
+        isMale: this.state.isMale,
+        text: interestedIn,
+        interestedIn: this.state.interestedIn,
+        text: skillInterests,
+        skillInterest: this.state.skillInterest,
+        text: interest1,
+        int1: this.state.int1,
+        text: interest2,
+        int2: this.state.int2,
+        text: interest3,
+        int3: this.state.int3
+      }
+      Users.putOne(newForm)
+      this.retrieveUsers(bio, )
+      .then(console.log('Successfully updated form'))
+      .catch(e => console.log(e))
   }
 
       ////////////////////////////////////////////////////////////////////
@@ -173,8 +197,6 @@ class App extends Component {
         this.setState({ imageURL })
       }).catch (e => console.log(e))
   }
-
-  
 
   componentWillMount() {
     let user = {}
@@ -232,8 +254,10 @@ class App extends Component {
       <>
         <Router>
           <div>
-            <Route exact path='/' render={() => isSignedIn ? (<><Form key='form1' handleInputChange={this.handleInputChange} handleDateChange={this.handleDateChange} handleChangeRb={this.handleChangeRb} handleChangeRb2={this.handleChangeRb2} handleChangeSkills={this.handleChangeSkills} handleInterest1={this.handleInterest1} handleInterest2={this.handleInterest2} handleInterest3={this.handleInterest3} bio={bio} dob={dob} radioButton1={radioButton1} skillInterest={skillInterest} int1={int1} int2={int2} int3={int3} storeForm = {this.storeForm} />
-            
+            <Route exact path='/' render={() => isSignedIn ? (<><Form key='form1' handleInputChange={this.handleInputChange} handleDateChange={this.handleDateChange} 
+            handleChangeRb={this.handleChangeRb} handleChangeRb2={this.handleChangeRb2} handleChangeSkills={this.handleChangeSkills} handleInterest1={this.handleInterest1} 
+            handleInterest2={this.handleInterest2} handleInterest3={this.handleInterest3} bio={bio} dob={dob} radioButton1={radioButton1} skillInterest={skillInterest} 
+            int1={int1} int2={int2} int3={int3} storeForm = {this.storeForm} /> 
             <NavBar />
             </>
             )
