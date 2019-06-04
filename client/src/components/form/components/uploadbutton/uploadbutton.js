@@ -1,5 +1,4 @@
 import React from 'react'
-import clsx from 'clsx'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
@@ -21,17 +20,37 @@ const useStyles = makeStyles(theme => ({
 
 const UploadButton = (props) => {
   return (
-    <Button variant='contained' color='default' className={useStyles.button}>
-      Upload
-      <CloudUploadIcon className={useStyles.rightIcon} />
-      <input
+    <>
+      <input hidden
         accept='image/*'
         className={useStyles.input}
+        key='uploadButton'
         id='contained-button-file'
+        value={props.upload}
         multiple
         type='file'
       />
-    </Button>
+      <label htmlFor='contained-button-file' >
+        <Button variant='contained' component='span' color='default' className={useStyles.button}>
+          Upload
+          <CloudUploadIcon className={useStyles.rightIcon} />
+        </Button>
+      </label>
+    </>
+    // <CloudUploadIcon className={useStyles.rightIcon} >
+    //   <input
+    //     accept='image/*'
+    //     className={useStyles.input}.
+    //     key='uploadButton'
+    //     id='contained-button-file'
+    //     value={props.upload}
+    //     multiple
+    //     type='file'
+    //   />
+    //   <Button variant='contained' color='default' className={useStyles.button}>
+    //     Upload
+    //   </Button>
+    // </CloudUploadIcon>
   )
 }
 

@@ -15,7 +15,11 @@ import DateofBirth from './components/dateofbirth/DateofBirth'
 import RadioButtons from './components/radiobuttons/radiobuttons'
 import SkillInterests from './components/skillInterests/skillInterests'
 import PersonalInterests from './components/personalInterests/personalInterests'
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
+=======
+import UploadButton from './components/uploadbutton/uploadbutton'
+>>>>>>> e5689d0e99a08dda9ffcde3c2119670c993c8b4c
 
 const Form = (props) => {
 
@@ -29,17 +33,19 @@ const Form = (props) => {
       <RadioButtons key='radioButton1' handleInputChange={props.handleInputChange} handleChangeRb={props.handleChangeRb} handleChangeRb2={props.handleChangeRb2} ValueG={props.isMale} ValueI={props.interestedIn} />
       <SkillInterests key='skillInterests' handleInputChange={props.handleInputChange} handleChangeSkills={props.handleChangeSkills} Skills={props.skillInterest} />
       <PersonalInterests key='personalInterestCollection' handleInputChange={props.handleInputChange} handleInterest1={props.handleInterest1} handleInterest2={props.handleInterest2} handleInterest3={props.handleInterest3} int1={props.int1} int2={props.int2} int3={props.int3} />
-      <input
+      {/* <input
         accept='image/*'
         // className={classes.input}
         id='contained-button-file'
         multiple
         type='file'
-      />
-      <label htmlFor='contained-button-file'>
+      /> */}
+      <UploadButton />
+      {/* <label htmlFor='contained-button-file'>
         <Button variant='contained' component='span'>
           Upload
         </Button>
+<<<<<<< HEAD
       </label>
       {
         props.formCompleted ? (
@@ -54,6 +60,10 @@ const Form = (props) => {
         )
 
       }
+=======
+      </label> */}
+      <Button id='submit' onClick={props.storeForm}>Submit</Button>
+>>>>>>> e5689d0e99a08dda9ffcde3c2119670c993c8b4c
     </>
   )
 }

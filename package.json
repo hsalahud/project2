@@ -24,7 +24,12 @@
   },
   "homepage": "https://github.com/hsalahud/project2#readme",
   "dependencies": {
+<<<<<<< HEAD
     "express": "^4.17.1",
+=======
+    "express": "^4.17.0",
+    "moment": "^2.24.0",
+>>>>>>> e5689d0e99a08dda9ffcde3c2119670c993c8b4c
     "mysql2": "^1.6.5",
     "node": "^12.3.1",
     "randomstring": "^1.1.5",
