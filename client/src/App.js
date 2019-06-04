@@ -160,6 +160,7 @@ class App extends Component {
       .then(url => {
         let imageURL = this.state.imageURL;
         imageURL.push(url);
+        console.log(imageURL)
         this.setState({ imageURL });
       })
       .catch(e => console.log(e));
@@ -248,8 +249,8 @@ class App extends Component {
           int2: r.data.int2,
           int3: r.data.int3,
           bio: r.data.bio,
-          formCompleted: r.data.formCompleted
-          // text: []
+          formCompleted: r.data.formCompleted,
+          imgURL: r.data.images,
         });
       })
       .catch(e => console.log(e));

@@ -26,6 +26,8 @@ import { Link } from "react-router-dom";
 import { Carousel } from 'react-responsive-carousel';
 import ReactDOM from 'react-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Slide } from 'react-slideshow-image'
+
 
 {
   /* <div className={CardMedia}>
@@ -47,8 +49,10 @@ const styles = theme => ({
     flexGrow: 1
   },
   paper: {
+    
     padding: theme.spacing(2),
     margin: "auto",
+   
     maxWidth: 500
   },
 
@@ -63,56 +67,76 @@ const styles = theme => ({
     maxHeight: "100%"
   },
   card: {
-    maxWidth: 345
+    maxWidth: 400
   },
   fab: {
     margin: theme.spacing(1)
   },
   extendedIcon: {
     marginRight: theme.spacing(1)
+  },
+  slideShow : {
+    height: 300
+  },
+  // eachSlide:{
+  //   height: 150,
+  //   width: "80%",
+  //   display: flex,
+  // align-items: center,
+  // justify-content: center,
+  // background-size: cover;
+  // height: 300px;
+  // },
+  slideImg:{
+    width: "80%",
+    height: "auto",
+    margin: "auto"
   }
 });
-let qresponse = null;
-let name = null;
-
-
-
-function Profile(props) {
-  const { classes, displayName, bio, skillInterest, int1, int2, int3 } = props;
+function Profile(props, state) {
+  const { classes, displayName, bio, skillInterest, int1, int2, int3, imageURL} = props;
+console.log("HIIII" + imageURL)
+  
+   
+  const properties = {
+    duration: 5000,
+    transitionDuration: 500,
+    infinite: true,
+    indicators: true,
+    arrows: true
+  }
   return (
+    <>
+    <div className ={classes.slideShow}>
+          <Slide {...properties}>
+        <div className="each-slide">
+          <div style={{'backgroundImage': `url(${imageURL[0]})`}} className = {classes.slideImg}>
+            {/* <span>Slide 1</span> */}
+          </div>
+        </div>
+        <div className="each-slide">
+          <div style={{'backgroundImage': `url(${imageURL[0]})`} } className = {classes.slideImg}>
+            <span>Slide 2</span>
+          </div>
+        </div>
+        <div className= "each-slide">
+          <div style={{'backgroundImage': `url(${imageURL[0]})`}} className = {classes.slideImg}>
+            <span>Slide 3</span>
+          </div>
+        </div>
+      </Slide>
+      </div>
+      
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
-          <Card className={classes.card}>
+          {/* <Card className={classes.card}>
             
-            <Carousel>
-
-             {/* {
-               props.imageURL.map (url => (
-                 <div>
-                   <img src = {url}/>
-                   </div>
-               ))
-             } */}
-
-            </Carousel>
-
-
-
-           
-          </Card>
+          </Card> */}
         </Grid>
       </Paper>
-
-
-
-
-
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
-          <div>
-            <Fab size="small" aria-label="Edit" className={classes.fab} />
-          </div>
           <Breadcrumbs aria-label="Breadcrumb">
             <Typography color="textPrimary">{displayName}</Typography>
           </Breadcrumbs>
@@ -154,12 +178,15 @@ function Profile(props) {
         </Grid>
       </Paper>
       <Link to="../form">
-        <Create />
+      <Create />
+        <div>
+            <Fab size="small" aria-label="Edit" className={classes.fab} />
+        </div>
       </Link>
-    </div>
+      </div>
+    </>
   );
 }
-
 Profile.propTypes = {
   classes: PropTypes.object.isRequired
 };
