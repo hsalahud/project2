@@ -31,7 +31,15 @@ const config = {
 }
 // Initialize Firebase
 console.log(config)
-firebase.initializeApp(config)
+firebase.initializeApp({
+  apiKey: "AIzaSyD47dfqP7yK4lTvCTdwVDt_yYDn6tb64Yw",
+  authDomain: "bcdate-db.firebaseapp.com",
+  databaseURL: "https://bcdate-db.firebaseio.com",
+  projectId: "bcdate-db",
+  storageBucket: "bcdate-db.appspot.com",
+  messagingSenderId: "510445136926",
+  appId: "1:510445136926:web:65b0c34824d71fe2"
+})
 // const db = firebase.firestore()
 // Configure FirebaseUI.
 const uiConfig = {
