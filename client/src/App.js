@@ -216,6 +216,7 @@ class App extends Component {
 
   graphParameters = _ => {
     let label = []
+    let data = []
     for (let i=0; i<7; i++) {
       label.push(moment().subtract(i, 'd').format('ddd'))
     }
