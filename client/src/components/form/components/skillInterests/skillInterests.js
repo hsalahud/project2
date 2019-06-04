@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Input from '@material-ui/core/Input'
+import OutlinedInput from '@material-ui/core/OutlinedInput'
+import FilledInput from '@material-ui/core/FilledInput'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   rootSkills: {
     display: 'flex',
     flexWrap: 'wrap'
@@ -18,11 +21,11 @@ const useStyles = makeStyles(theme => ({
   selectEmpty: {
     marginTop: theme.spacing(2)
   }
-}))
+})
 
 const SkillInterests = (props) => {
   return (
-    <FormControl className={useStyles.formControlSkills}>
+    <FormControl className={styles.formControlSkills}>
       <InputLabel htmlFor='skills-helper'>Skill Interests</InputLabel>
       <Select
         key='skillInterests'
