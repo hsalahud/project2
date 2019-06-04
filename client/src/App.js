@@ -96,44 +96,35 @@ class App extends Component {
   }
 // handles date of birth
   handleDateChange = event => {
-    console.log('gooble gop')
-    console.log(event)
     this.setState({ dob: new Date(event._d) })
   }
 // handles 'gender' selection
   handleChangeRb = event => {
-    console.log(event)
     this.setState({ isMale: event.target.value})
   }
 // handles 'interested in' selection
   handleChangeRb2 = event => {
-    console.log(event)
     this.setState({ interestedIn: event.target.value })
   }
 // handles 'skill interests' selection
   handleChangeSkills = event => {
-    console.log(event)
     this.setState({ skillInterest: event.target.value })
   }
 // handles 'personal interest 1' selection
   handleInterest1 = event => {
-    console.log(event)
     this.setState({ int1: event.target.value })
   }
 // handles 'personal interest 2' selection
   handleInterest2 = event => {
-    console.log(event)
     this.setState({ int2: event.target.value })
   }
 // handles 'personal interest 3' selection
   handleInterest3 = event => {
-    console.log(event)
     this.setState({ int3: event.target.value })
   }
   // handles 'phone number' input
   handlePhoneNumber = (event) => {
-    console.log('::'.repeat(100), event)
-    // this.setState({ phone_number: event.target.value })
+    this.setState({ phone_number: event.target.value })
   }
 
   handleLogDate = event => {
