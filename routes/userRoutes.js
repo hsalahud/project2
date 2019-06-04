@@ -6,24 +6,12 @@ module.exports = app => {
       .then(users => res.json(users))
       .catch(e => console.log(e))
   })
-<<<<<<< HEAD
-  // //Make sure you are grabbing correct information 
-  // app.get('/users/:id', (req, res) => {
-  //   console.log(`The id is: ${req.params.id}`)
-  //   db.User.findOne({ where: { id: req.params.id }, include: [{ model: db.Image}, {model: db.Timelog}] })
-  //     .then(user => res.json(user)).then(console.log(user.name, user.image))
-  //     .catch(e => console.log(e))
-  // })
-
-  app.get('/users/:firebaseId', (req, res) => {  
-=======
   app.get('/interestedIn/:interestedIn', (req, res) => {
     db.User.findAll({ where: { interestedIn: req.params.interestedIn }, include: [{ model: db.Image}, {model: db.Timelog}] })
       .then(user => res.json(user))
       .catch(e => console.log(e))
   })
   app.get('/users/:firebaseId', (req, res) => {
->>>>>>> e5689d0e99a08dda9ffcde3c2119670c993c8b4c
     db.User.findOne({ where: { firebaseId: req.params.firebaseId }, include: [{ model: db.Image}, {model: db.Timelog}] })
       .then(user => res.json(user))
       .catch(e => console.log(e))

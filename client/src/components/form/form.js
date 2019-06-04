@@ -16,6 +16,7 @@ import RadioButtons from './components/radiobuttons/radiobuttons'
 import SkillInterests from './components/skillInterests/skillInterests'
 import PersonalInterests from './components/personalInterests/personalInterests'
 import UploadButton from './components/uploadbutton/uploadbutton'
+import { Link } from "react-router-dom";
 
 const Form = (props) => {
 
@@ -42,7 +43,20 @@ const Form = (props) => {
           Upload
         </Button>
       </label> */}
-      <Button id='submit' onClick={props.storeForm}>Submit</Button>
+      {
+        props.formCompleted ? (
+          <Link to="../profile">
+          <Button id='update' onClick = {props.updateProfile}>Update</Button>
+          </Link>
+          
+          ) :
+          
+          (
+            <Button id='submit' onClick={props.storeForm}>Submit</Button>
+        )
+
+      }
+      
     </>
   )
 }

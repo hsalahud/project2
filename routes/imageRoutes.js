@@ -7,7 +7,7 @@ module.exports = app => {
       .catch(e => console.log(e))
   })
   app.get('/images/:userId', (req, res) => {
-    db.Image.findOne({ where: { userId: req.params.id }})
+    db.Image.findAll({ where: { userId: req.params.userId }})
       .then(image => res.json(image))
       .catch(e => console.log(e))
   })

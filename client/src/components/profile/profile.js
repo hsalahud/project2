@@ -115,13 +115,13 @@ console.log("HIIII" + imageURL)
           </div>
         </div>
         <div className="each-slide">
-          <div style={{'backgroundImage': `url(${imageURL[0]})`} } className = {classes.slideImg}>
-            <span>Slide 2</span>
+          <div style={{'backgroundImage': `url(${imageURL[1]})`} } className = {classes.slideImg}>
+            {/* <span>Slide 2</span> */}
           </div>
         </div>
         <div className= "each-slide">
-          <div style={{'backgroundImage': `url(${imageURL[0]})`}} className = {classes.slideImg}>
-            <span>Slide 3</span>
+          <div style={{'backgroundImage': `url(${imageURL[2]})`}} className = {classes.slideImg}>
+            {/* <span>Slide 3</span> */}
           </div>
         </div>
       </Slide>
