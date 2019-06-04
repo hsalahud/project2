@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { render } from "react-dom";
 import { withStyles } from '@material-ui/styles'
 import Swipeable from "react-swipy";
-// import App from "../../App";
+import App from "../../App";
 import Card from "./Card";
 import Button from "./Button"
 import Cady1 from "../../cady1.png"
@@ -32,19 +32,9 @@ const actionsStyles = {
   marginTop: 12
 };
 
-const styles = theme => ({
-  background: {
-  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-  border: 0,
-  borderRadius: 3,
-  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-  color: 'white',
-  opacity: '0.8'
-}
-})
 class Matches extends Component {
   state = {
-    cards: [("Cady Heron"), ("Regina George"), ("Gretchen Wieners"), ("Karen Smith")]
+    cards: ["Cady Heron", "Regina George", "Gretchen Wieners", "Karen Smith", "Kevin G."]
   };
 
   remove = () =>

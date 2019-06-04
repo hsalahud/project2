@@ -43,7 +43,7 @@ const styles = theme => ({
 
 class Login extends Component {
   render () {
-    const { uiConfig, isSignedIn, email, displayName, uid, classes,  } = this.props
+    const { uiConfig, isSignedIn, email, displayName, uid, classes } = this.props
     return (
       <div className={classes.background}>
       <img src={logo} className={classes.appLogo} alt="logo"/>
@@ -59,6 +59,7 @@ class Login extends Component {
         }
       </div>
       </div>
+      
     )
   }
 }

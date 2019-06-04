@@ -16,6 +16,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ScheduleIcon from '@material-ui/icons/Schedule'
 import BallotIcon from '@material-ui/icons/Ballot'
 import firebase from 'firebase'
+import Form from '../form'
 
 const useStyles = makeStyles({
   root: {
@@ -64,8 +65,8 @@ function NavBar () {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {['/Profile', '/LogHours'].map((text, index) => (
-          <Link to={text} ><ListItem button key={text}>
+        {['/profile', '/logHours'].map((text, index) => (
+          <Link to={'..'+text} ><ListItem button key={text}>
             <ListItemIcon>{index % 2 === 0 ? <BallotIcon /> : <ScheduleIcon />}</ListItemIcon>
             {/* <ListItemText primary={text} /> */}
           </ListItem>
