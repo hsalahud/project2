@@ -1,1 +1,1 @@
-export { default } from './matches.js'
+export { default } from './Matches'

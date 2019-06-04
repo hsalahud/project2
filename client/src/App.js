@@ -13,7 +13,7 @@ import BarExample from './components/stats'
 import firebase from 'firebase'
 import Users from './utils/Users.js'
 import randomString from'randomstring'
-
+import Matches from './components/matches'
 
 // Configure Firebase.
 const config = {
@@ -142,7 +142,8 @@ class App extends Component {
                 <Login uiConfig={uiConfig} isSignedIn={isSignedIn} displayName={displayName} email={email} uid={uid} />
                 {/* <LogHoursForm/> */}
                 {/* <BarExample/> */}
-                <Form storeImage = {this.storeImage} />
+                {/* <Form storeImage = {this.storeImage} /> */}
+                <Matches/>
               </>
             )
               :
