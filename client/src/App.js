@@ -8,12 +8,14 @@ import Login from './components/login'
 // import Matches from './components/matches'
 // import Chat from './components/chat'
 import Form from './components/form'
-import LogHoursForm from './components/logHoursForm'
+import LogHoursForm from './components/logHours'
 import BarExample from './components/stats'
 import firebase from 'firebase'
 import Users from './utils/Users.js'
 import Images from './utils/Images.js'
+import Timelog from './utils/timelog.js'
 import randomString from 'randomstring'
+const moment = require ('moment')
 
 
 
@@ -66,7 +68,12 @@ class App extends Component {
     text: [],
     imageURL: [],
     currentUser: {},
-    potentialMatches: []
+    potentialMatches: [],
+    logHours: [],
+    hrsWorked: '',
+    timeStamp: new Date(),
+
+
   }
 
   ///////////////////////////////////////
@@ -116,6 +123,19 @@ class App extends Component {
     this.setState({ int3: event.target.value })
   }
 
+  handleLogDate = event => {
+
+    console.log(event._d)
+    this.setState({ timeStamp: moment(event._d, "llll") })  ///.format("dddd, MMMM Do YYYY")  valueOf gives us unix timestamp
+    // this.setState({ timeStamp: new Date(event._d) })
+    console.log(moment(this.state.timeStamp).format("dddd, MMMM Do YYYY") )
+  }
+
+  // handleLogHour = event => {
+  //   this.setState({ inputtedHour: event.target.value })
+  //   console.log(this.state.inputtedHour)
+  // }
+
   ///////////////////////////////////////
 
   //THIS FUNCTION STORES THE IMAGE WE UPLOAD INTO THE DATABASE.
@@ -154,12 +174,8 @@ class App extends Component {
 
       //Enter form data transfer to db here - Kumiko
 
-
-
-
-
-
   }
+
 
       ////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////
@@ -174,6 +190,36 @@ class App extends Component {
       }).catch (e => console.log(e))
   }
 
+  submitLogData = _ => {
+    let newTimeLog = {
+      hrsWorked: parseInt(this.state.hrsWorked),
+      timeStamp: moment(this.state.timeStamp),
+      userId: this.state.userId
+    }
+    
+    console.log('hi')
+
+    Timelog.postOne(newTimeLog)
+
+  }
+
+  graphParameters = _ => {
+    let label = []
+    for (let i=0; i<7; i++) {
+      label.push(moment().subtract(i, 'd').format('ddd'))
+    }
+     label = label.reverse()
+    console.log(label)
+
+
+    Timelog.getAll()
+      .then (({data}) => {
+        data.forEach(({hrsWorked}) => {
+          console.log(hrsWorked)
+        })
+      }).catch(e => console.log(e))
+
+  }
   
 
   componentWillMount() {
@@ -210,6 +256,8 @@ class App extends Component {
         this.setState({ isSignedIn: !!user, displayName: null, email: null, uid: null, userId: null })
       }
     })
+
+    this.graphParameters()
   }
 
   // Listen to the Firebase Auth state and set the local state.
@@ -226,17 +274,28 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state)
-    const { isSignedIn, displayName, email, uid, bio, dob, radioButton1, skillInterest, int1, int2, int3 } = this.state
+    // console.log(this.state)
+    const { isSignedIn, displayName, email, uid, bio, dob, radioButton1, skillInterest, int1, int2, int3, hrsWorked, timeStamp} = this.state
     return (
       <>
         <Router>
           <div>
-            <Route exact path='/' render={() => isSignedIn ? (<Form key='form1' handleInputChange={this.handleInputChange} handleDateChange={this.handleDateChange} handleChangeRb={this.handleChangeRb} handleChangeRb2={this.handleChangeRb2} handleChangeSkills={this.handleChangeSkills} handleInterest1={this.handleInterest1} handleInterest2={this.handleInterest2} handleInterest3={this.handleInterest3} bio={bio} dob={dob} radioButton1={radioButton1} skillInterest={skillInterest} int1={int1} int2={int2} int3={int3} storeForm = {this.storeForm} />)
+            <Route exact path='/' render={() => isSignedIn ? (<><Form key='form1' handleInputChange={this.handleInputChange} handleDateChange={this.handleDateChange} handleChangeRb={this.handleChangeRb} handleChangeRb2={this.handleChangeRb2} handleChangeSkills={this.handleChangeSkills} handleInterest1={this.handleInterest1} handleInterest2={this.handleInterest2} handleInterest3={this.handleInterest3} bio={bio} dob={dob} radioButton1={radioButton1} skillInterest={skillInterest} int1={int1} int2={int2} int3={int3} storeForm = {this.storeForm} />
+            
+            <NavBar />
+            </>
+            )
               :
               (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
             } />
           </div>
+          <Route exact path = '/logHours' render = { () => isSignedIn ? (
+            <>
+            <LogHoursForm key = 'logHoursForm' submitLogData = {this.submitLogData} handleInputChange = {this.handleInputChange} handleLogDate = {this.handleLogDate} handleLogHour = {this.handleLogHour} hrsWorked = {hrsWorked} timeStamp = {timeStamp}/>
+            </>
+          ) :
+          (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
+        }/>
         </Router>
       </>
     )

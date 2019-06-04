@@ -1,11 +1,26 @@
 const db = require('../models')
+const moment = require('moment')
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op;
 
 module.exports = app => {
   app.get('/timelog', (req, res) => {
-    db.Timelog.findAll()
+    db.Timelog.findAll( {
+      where: {
+        timeStamp: {
+          [Op.gte]: moment().subtract(7, 'days').toDate()
+        }
+      },
+      order: [
+        ['timeStamp', 'ASC']
+      ]
+      })
+        
+  
       .then(users => res.json(users))
       .catch(e => console.log(e))
-  })
+    })
+
   app.get('/timelog/:id', (req, res) => {
     db.Timelog.findOne({ where: { id: req.params.id }, include: [{ model: db.Image}, {model: db.User}] })
       .then(user => res.json(user))
