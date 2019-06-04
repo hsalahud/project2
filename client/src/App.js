@@ -64,7 +64,7 @@ class App extends Component {
     email: null,
     uid: null,
     dob: new Date(),
-    phone_number: null,
+    phone_number: '',
     isMale: '',
     interestedIn: null,
     skillInterest: '',
@@ -81,8 +81,6 @@ class App extends Component {
     logHours: [],
     hrsWorked: '',
     timeStamp: new Date(),
-
-
   }
 
   ///////////////////////////////////////
@@ -98,6 +96,7 @@ class App extends Component {
   }
 // handles date of birth
   handleDateChange = event => {
+    console.log('gooble gop')
     console.log(event)
     this.setState({ dob: new Date(event._d) })
   }
@@ -130,6 +129,11 @@ class App extends Component {
   handleInterest3 = event => {
     console.log(event)
     this.setState({ int3: event.target.value })
+  }
+  // handles 'phone number' input
+  handlePhoneNumber = (event) => {
+    console.log('::'.repeat(100), event)
+    // this.setState({ phone_number: event.target.value })
   }
 
   handleLogDate = event => {
@@ -229,7 +233,7 @@ class App extends Component {
     for (let i=0; i<7; i++) {
       label.push(moment().subtract(i, 'd').format('ddd'))
     }
-     label = label.reverse()
+    label = label.reverse()
     console.log(label)
 
 
@@ -296,15 +300,30 @@ class App extends Component {
 
   render() {
     // console.log(this.state)
-    const { isSignedIn, displayName, email, uid, bio, dob, radioButton1, skillInterest, int1, int2, int3, hrsWorked, timeStamp} = this.state
+    const { isSignedIn, displayName, email, uid, bio, dob, radioButton1, skillInterest, int1, int2, int3, phone_number, hrsWorked, timeStamp} = this.state
     return (
       <>
         <Router>
-        <div>
-            <Route exact path='/' render={() => isSignedIn ? (<><Form key='form1' handleInputChange={this.handleInputChange} handleDateChange={this.handleDateChange} 
-            handleChangeRb={this.handleChangeRb} handleChangeRb2={this.handleChangeRb2} handleChangeSkills={this.handleChangeSkills} handleInterest1={this.handleInterest1} 
-            handleInterest2={this.handleInterest2} handleInterest3={this.handleInterest3} bio={bio} dob={dob} radioButton1={radioButton1} skillInterest={skillInterest} 
-            int1={int1} int2={int2} int3={int3} storeForm = {this.storeForm} /> 
+          <div>
+            <Route exact path='/' render={() => isSignedIn ? (
+              <>
+                <Form 
+                  key='form1' 
+                  handleInputChange={this.handleInputChange} 
+                  handleDateChange={this.handleDateChange} 
+                  handleChangeRb={this.handleChangeRb}
+                  handleChangeRb2={this.handleChangeRb2}
+                  handleChangeSkills={this.handleChangeSkills}
+                  handleInterest1={this.handleInterest1} 
+                  handleInterest2={this.handleInterest2}
+                  handleInterest3={this.handleInterest3}
+                  handlePhoneNumber={this.handlePhoneNumber}
+                  phoneNumber={phone_number}
+                  bio={bio}
+                  dob={dob}
+                  radioButton1={radioButton1}
+                  skillInterest={skillInterest} 
+            int1={int1} int2={int2} int3={int3} storeForm={this.storeForm} /> 
             <NavBar />
             </>
             )

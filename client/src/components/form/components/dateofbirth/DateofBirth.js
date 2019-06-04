@@ -30,29 +30,4 @@ const DateofBirth = (props) => {
   )
 }
 
-// function Number () {
-//   // The first commit of Material-UI
-//   const [selectedDate, setSelectedDate] = React.useState(new Date())
-
-//   const classes = useStyles()
-
-//   function handleDateChange (date) {
-//     setSelectedDate(date)
-//   }
-
-//   return (
-//     <MuiPickersUtilsProvider utils={MomentUtils}>
-//       <Grid container className={classes.grid} justify='space-around'>
-//         <KeyboardDatePicker
-//           id='dateOfBirth'
-//           margin='normal'
-//           label='Date of Birth'
-//           value={selectedDate}
-//           onChange={handleDateChange}
-//         />
-//       </Grid>
-//     </MuiPickersUtilsProvider>
-//   )
-// }
-
 export default DateofBirth

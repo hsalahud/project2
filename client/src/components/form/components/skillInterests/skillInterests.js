@@ -42,33 +42,4 @@ const SkillInterests = (props) => {
   )
 }
 
-// function skillInterests () {
-//   const classes = useStyles()
-//   const [values, setValues] = useState({
-//     skills: ''
-//   })
-
-//   function handleChangeSkills (event) {
-//     setValues(oldValues => ({
-//       ...oldValues,
-//       [event.target.name]: event.target.value
-//     }))
-//   }
-
-//   return (
-//     <FormControl className={classes.formControlSkills}>
-//       <InputLabel htmlFor='skills-helper'>Skill Interests</InputLabel>
-//       <Select
-//         value={values.skills}
-//         onChange={handleChangeSkills}
-//         input={<Input name='skills' id='skillInterest' />}
-//       >
-//         <MenuItem value={1}>Frontend</MenuItem>
-//         <MenuItem value={2}>Backend</MenuItem>
-//         <MenuItem value={3}>Full Stack</MenuItem>
-//       </Select>
-//     </FormControl>
-//   )
-// }
-
 export default SkillInterests
