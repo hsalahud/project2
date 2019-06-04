@@ -63,7 +63,7 @@ class App extends Component {
     int2: '',
     int3: '',
     bio: '',
-    formCompleted: null,
+    formCompleted: false,
     userId: null,
     text: [],
     imageURL: [],
@@ -149,16 +149,6 @@ class App extends Component {
     let newFileName = randomString.generate()
     const newFile = new File([file], newFileName, { type: file.type });
 
-    //Enter variables here
-      const bio = document.querySelector('#bio')
-      const dateOfBirth = document.querySelector('dob')
-      const gender = document.querySelector('isMale')
-      const interestedIn = document.querySelector('interestedIn')
-      const skillInterests = document.querySelector('skillInterests')
-      const interest1 = document.querySelector('int1')
-      const interest2 = document.querySelector('int2')
-      const interest3 = document.querySelector('int3')
-
     //process to store newly created file in firebase
     storage.ref(`profileImage/${newFile.name}`).put(newFile)
       .then ( () => {
@@ -180,28 +170,21 @@ class App extends Component {
       .catch(e => console.log(e))
 
       //Enter form data transfer to db here - Kumiko
-      // let newForm = {
-      //   text: bio,
-      //   bio: this.state.bio,
-      //   text: dateOfBirth,
-      //   dob: this.state.dob,
-      //   text: gender,
-      //   isMale: this.state.isMale,
-      //   text: interestedIn,
-      //   interestedIn: this.state.interestedIn,
-      //   text: skillInterests,
-      //   skillInterest: this.state.skillInterest,
-      //   text: interest1,
-      //   int1: this.state.int1,
-      //   text: interest2,
-      //   int2: this.state.int2,
-      //   text: interest3,
-      //   int3: this.state.int3
-      // }
-      // Users.putOne(newForm)
-      // this.retrieveUsers(bio, )
-      // .then(console.log('Successfully updated form'))
-      // .catch(e => console.log(e))
+      let newForm = {
+        bio: this.state.bio,
+        dob: this.state.dob,
+        isMale: this.state.isMale,
+        interestedIn: this.state.interestedIn,
+        skillInterest: this.state.skillInterest,
+        int1: this.state.int1,
+        int2: this.state.int2,
+        int3: this.state.int3,
+        formCompleted: this.state.formCompleted
+      }
+      console.log(newForm)
+      Users.putOne(this.state.userId, newForm)
+      .then(console.log('Successfully updated form'))
+      .catch(e => console.log(e))
   }
 
 
