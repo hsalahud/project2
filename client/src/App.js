@@ -27,9 +27,10 @@ const config = {
   projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APPID
+  appId: "1:510445136926:web:65b0c34824d71fe2"
 }
 // Initialize Firebase
+console.log(config)
 firebase.initializeApp(config)
 // const db = firebase.firestore()
 // Configure FirebaseUI.
@@ -50,7 +51,7 @@ const storage = firebase.storage()
 class App extends Component {
 
   state = {
-    isSignedIn: true,
+    isSignedIn: false,
     displayName: '',
     email: null,
     uid: null,
