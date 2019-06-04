@@ -34,9 +34,9 @@ const SkillInterests = (props) => {
         onChange={props.handleChangeSkills}
         input={<Input name='skills' id='skillInterest' />}
       >
-        <MenuItem value={1}>Frontend</MenuItem>
-        <MenuItem value={2}>Backend</MenuItem>
-        <MenuItem value={3}>Full Stack</MenuItem>
+        <MenuItem value='frontend'>Frontend</MenuItem>
+        <MenuItem value='backend'>Backend</MenuItem>
+        <MenuItem value='fullstack'>Full Stack</MenuItem>
       </Select>
     </FormControl>
   )
