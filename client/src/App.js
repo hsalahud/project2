@@ -27,10 +27,19 @@ const config = {
   projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APPID
+  appId: "1:510445136926:web:65b0c34824d71fe2"
 }
 // Initialize Firebase
-firebase.initializeApp(config)
+console.log(config)
+firebase.initializeApp({
+  apiKey: "AIzaSyD47dfqP7yK4lTvCTdwVDt_yYDn6tb64Yw",
+  authDomain: "bcdate-db.firebaseapp.com",
+  databaseURL: "https://bcdate-db.firebaseio.com",
+  projectId: "bcdate-db",
+  storageBucket: "bcdate-db.appspot.com",
+  messagingSenderId: "510445136926",
+  appId: "1:510445136926:web:65b0c34824d71fe2"
+})
 // const db = firebase.firestore()
 // Configure FirebaseUI.
 const uiConfig = {
@@ -220,6 +229,7 @@ class App extends Component {
 
   graphParameters = _ => {
     let label = []
+    let data = []
     for (let i=0; i<7; i++) {
       label.push(moment().subtract(i, 'd').format('ddd'))
     }
