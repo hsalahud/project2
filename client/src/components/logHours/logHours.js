@@ -8,7 +8,6 @@ import TextField from '@material-ui/core/TextField'
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-const moment = require('moment')
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -38,33 +37,18 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function LogHoursForm () {
-  const [selectedDate, setSelectedDate] = React.useState(moment())
-
-  function handleDateChange (date) {
-    setSelectedDate(date)
-  }
-
-  const classes = useStyles()
-  const [values, setValues] = React.useState({
-    hours: ''
-  })
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value })
-  }
-
-  const [open, setOpen] = React.useState(false)
+const LogHoursForm = (props) => {
 
   return (
     <div>
       <TextField
-        id='hours'
+        id='hrsWorked'
         label='Log Hours'
         required
-        value={values.age}
-        onChange={handleChange('hours')}
+        value={props.hrsWorked}
+        onChange={props.handleInputChange}
         type='number'
-        className={classes.textField}
+        className={useStyles.textField}
         InputLabelProps={{
           shrink: true
         }}
@@ -72,17 +56,19 @@ function LogHoursForm () {
         variant='filled'
       />
       <MuiPickersUtilsProvider utils={MomentUtils}>
-        <Grid container className={classes.grid} justify='space-around'>
+        <Grid container className={useStyles.grid} justify='space-around'>
           <KeyboardDatePicker
+          id = 'timeStamp'
             margin='normal'
             label='Date picker'
-            value={selectedDate}
-            onChange={handleDateChange}
+            value={props.timeStamp}
+            onChange={props.handleLogDate}
             required
+            format = 'L'
           />
         </Grid>
       </MuiPickersUtilsProvider>
-      <Button type='submit' variant='outlined' id='submitLog'>Submit</Button>
+      <Button type='submit' variant='outlined' id='submitLog' onClick = {props.submitLogData}>Submit</Button>
     </div>)
 }
 
