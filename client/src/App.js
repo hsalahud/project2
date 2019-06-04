@@ -9,7 +9,7 @@ import Login from "./components/login";
 // import Chat from './components/chat'
 import Form from "./components/form";
 import Profile from "./components/profile";
-import LogHoursForm from "./components/logHoursForm";
+import LogHoursForm from "./components/logHours";
 import BarExample from "./components/stats";
 import firebase from "firebase";
 import Users from "./utils/Users.js";

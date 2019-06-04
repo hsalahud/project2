@@ -15,11 +15,7 @@ import DateofBirth from './components/dateofbirth/DateofBirth'
 import RadioButtons from './components/radiobuttons/radiobuttons'
 import SkillInterests from './components/skillInterests/skillInterests'
 import PersonalInterests from './components/personalInterests/personalInterests'
-<<<<<<< HEAD
-import { Link } from "react-router-dom";
-=======
 import UploadButton from './components/uploadbutton/uploadbutton'
->>>>>>> e5689d0e99a08dda9ffcde3c2119670c993c8b4c
 
 const Form = (props) => {
 
@@ -45,25 +41,8 @@ const Form = (props) => {
         <Button variant='contained' component='span'>
           Upload
         </Button>
-<<<<<<< HEAD
-      </label>
-      {
-        props.formCompleted ? (
-          <Link to="../profile">
-          <Button id='update' onClick = {props.updateProfile}>Update</Button>
-          </Link>
-          
-          ) :
-          
-          (
-            <Button id='submit' onClick={props.storeForm}>Submit</Button>
-        )
-
-      }
-=======
       </label> */}
       <Button id='submit' onClick={props.storeForm}>Submit</Button>
->>>>>>> e5689d0e99a08dda9ffcde3c2119670c993c8b4c
     </>
   )
 }
