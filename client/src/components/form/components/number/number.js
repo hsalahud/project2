@@ -1,6 +1,4 @@
 import React from 'react'
-import MaskedInput from 'react-text-mask'
-import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
@@ -16,49 +14,17 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function TextMaskCustom (props) {
-  const { inputRef, ...other } = props
-
+const PhoneNumber = (props) => {
+  console.log(props)
   return (
-    <MaskedInput
-      {...other}
-      ref={ref => {
-        inputRef(ref ? ref.inputElement : null)
-      }}
-      mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-      placeholderChar={'\u2000'}
-      showMask
-    />
-  )
-}
-
-TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired
-}
-
-function Number () {
-  const classes = useStyles()
-  const [values, setValues] = React.useState({
-    textmask: '(1  )    -    ',
-    numberformat: '1320'
-  })
-
-  const handleChange = name => event => {
-    setValues({
-      ...values,
-      [name]: event.target.value
-    })
-  }
-
-  return (
-    <div className={classes.container}>
-      <FormControl className={classes.formControl}>
+    <div className={useStyles.container}>
+      <FormControl className={useStyles.formControl}>
         <InputLabel htmlFor='formatted-text-mask-input'>Phone Number</InputLabel>
         <Input
-          value={values.textmask}
-          onChange={handleChange('textmask')}
+          key='phoneNumber'
+          value={props.phone_number}
+          onChange={props.handlePhoneNumber}
           id='formatted-text-mask-input'
-          inputComponent={TextMaskCustom}
         />
       </FormControl>
       />
@@ -66,4 +32,4 @@ function Number () {
   )
 }
 
-export default Number
+export default PhoneNumber

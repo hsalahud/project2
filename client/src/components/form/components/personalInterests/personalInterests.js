@@ -58,38 +58,4 @@ const PersonalInterests = (props) => {
   )
 }
 
-// function PersonalInterests () {
-//   const classes = useStyles()
-//   const [values, setValues] = React.useState({
-//     multiline: '',
-//   })
-
-//   const handleChange = name => event => {
-//     setValues({ ...values, [name]: event.target.value })
-//   }
-
-//   return (
-//     <form className={classes.container} noValidate autoComplete="off">
-//       <TextField
-//         id='int1'
-//         label='Interest 1'
-//         className={classes.textField}
-//         margin='normal'
-//       />
-//       <TextField
-//         id='int2'
-//         label='Interest 2'
-//         className={classes.textField}
-//         margin='normal'
-//       />
-//       <TextField
-//         id='int3'
-//         label='Interest 3'
-//         className={classes.textField}
-//         margin='normal'
-//       />
-//     </form>
-//   )
-// }
-
 export default PersonalInterests
