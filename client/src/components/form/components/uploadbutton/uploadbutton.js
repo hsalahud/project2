@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import './uploadbutton.css'
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -31,7 +32,7 @@ const UploadButton = (props) => {
         type='file'
       />
       <label htmlFor='contained-button-file' >
-        <Button variant='contained' component='span' color='default' className={useStyles.button}>
+        <Button id='submit' variant='contained' component='span' color='default' className={useStyles.button}>
           Upload
           <CloudUploadIcon className={useStyles.rightIcon} />
         </Button>

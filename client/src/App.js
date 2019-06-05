@@ -15,9 +15,9 @@ import Users from './utils/Users.js'
 import Images from './utils/Images.js'
 import Timelog from './utils/timelog.js'
 import randomString from 'randomstring'
+import './App.css'
+
 const moment = require ('moment')
-
-
 
 // Configure Firebase.
 const config = {
@@ -96,34 +96,42 @@ class App extends Component {
   }
 // handles date of birth
   handleDateChange = event => {
+    console.log(event._d)
     this.setState({ dob: new Date(event._d) })
   }
 // handles 'gender' selection
   handleChangeRb = event => {
+    console.log(event.target.value)
     this.setState({ isMale: event.target.value})
   }
 // handles 'interested in' selection
   handleChangeRb2 = event => {
+    console.log(event.target.value)
     this.setState({ interestedIn: event.target.value })
   }
 // handles 'skill interests' selection
   handleChangeSkills = event => {
+    console.log(event.target.value)
     this.setState({ skillInterest: event.target.value })
   }
 // handles 'personal interest 1' selection
   handleInterest1 = event => {
+    console.log(event.target.value)
     this.setState({ int1: event.target.value })
   }
 // handles 'personal interest 2' selection
   handleInterest2 = event => {
+    console.log(event.target.value)
     this.setState({ int2: event.target.value })
   }
 // handles 'personal interest 3' selection
   handleInterest3 = event => {
+    console.log(event.target.value)
     this.setState({ int3: event.target.value })
   }
   // handles 'phone number' input
   handlePhoneNumber = (event) => {
+    console.log(event.target.value)
     this.setState({ phone_number: event.target.value })
   }
 
@@ -183,6 +191,7 @@ class App extends Component {
         int1: this.state.int1,
         int2: this.state.int2,
         int3: this.state.int3,
+        phone_number: this.state.phone_number,
         formCompleted: this.state.formCompleted
       }
       console.log(newForm)
@@ -260,10 +269,13 @@ class App extends Component {
             } else {
               this.setState({
                 userId: data.id,
-                currentUser: data
+                currentUser: data,
+                formCompleted: data.formCompleted
               })
+              if(this.state.formCompleted) {
               data.images.forEach(({ text }) => this.retrieveImages(text))
               this.setState({ text: data.images.map(({text}) => text) })
+              }
             }
           }
 
@@ -297,7 +309,7 @@ class App extends Component {
         <Router>
           <div>
             <Route exact path='/' render={() => isSignedIn ? (
-              <>
+              <div id='form'>
                 <Form 
                   key='form1' 
                   handleInputChange={this.handleInputChange} 
@@ -314,9 +326,10 @@ class App extends Component {
                   dob={dob}
                   radioButton1={radioButton1}
                   skillInterest={skillInterest} 
-            int1={int1} int2={int2} int3={int3} storeForm={this.storeForm} /> 
+                  int1={int1} int2={int2} int3={int3} 
+                  storeForm={this.storeForm} /> 
             <NavBar />
-            </>
+            </div>
             )
               :
               (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
