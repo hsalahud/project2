@@ -16,11 +16,11 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(4),
-    outline: 'none'
+    outline: 'none',
   },
   container: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -34,6 +34,11 @@ const useStyles = makeStyles(theme => ({
   },
   grid: {
     width: '60%'
+  },
+  LogHoursForm: {
+    height: "100px",
+    // width: 'auto',
+    // margin: '0 auto'
   }
 }))
 

@@ -5,7 +5,7 @@ import NavBar from './components/navbar'
 import Login from './components/login'
 // import Stats from './components/stats'
 // import Profile from './components/profile'
-import Matches from './components/matches/Matches'
+// import Matches from './components/matches/Matches'
 // import Chat from './components/chat'
 import Form from './components/form'
 import LogHoursForm from './components/logHours'
@@ -15,6 +15,7 @@ import Users from './utils/Users.js'
 import Images from './utils/Images.js'
 import Timelog from './utils/timelog.js'
 import randomString from 'randomstring'
+import Deck from "./components/Deck";
 const moment = require ('moment')
 
 
@@ -282,7 +283,7 @@ class App extends Component {
       }
     })
 
-    this.graphParameters()
+    // this.graphParameters()
   }
 
   // Listen to the Firebase Auth state and set the local state.
@@ -338,9 +339,9 @@ class App extends Component {
           ) :
           (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
         }/>
-        <Route exact path = './Matches' render = { () => isSignedIn ? (
+        <Route exact path = '/deck' render = { () => isSignedIn ? (
             <>
-            <Matches />
+            <Deck />
               </>
           ) :
           (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
