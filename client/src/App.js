@@ -15,15 +15,8 @@ import Users from './utils/Users.js'
 import Images from './utils/Images.js'
 import Timelog from './utils/timelog.js'
 import randomString from 'randomstring'
-<<<<<<< HEAD
-import './App.css'
-=======
 import Deck from './components/Deck'
 const moment = require('moment')
-
->>>>>>> master
-
-const moment = require ('moment')
 
 // Configure Firebase.
 // Initialize Firebase
@@ -94,35 +87,23 @@ class App extends Component {
   }
   // handles date of birth
   handleDateChange = event => {
-<<<<<<< HEAD
     console.log(event._d)
-=======
->>>>>>> master
     this.setState({ dob: new Date(event._d) })
   }
   // handles 'gender' selection
   handleChangeRb = event => {
-<<<<<<< HEAD
     console.log(event.target.value)
     this.setState({ isMale: event.target.value})
-=======
     this.setState({ isMale: event.target.value })
->>>>>>> master
   }
   // handles 'interested in' selection
   handleChangeRb2 = event => {
-<<<<<<< HEAD
     console.log(event.target.value)
-=======
->>>>>>> master
     this.setState({ interestedIn: event.target.value })
   }
   // handles 'skill interests' selection
   handleChangeSkills = event => {
-<<<<<<< HEAD
     console.log(event.target.value)
-=======
->>>>>>> master
     this.setState({ skillInterest: event.target.value })
   }
   // handles 'personal interest 1' selection
@@ -132,18 +113,12 @@ class App extends Component {
   }
   // handles 'personal interest 2' selection
   handleInterest2 = event => {
-<<<<<<< HEAD
     console.log(event.target.value)
-=======
->>>>>>> master
     this.setState({ int2: event.target.value })
   }
   // handles 'personal interest 3' selection
   handleInterest3 = event => {
-<<<<<<< HEAD
     console.log(event.target.value)
-=======
->>>>>>> master
     this.setState({ int3: event.target.value })
   }
   // handles 'phone number' input
@@ -198,23 +173,6 @@ class App extends Component {
       })
       .catch(e => console.log(e))
 
-<<<<<<< HEAD
-      //Enter form data transfer to db here - Kumiko
-      let newForm = {
-        bio: this.state.bio,
-        dob: this.state.dob,
-        isMale: this.state.isMale,
-        interestedIn: this.state.interestedIn,
-        skillInterest: this.state.skillInterest,
-        int1: this.state.int1,
-        int2: this.state.int2,
-        int3: this.state.int3,
-        phone_number: this.state.phone_number,
-        formCompleted: this.state.formCompleted
-      }
-      console.log(newForm)
-      Users.putOne(this.state.userId, newForm)
-=======
     //Enter form data transfer to db here - Kumiko
     let newForm = {
       bio: this.state.bio,
@@ -229,7 +187,6 @@ class App extends Component {
     }
     console.log(newForm)
     Users.putOne(this.state.userId, newForm)
->>>>>>> master
       .then(console.log('Successfully updated form'))
       .catch(e => console.log(e))
   }
