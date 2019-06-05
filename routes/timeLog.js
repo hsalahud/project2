@@ -21,8 +21,8 @@ module.exports = app => {
       .catch(e => console.log(e))
     })
 
-  app.get('/timelog/:id', (req, res) => {
-    db.Timelog.findOne({ where: { id: req.params.id }, include: [{ model: db.Image}, {model: db.User}] })
+  app.get('/timelog/:userId', (req, res) => {
+    db.Timelog.findAll({ where: { userId: req.params.userId} })
       .then(user => res.json(user))
       .catch(e => console.log(e))
   })

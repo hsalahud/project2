@@ -82,15 +82,15 @@ function NavBar () {
         <BottomNavigationAction label='Stats' value='stats' icon={<PieChartIcon />} />
       </Link>
       <Link>
-        <div>
+        <>
           <BottomNavigationAction label='Profile' value='profile' icon={<PersonIcon />} onClick={toggleDrawer('bottom', true)} />
           <Drawer classes={{ paper: classes.paper }} anchor='bottom' open={state.bottom} onClose={toggleDrawer('bottom', false)}>
             {fullList('bottom')}
           </Drawer>
-        </div>
+        </>
       </Link>
-      <Link to='/matches'>
-        <BottomNavigationAction label='Matches' value='matches' icon={<MoodIcon />} />
+      <Link to='/deck'>
+        <BottomNavigationAction label='Deck' value='deck' icon={<MoodIcon />} />
       </Link>
       <Link to='/chat'>
         <BottomNavigationAction label='Chat' value='chat' icon={<ChatIcon />} />
