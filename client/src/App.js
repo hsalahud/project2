@@ -567,7 +567,7 @@ class App extends Component {
           <Route exact path='/loghours' render={() => isSignedIn ? (
             <>
               <BarData dataHrs={dataHrs}  label={label}/>
-              {/* <NavBar /> */}
+              <NavBar />
             </>
           ) :
             (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
