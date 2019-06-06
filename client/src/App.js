@@ -51,19 +51,19 @@ class App extends Component {
   state = {
     isSignedIn: false,
     displayName: '',
-    email: null,
-    uid: null,
+    email: '',
+    uid: '',
     dob: new Date(),
     phone_number: '',
     isMale: '',
-    interestedIn: 0,
+    interestedIn: 1,
     skillInterest: '',
     int1: '',
     int2: '',
     int3: '',
     bio: '',
     formCompleted: true,
-    userId: null,
+    userId: '',
     text: [],
     imageURL: [],
     currentUser: {},
@@ -333,7 +333,7 @@ class App extends Component {
     )
     if (this.state.formCompleted) {
 
-      Users.getInterestedIn(0)
+      Users.getInterestedIn(this.state.interestedIn)
         .then(({ data }) => {
           console.log('hi')
           let matches = data.map(person => {
@@ -342,15 +342,6 @@ class App extends Component {
 
           })
           this.setState({ matches })
-          // this.setState({matches: data})
-          // console.log(this.state.matches)
-          // this.state.matches.forEach(({images}) => {
-          //   images.forEach(({text}) => {
-          //     this.retrieveImagesMatches(`${text}.jpeg` )
-          //   })
-
-          // })
-          // console.log(this.state.matchesImageURL)
         }).catch(e => console.error(e))
     }
   }
