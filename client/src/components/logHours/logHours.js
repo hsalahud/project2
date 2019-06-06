@@ -59,7 +59,7 @@ const LogHoursForm = (props) => {
     <div>
       <img src={logo} id="appLogo" alt="logo" style={{width: 120, height: 170, marginLeft:150, marginTop: 20}}/>
       
-    <div id="container">
+    <div id="logContainer">
       <div id="hrsWorked">
       <TextField
         id='hrsWorked'

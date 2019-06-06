@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
+import './skillInterests.css'
 
 const styles = theme => ({
   rootSkills: {
@@ -25,7 +26,7 @@ const styles = theme => ({
 
 const SkillInterests = (props) => {
   return (
-    <FormControl className={styles.formControlSkills}>
+    <FormControl id='skills' className={styles.formControlSkills}>
       <InputLabel htmlFor='skills-helper'>Skill Interests</InputLabel>
       <Select
         key='skillInterests'

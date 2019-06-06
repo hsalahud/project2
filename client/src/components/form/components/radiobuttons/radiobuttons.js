@@ -5,6 +5,7 @@ import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
+import './radiobuttons.css'
 
 const styles = {
   root: {
@@ -20,7 +21,7 @@ const styles = {
 
 const RadioButtons = (props) => {
   return (
-    <div className={styles.root}>
+    <div id='buttons' className={styles.root}>
       <FormControl component='fieldset' className={styles.formControlRb}>
         <FormLabel component='legend'>Gender</FormLabel>
         <RadioGroup
