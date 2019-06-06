@@ -66,7 +66,7 @@ function NavBar () {
     >
       <List>
         {['/profile', '/logHours'].map((text, index) => (
-          <Link to={'..'+text} ><ListItem button key={text}>
+          <Link to={'..' + text} ><ListItem button key={text}>
             <ListItemIcon>{index % 2 === 0 ? <BallotIcon /> : <ScheduleIcon />}</ListItemIcon>
             {/* <ListItemText primary={text} /> */}
           </ListItem>
@@ -79,14 +79,14 @@ function NavBar () {
   return (
     <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
       <Link to='/stats'>
-        <BottomNavigationAction label='Stats' value='stats' icon={<PieChartIcon />} />
+        {/* <BottomNavigationAction label='Stats' value='stats' icon={<PieChartIcon />} /> */}
       </Link>
-      <Link>
+      <Link to = '/profile'>
         <>
           <BottomNavigationAction label='Profile' value='profile' icon={<PersonIcon />} onClick={toggleDrawer('bottom', true)} />
-          <Drawer classes={{ paper: classes.paper }} anchor='bottom' open={state.bottom} onClose={toggleDrawer('bottom', false)}>
+          {/* <Drawer classes={{ paper: classes.paper }} anchor='bottom' open={state.bottom} onClose={toggleDrawer('bottom', false)}>
             {fullList('bottom')}
-          </Drawer>
+          </Drawer> */}
         </>
       </Link>
       <Link to='/deck'>
