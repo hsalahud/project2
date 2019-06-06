@@ -46,13 +46,13 @@ body {
   max-height: 570px;
   will-change: transform;
   border-radius: 10px;
-  box-shadow: 0 12.5px 100px -10px rgba(50, 50, 73, 0.4), 0 10px 10px -10px rgba(50, 50, 73, 0.3);
+   box-shadow: 0 12.5px 100px -10px rgba(50, 50, 73, 0.4), 0 10px 10px -10px rgba(50, 50, 73, 0.3);
 }
 
 img {
   height: 280px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 button[aria-label="previous"],
@@ -64,20 +64,28 @@ button[aria-label="next"] {
 #matchName, #matchAge {
   display: inline-block;
   margin-right: 10px;
+  color: black;
+  padding: 5px
 }
 
 #matchName:nth-of-type(2), #matchAge:nth-of-type(2) {
   opacity: 0.7;
   font-size: 1.35rem;
+  color: black
 }
 
 #skillsInterest, #matchBio, #int1, #int2, #int3 {
   margin-top: -15px;
-  margin-left: 2px;
-  color: lightgray;
+  /* margin-left: 2px; */
+  color: rgba(0, 0, 0, 0.53);
+  font-size: 10px;
+  /* align-content: center; */
+  margin: 0 auto;
+  position: center;
+  padding: 5px
 }
 #skillsInterest:last-of-type {
-  color: darkgray;
+  color: rgba(0, 0, 0, 0.53);
 }
 
 #matchCards > div {
