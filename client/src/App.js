@@ -51,8 +51,8 @@ class App extends Component {
   state = {
     isSignedIn: false,
     displayName: '',
-    email: null,
-    uid: null,
+    email: '',
+    uid: '',
     dob: new Date(),
     phone_number: '',
     isMale: '',
@@ -63,7 +63,7 @@ class App extends Component {
     int3: '',
     bio: '',
     formCompleted: true,
-    userId: null,
+    userId: '',
     text: [],
     imageURL: [],
     currentUser: {},
@@ -269,17 +269,32 @@ class App extends Component {
 
   }
 
-  // deleteUser = () => {
-  //   const sqlId = this.state.userId
-  //   const firebaseId = this.state.uid
-  //   fetch(`/users/${sqlId}`, {
-  //     method: 'DELETE'
-  //   })
-  //     .then(() => location.pathname = '/login')
-  //     .catch()
+  deleteUser = () => {
+    Users.deleteOne(this.state.userId)
+    Images.deleteOne(this.state.userId)
+    Timelog.deleteOne(this.state.userId)
+
+    // this.state.text.forEach(text => {
+    //   let ref = storage.ref.child(`profileImage/${text}.jpeg`)
+
+    //   ref.delete()
+    //     .then( _ => {
+    //         console.log('goodbye')
+    //     })
+    //       .catch(error => console.log(error))
+    //   })
+
+    firebase.auth().signOut()
+    // const sqlId = this.state.userId
+    // const firebaseId = this.state.uid
+    // fetch(`/users/${sqlId}`, {
+    //   method: 'DELETE'
+    // })
+    //   // .then(() => location.pathname = '/login')
+    //   // .catch()
 
 
-  // }
+  }
 
   componentWillMount() {
     let user = {}
@@ -296,10 +311,14 @@ class App extends Component {
           .then(({ data }) => {
             if (data === null) {
               Users.postOne(user)
-              this.setState({
-                userId: data.id,
-                currentUser: data
+              Users.getOne(this.state.uid)
+                .then(({data}) => {
+                  this.setState({
+                    userId: data.id,
+                    currentUser: data    
+                })
               })
+
             } else {
               this.setState({
                 userId: data.id,
@@ -315,6 +334,7 @@ class App extends Component {
 
 
             }
+            
           }
 
           )
@@ -367,7 +387,7 @@ class App extends Component {
       <>
         <Router>
           <div>
-            <Route exact path='/form' render={() => isSignedIn ? (
+            <Route exact path='/' render={() => isSignedIn ? (
               <div id='form'>
                 <Form 
                   key='form1' 
@@ -386,7 +406,8 @@ class App extends Component {
                   radioButton1={radioButton1}
                   skillInterest={skillInterest} 
                   int1={int1} int2={int2} int3={int3} 
-                  storeForm={this.storeForm} /> 
+                  storeForm={this.storeForm} 
+                  displayName = {displayName} />
             <NavBar />
             </div>
             )
@@ -425,6 +446,10 @@ class App extends Component {
               <DeleteProfile deleteUser={this.deleteUser} />
             </>
           ) :
+            (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
+          } />
+
+<Route exact path='/login' render={() => 
             (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
           } />
 

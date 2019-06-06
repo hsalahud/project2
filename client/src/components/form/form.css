@@ -10,20 +10,20 @@
 #formContainer {
   background-color: whitesmoke;
   width: 300px;
-    color: white;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin: 0 auto;
-    font-size: 16px;
-    text-align: center;
-    overflow: scroll;
+  color: white;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin: 0 auto;
+  font-size: 16px;
+  text-align: center;
+  overflow: scroll;
 }
 #bio  {
-height: 100px;
-margin-bottom: 5px;
-color: black;
-margin: 0 auto;
-position: center;
+  height: 100px;
+  margin-bottom: 5px;
+  color: black;
+  margin: 0 auto;
+  position: center;
 }
 #dateOfBirth {
   margin-top: 0;
@@ -36,7 +36,7 @@ position: center;
   margin-top: 0;
 }
 #personalInterests {
-margin-top: 0px;
+  margin-top: 0px;
 }
 
 #phoneNumber {
@@ -53,6 +53,6 @@ margin-top: 0px;
 }
 #greeting {
   margin-top: -25px;
-  margin-left: 50px;
+  margin-left: 30px;
   font-size: 30px;
 }

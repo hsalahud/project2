@@ -26,8 +26,8 @@ module.exports = app => {
       .then(_ => res.sendStatus(200))
       .catch(e => console.log(e))
   })
-  app.delete('/images/:id', (req, res) => {
-    db.Image.destroy({ where: { id: req.params.id } })
+  app.delete('/images/:userId', (req, res) => {
+    db.Image.destroy({ where: { userId: req.params.userId } })
       .then(_ => res.sendStatus(200))
       .catch(e => console.log(e))
   })
