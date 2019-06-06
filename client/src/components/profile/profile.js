@@ -113,7 +113,7 @@ const styles = theme => ({
 });
 function Profile(props, state) {
   const { classes, displayName, bio, skillInterest, int1, int2, int3, imageURL} = props;
-console.log("HIIII" + imageURL)
+  console.log("HIIII" + imageURL)
   
   const properties = {
     duration: 5000,

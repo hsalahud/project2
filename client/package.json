@@ -22,15 +22,10 @@
     "react-firebaseui": "^3.1.2",
     "react-responsive-carousel": "^3.1.49",
     "react-router-dom": "^5.0.0",
-<<<<<<< HEAD
-    "react-scripts": "^3.0.1",
-    "react-text-mask": "^5.4.3"
-=======
     "react-scripts": "3.0.1",
     "react-spring": "^8.0.20",
     "react-text-mask": "^5.4.3",
     "react-use-gesture": "^5.0.2"
->>>>>>> 42ec76b303e732a5ba2fbbe5ee2e96a7e34d3cef
   },
   "scripts": {
     "start": "react-scripts start",
