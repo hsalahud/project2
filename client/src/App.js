@@ -5,7 +5,7 @@ import NavBar from './components/navbar'
 import Login from './components/login'
 // import Stats from './components/stats'
 // import Profile from './components/profile'
-// import Matches from './components/matches/Matches'
+// import Matches from './components/matches'
 // import Chat from './components/chat'
 import Form from './components/form'
 import LogHoursForm from './components/logHours'
@@ -323,7 +323,7 @@ class App extends Component {
       }
     })
 
-    // this.graphParameters()
+    this.graphParameters()
   }
 
   // Listen to the Firebase Auth state and set the local state.
@@ -411,14 +411,14 @@ class App extends Component {
             (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
           } />
 
-          {/* <Route exact path='/loghours' render={() => isSignedIn ? (
+          <Route exact path='/loghours' render={() => isSignedIn ? (
             <>
               <BarData dataHrs={dataHrs}  label={label}/>
-              <NavBar />
+              {/* <NavBar /> */}
             </>
           ) :
             (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
-          } /> */}
+          } />
 
           <Route exact path='/deleteprofile' render={() => isSignedIn ? (
             <>
