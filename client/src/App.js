@@ -9,7 +9,7 @@ import Login from './components/login'
 // import Chat from './components/chat'
 import Form from './components/form'
 import LogHoursForm from './components/logHours'
-import BarExample from './components/stats'
+import BarData from './components/stats'
 import firebase from 'firebase'
 import Users from './utils/Users.js'
 import Images from './utils/Images.js'
@@ -57,13 +57,13 @@ class App extends Component {
     dob: new Date(),
     phone_number: '',
     isMale: '',
-    interestedIn: null,
+    interestedIn: 0,
     skillInterest: '',
     int1: '',
     int2: '',
     int3: '',
     bio: '',
-    formCompleted: false,
+    formCompleted: true,
     userId: null,
     text: [],
     imageURL: [],
@@ -73,19 +73,21 @@ class App extends Component {
     hrsWorked: '',
     timeStamp: new Date(),
     label: [],
-    dataHrs: []
+    dataHrs: [],
+    matches: [],
+    matchesBackup: []
   }
 
   ///////////////////////////////////////
   handleInputChange = event => {
     this.setState({ [event.target.id]: event.target.value })
-    console.log(this.state)
+    // console.log(this.state)
   }
   // handles bio input
   handleInputChange = event => {
     this.setState({ [event.target.id]: event.target.value })
-    console.log(event.target.id)
-    console.log(event.target.value)
+    // console.log(event.target.id)
+    // console.log(event.target.value)
   }
   // handles date of birth
   handleDateChange = event => {
@@ -105,7 +107,7 @@ class App extends Component {
   }
   // handles 'personal interest 1' selection
   handleInterest1 = event => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     this.setState({ int1: event.target.value })
   }
   // handles 'personal interest 2' selection
@@ -118,16 +120,16 @@ class App extends Component {
   }
   // handles 'phone number' input
   handlePhoneNumber = (event) => {
-    console.log('::'.repeat(100), event)
+    // console.log('::'.repeat(100), event)
     // this.setState({ phone_number: event.target.value })
   }
 
   handleLogDate = event => {
 
-    console.log(event._d)
+    // console.log(event._d)
     this.setState({ timeStamp: moment(event._d, "llll") })  ///.format("dddd, MMMM Do YYYY")  valueOf gives us unix timestamp
     // this.setState({ timeStamp: new Date(event._d) })
-    console.log(moment(this.state.timeStamp).format("dddd, MMMM Do YYYY"))
+    // console.log(moment(this.state.timeStamp).format("dddd, MMMM Do YYYY"))
   }
 
   // handleLogHour = event => {
@@ -180,7 +182,7 @@ class App extends Component {
       int3: this.state.int3,
       formCompleted: this.state.formCompleted
     }
-    console.log(newForm)
+    // console.log(newForm)
     Users.putOne(this.state.userId, newForm)
       .then(console.log('Successfully updated form'))
       .catch(e => console.log(e))
@@ -200,6 +202,21 @@ class App extends Component {
       }).catch(e => console.log(e))
   }
 
+  //Function to retrieve image URL from firebase for MATCHES
+  retrieveImagesMatches = image => {
+    storage.ref(`profileImage/${image}`).getDownloadURL()
+      .then(url => {
+        let matchesImageURL = this.state.matchesImageURL
+        matchesImageURL.push(url)
+        this.setState({ matchesImageURL })
+      }).catch(e => console.log(e))
+  }
+  //Function to retrieve image URL from firebase for MATCHES
+  getUrl = (image, cb) => {
+    storage.ref(`profileImage/${image}.jpeg`).getDownloadURL()
+      .then(url => cb(url)).catch(e => console.log(e))
+  }
+
   submitLogData = _ => {
     let newTimeLog = {
       hrsWorked: parseInt(this.state.hrsWorked),
@@ -207,7 +224,7 @@ class App extends Component {
       userId: this.state.userId
     }
 
-    console.log('hi')
+    // console.log('hi')
 
     Timelog.postOne(newTimeLog)
 
@@ -222,11 +239,15 @@ class App extends Component {
     label = label.reverse()
 
     Timelog.getAll('31')
-      .then(user => {
+      .then(({ data }) => {
 
+        for (let i = 0; i < data.length; i++) {
+          dataHrs.push(data[i].hrsWorked)
+        }
 
-        console.log(user)
-        //  this.setState({dataHrs: this.state.dataHrs.push(hrsWorked)})
+        dataHrs = dataHrs.reverse()
+        console.log(dataHrs)
+        this.setState({ dataHrs, label })
 
 
       }).catch(e => console.log(e))
@@ -265,13 +286,16 @@ class App extends Component {
               this.setState({
                 userId: data.id,
                 currentUser: data,
-                formCompleted: data.formCompleted
+                // formCompleted: data.formCompleted
               })
 
               if (this.state.formCompleted) {
                 data.images.forEach(({ text }) => this.retrieveImages(text))
                 this.setState({ text: data.images.map(({ text }) => text) })
               }
+
+
+
             }
           }
 
@@ -281,7 +305,7 @@ class App extends Component {
       }
     })
 
-    // this.graphParameters()
+    this.graphParameters()
   }
 
   // Listen to the Firebase Auth state and set the local state.
@@ -289,7 +313,28 @@ class App extends Component {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
       (user) => this.setState({ isSignedIn: !!user })
     )
-    // console.log(this.state)
+    if (this.state.formCompleted) {
+
+      Users.getInterestedIn(0)
+        .then(({ data }) => {
+          console.log('hi')
+          let matches = data.map(person => {
+            person.images.forEach((image, i) => this.getUrl(image.text, img => person.images[i] = img))
+            return person
+
+          })
+          this.setState({ matches })
+          // this.setState({matches: data})
+          // console.log(this.state.matches)
+          // this.state.matches.forEach(({images}) => {
+          //   images.forEach(({text}) => {
+          //     this.retrieveImagesMatches(`${text}.jpeg` )
+          //   })
+
+          // })
+          // console.log(this.state.matchesImageURL)
+        }).catch(e => console.error(e))
+    }
   }
 
   // Make sure we un-register Firebase observers when the component unmounts.
@@ -298,22 +343,22 @@ class App extends Component {
   }
 
   render() {
-    // console.log(this.state)
-    const { isSignedIn, displayName, email, uid, bio, dob, radioButton1, skillInterest, int1, int2, int3, phone_number, hrsWorked, timeStamp} = this.state
+    console.log(this.state)
+    const { isSignedIn, displayName, email, uid, bio, dob, radioButton1, skillInterest, int1, int2, int3, phone_number, hrsWorked, timeStamp, matches, dataHrs, label } = this.state
     return (
       <>
         <Router>
           <div>
             <Route exact path='/' render={() => isSignedIn ? (
               <>
-                <Form 
-                  key='form1' 
-                  handleInputChange={this.handleInputChange} 
-                  handleDateChange={this.handleDateChange} 
+                <Form
+                  key='form1'
+                  handleInputChange={this.handleInputChange}
+                  handleDateChange={this.handleDateChange}
                   handleChangeRb={this.handleChangeRb}
                   handleChangeRb2={this.handleChangeRb2}
                   handleChangeSkills={this.handleChangeSkills}
-                  handleInterest1={this.handleInterest1} 
+                  handleInterest1={this.handleInterest1}
                   handleInterest2={this.handleInterest2}
                   handleInterest3={this.handleInterest3}
                   handlePhoneNumber={this.handlePhoneNumber}
@@ -321,10 +366,10 @@ class App extends Component {
                   bio={bio}
                   dob={dob}
                   radioButton1={radioButton1}
-                  skillInterest={skillInterest} 
-            int1={int1} int2={int2} int3={int3} storeForm={this.storeForm} /> 
-            <NavBar />
-            </>
+                  skillInterest={skillInterest}
+                  int1={int1} int2={int2} int3={int3} storeForm={this.storeForm} />
+                <NavBar />
+              </>
             )
               :
               (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
@@ -340,7 +385,16 @@ class App extends Component {
 
           <Route exact path='/deck' render={() => isSignedIn ? (
             <>
-              <Deck/>
+              <Deck data={matches} />
+              {/* <NavBar /> */}
+            </>
+          ) :
+            (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
+          } />
+
+          <Route exact path='/loghours' render={() => isSignedIn ? (
+            <>
+              <BarData dataHrs={dataHrs}  label={label}/>
               {/* <NavBar /> */}
             </>
           ) :
