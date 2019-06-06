@@ -12,8 +12,8 @@ import logo from '../../white0101.png'
 const styles = theme => ({
   appLogo: {
     margin: '0 auto',
-    height:'140px',
-    width:'90px',
+    height:'175px',
+    width:'120px',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '10%',
@@ -37,6 +37,9 @@ const styles = theme => ({
   divStyles: {
     height: '100vh',
     position: 'relative'
+  },
+  logoDiv: {
+    display: 'flex'
   }
 })
 
@@ -46,15 +49,18 @@ class Login extends Component {
     const { uiConfig, isSignedIn, email, displayName, uid, classes } = this.props
     return (
       <div className={classes.background}>
+      <div className={classes.logoDiv}>
       <img src={logo} className={classes.appLogo} alt="logo"/>
+      </div>
         <div className={classes.divStyles}>
         {
+          
           isSignedIn
             ? (
               <Button color='secondary' onClick={() => firebase.auth().signOut()}>Sign Out</Button>
             )
             : (
-              <StyledFirebaseAuth className={classes.StyledFirebaseAuth} uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+              <StyledFirebaseAuth className={classes.StyledFirebaseAuth} uiConfig={uiConfig} firebaseAuth={firebase.auth()}  />
             )
         }
       </div>

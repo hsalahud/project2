@@ -15,23 +15,13 @@ import Users from './utils/Users.js'
 import Images from './utils/Images.js'
 import Timelog from './utils/timelog.js'
 import randomString from 'randomstring'
-import Deck from "./components/Deck";
-const moment = require ('moment')
+import Deck from './components/Deck'
+const moment = require('moment')
 
 
 
 // Configure Firebase.
-const config = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_DATABASE_URL,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-  appId: "1:510445136926:web:65b0c34824d71fe2"
-}
 // Initialize Firebase
-console.log(config)
 firebase.initializeApp({
   apiKey: "AIzaSyD47dfqP7yK4lTvCTdwVDt_yYDn6tb64Yw",
   authDomain: "bcdate-db.firebaseapp.com",
@@ -82,6 +72,8 @@ class App extends Component {
     logHours: [],
     hrsWorked: '',
     timeStamp: new Date(),
+    label: [],
+    dataHrs: []
   }
 
   ///////////////////////////////////////
@@ -89,46 +81,39 @@ class App extends Component {
     this.setState({ [event.target.id]: event.target.value })
     console.log(this.state)
   }
-// handles bio input
+  // handles bio input
   handleInputChange = event => {
     this.setState({ [event.target.id]: event.target.value })
     console.log(event.target.id)
     console.log(event.target.value)
   }
-// handles date of birth
+  // handles date of birth
   handleDateChange = event => {
-    console.log('gooble gop')
-    console.log(event)
     this.setState({ dob: new Date(event._d) })
   }
-// handles 'gender' selection
+  // handles 'gender' selection
   handleChangeRb = event => {
-    console.log(event)
-    this.setState({ isMale: event.target.value})
+    this.setState({ isMale: event.target.value })
   }
-// handles 'interested in' selection
+  // handles 'interested in' selection
   handleChangeRb2 = event => {
-    console.log(event)
     this.setState({ interestedIn: event.target.value })
   }
-// handles 'skill interests' selection
+  // handles 'skill interests' selection
   handleChangeSkills = event => {
-    console.log(event)
     this.setState({ skillInterest: event.target.value })
   }
-// handles 'personal interest 1' selection
+  // handles 'personal interest 1' selection
   handleInterest1 = event => {
-    console.log(event)
+    console.log(event.target.value)
     this.setState({ int1: event.target.value })
   }
-// handles 'personal interest 2' selection
+  // handles 'personal interest 2' selection
   handleInterest2 = event => {
-    console.log(event)
     this.setState({ int2: event.target.value })
   }
-// handles 'personal interest 3' selection
+  // handles 'personal interest 3' selection
   handleInterest3 = event => {
-    console.log(event)
     this.setState({ int3: event.target.value })
   }
   // handles 'phone number' input
@@ -142,7 +127,7 @@ class App extends Component {
     console.log(event._d)
     this.setState({ timeStamp: moment(event._d, "llll") })  ///.format("dddd, MMMM Do YYYY")  valueOf gives us unix timestamp
     // this.setState({ timeStamp: new Date(event._d) })
-    console.log(moment(this.state.timeStamp).format("dddd, MMMM Do YYYY") )
+    console.log(moment(this.state.timeStamp).format("dddd, MMMM Do YYYY"))
   }
 
   // handleLogHour = event => {
@@ -165,7 +150,7 @@ class App extends Component {
 
     //process to store newly created file in firebase
     storage.ref(`profileImage/${newFile.name}`).put(newFile)
-      .then ( () => {
+      .then(() => {
 
         ///Kumiko must creat an object for form like this
         //we create an object with the state of our inputs
@@ -183,36 +168,36 @@ class App extends Component {
       })
       .catch(e => console.log(e))
 
-      //Enter form data transfer to db here - Kumiko
-      let newForm = {
-        bio: this.state.bio,
-        dob: this.state.dob,
-        isMale: this.state.isMale,
-        interestedIn: this.state.interestedIn,
-        skillInterest: this.state.skillInterest,
-        int1: this.state.int1,
-        int2: this.state.int2,
-        int3: this.state.int3,
-        formCompleted: this.state.formCompleted
-      }
-      console.log(newForm)
-      Users.putOne(this.state.userId, newForm)
+    //Enter form data transfer to db here - Kumiko
+    let newForm = {
+      bio: this.state.bio,
+      dob: this.state.dob,
+      isMale: this.state.isMale,
+      interestedIn: this.state.interestedIn,
+      skillInterest: this.state.skillInterest,
+      int1: this.state.int1,
+      int2: this.state.int2,
+      int3: this.state.int3,
+      formCompleted: this.state.formCompleted
+    }
+    console.log(newForm)
+    Users.putOne(this.state.userId, newForm)
       .then(console.log('Successfully updated form'))
       .catch(e => console.log(e))
   }
 
 
-      ////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 
-    //Function to retrieve image URL from firebase
+  //Function to retrieve image URL from firebase
   retrieveImages = image => {
-      storage.ref(`profileImage/${image}`).getDownloadURL()
-      .then (url => {
+    storage.ref(`profileImage/${image}`).getDownloadURL()
+      .then(url => {
         let imageURL = this.state.imageURL
         imageURL.push(url)
         this.setState({ imageURL })
-      }).catch (e => console.log(e))
+      }).catch(e => console.log(e))
   }
 
   submitLogData = _ => {
@@ -221,7 +206,7 @@ class App extends Component {
       timeStamp: moment(this.state.timeStamp),
       userId: this.state.userId
     }
-    
+
     console.log('hi')
 
     Timelog.postOne(newTimeLog)
@@ -230,23 +215,32 @@ class App extends Component {
 
   graphParameters = _ => {
     let label = []
-    let data = []
-    for (let i=0; i<7; i++) {
+    let dataHrs = []
+    for (let i = 0; i < 7; i++) {
       label.push(moment().subtract(i, 'd').format('ddd'))
     }
     label = label.reverse()
-    console.log(label)
+
+    Timelog.getAll('31')
+      .then(user => {
 
 
-    Timelog.getAll()
-      .then (({data}) => {
-        data.forEach(({hrsWorked}) => {
-          console.log(hrsWorked)
-        })
+        console.log(user)
+        //  this.setState({dataHrs: this.state.dataHrs.push(hrsWorked)})
+
+
       }).catch(e => console.log(e))
 
+    // console.log(label)
+    // console.log(dataHrs)
+
+    this.setState({ dataHrs })
+
+    // console.log(this.state)
+
+
   }
-  
+
 
   componentWillMount() {
     let user = {}
@@ -270,10 +264,14 @@ class App extends Component {
             } else {
               this.setState({
                 userId: data.id,
-                currentUser: data
+                currentUser: data,
+                formCompleted: data.formCompleted
               })
-              data.images.forEach(({ text }) => this.retrieveImages(text))
-              this.setState({ text: data.images.map(({text}) => text) })
+
+              if (this.state.formCompleted) {
+                data.images.forEach(({ text }) => this.retrieveImages(text))
+                this.setState({ text: data.images.map(({ text }) => text) })
+              }
             }
           }
 
@@ -332,20 +330,25 @@ class App extends Component {
               (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
             } />
           </div>
-          <Route exact path = '/logHours' render = { () => isSignedIn ? (
+          <Route exact path='/logHours' render={() => isSignedIn ? (
             <>
-            <LogHoursForm key = 'logHoursForm' submitLogData = {this.submitLogData} handleInputChange = {this.handleInputChange} handleLogDate = {this.handleLogDate} handleLogHour = {this.handleLogHour} hrsWorked = {hrsWorked} timeStamp = {timeStamp}/>
+              <LogHoursForm key='logHoursForm' submitLogData={this.submitLogData} handleInputChange={this.handleInputChange} handleLogDate={this.handleLogDate} handleLogHour={this.handleLogHour} hrsWorked={hrsWorked} timeStamp={timeStamp} />
             </>
           ) :
-          (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
-        }/>
-        <Route exact path = '/deck' render = { () => isSignedIn ? (
+            (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
+          } />
+
+          <Route exact path='/deck' render={() => isSignedIn ? (
             <>
-            <Deck />
-              </>
+              <Deck/>
+              {/* <NavBar /> */}
+            </>
           ) :
-          (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
-        }/>
+            (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
+          } />
+
+
+
         </Router>
       </>
     )

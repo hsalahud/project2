@@ -1,15 +1,15 @@
-import React from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { animated, interpolate } from "react-spring/hooks";
+import { animated, interpolate } from "react-spring";
 import Carousel from "nuka-carousel";
 
-class Card extends React.Component {
+class Card extends Component {
   render() {
     const { i, x, y, rot, scale, trans, bind, data } = this.props;
     const { name, age, distance, text, pics } = data[i];
 
     return (
-      <animated.div
+      <animated.div id = "animation1" className = 'damnAnimations'
         key={i}
         style={{
           transform: interpolate(
@@ -18,22 +18,22 @@ class Card extends React.Component {
           )
         }}
       >
-        <animated.div
+        <animated.div id = "animation2" className = 'damnAnimations'
           {...bind(i)}
-          // style={{
-          //   transform: interpolate([rot, scale], trans)
-          // }}
+          style={{
+            // transform: interpolate([rot, scale], trans)
+          }}
         >
-          <div className="card">
+          <div className="matchCard">
             <Carousel>
               {pics.map((pic, index) => (
                 <img src={pic} key={index} alt="profilePicture" />
               ))}
             </Carousel>
-            <h2>{name},</h2>
-            <h2>{age}</h2>
-            <h5>{distance}</h5>
-            <h5>{text}</h5>
+            <h2 id = 'matchName'>{name},</h2>
+            <h2 id = 'matchAge'>{age}</h2>
+            <h5 id = 'matchDistance'>{distance}</h5>
+            <h5 id = 'matchText'>{text}</h5>
           </div>
         </animated.div>
       </animated.div>
