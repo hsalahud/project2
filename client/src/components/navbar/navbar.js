@@ -19,7 +19,7 @@ import firebase from 'firebase'
 import Form from '../form'
 
 const useStyles = makeStyles({
-  root: {
+  navRoot: {
     width: '100%',
     position: 'fixed',
     bottom: 0
@@ -77,7 +77,7 @@ function NavBar () {
   )
 
   return (
-    <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
+    <BottomNavigation value={value} onChange={handleChange} className={classes.navRoot}>
       <Link to='/stats'>
         {/* <BottomNavigationAction label='Stats' value='stats' icon={<PieChartIcon />} /> */}
       </Link>

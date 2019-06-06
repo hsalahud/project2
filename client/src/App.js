@@ -564,14 +564,14 @@ class App extends Component {
                 </>
               )
             }/>
-          <Route exact path='/loghours' render={() => isSignedIn ? (
+          {/* <Route exact path='/loghours' render={() => isSignedIn ? (
             <>
               <BarData dataHrs={dataHrs}  label={label}/>
               <NavBar />
             </>
           ) :
             (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
-          } />
+          } /> */}
 
           <Route exact path='/deleteprofile' render={() => isSignedIn ? (
             <>
