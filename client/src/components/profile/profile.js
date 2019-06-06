@@ -21,6 +21,7 @@ import trialImg from "./assets/images/pf1.jpg";
 import Fab from "@material-ui/core/Fab";
 import Icon from "@material-ui/core/Icon";
 import Create from "@material-ui/icons/Create";
+import Delete from "@material-ui/icons/Delete";
 import { Link } from "react-router-dom";
 // var ReactDOM = require('react-dom');
 import { Carousel } from 'react-responsive-carousel';
@@ -49,7 +50,7 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    // height: 'auto',
+    height: "auto",
     // padding: "0",
     // margin: "0",
   },
@@ -75,7 +76,7 @@ const styles = theme => ({
     maxHeight: "100%"
   },
   card: {
-    maxWidth: 400,
+    maxWidth: "auto",
   },
   pencil: {
     position: "relative",
@@ -104,9 +105,9 @@ const styles = theme => ({
   // height: 300px;
   // },
   slideImg:{
-    maxWidth: "100%",
+    width: "auto",
     height: "auto",
-    margin: "auto"
+    margin: "2px"
 
   },
   
@@ -123,6 +124,7 @@ function Profile(props, state) {
     arrows: false
   }
   console.log('here is the image url:::: ', imageURL)
+  console.log(props)
   return (
     <div className={classes.root}>
     <div className = "mainContainer">
@@ -146,11 +148,11 @@ function Profile(props, state) {
             </div>
           </Slide>
             <div className={classes.pencil}>
-          <Link to="../form">
+          {/* <Link to="../form">
           <Fab size="small" aria-label="Edit" className={classes.fab}>
               <Create />
             </Fab>
-          </Link>
+          </Link> */}
             </div>
         </div>      
         <Grid container spacing={2}>
@@ -163,16 +165,19 @@ function Profile(props, state) {
               <Typography color="textSecondary">I'm Interested in...</Typography>
               <Typography color="textPrimary">{skillInterest}</Typography>
               <Typography color="textSecondary">I like...</Typography>
-              {/* <Breadcrumbs aria-lable="Breadcrumb"> */}
-                <Typography color="textPrimary">{int1}</Typography>
-                <Typography color="textPrimary">{int2}</Typography>
-                <Typography color="textPrimary">{int3}</Typography>
-              {/* </Breadcrumbs> */}
-              {/* <Link to="../form">
+              <Breadcrumbs aria-lable="Breadcrumb">
+                <Typography color="textPrimary">{int1} {int2} {int3}</Typography>
+                {/* <Typography color="textPrimary">{int2}</Typography>
+                <Typography color="textPrimary">{int3}</Typography> */}
+              </Breadcrumbs>
+              <Link to="../form">
                 <Fab size="small" aria-label="Edit" className={classes.fab}>
                   <Create />
                 </Fab>
-              </Link> */}
+              </Link>
+              <Fab size="small" aria-label="Delete" className={classes.fab}>
+                  <Delete />
+              </Fab>
             </CardContent>
           </card>
         </Grid>

@@ -50,19 +50,19 @@ class App extends Component {
   state = {
     isSignedIn: false,
     displayName: '',
-    email: null,
-    uid: null,
+    email: '',
+    uid: '',
     dob: new Date(),
     phone_number: '',
     isMale: '',
-    interestedIn: null,
+    interestedIn: false,
     skillInterest: '',
     int1: '',
     int2: '',
     int3: '',
     bio: '',
-    formCompleted: true,
-    userId: null,
+    formCompleted: false,
+    userId: '',
     text: [],
     imageURL: [],
     currentUser: {},
@@ -268,7 +268,8 @@ class App extends Component {
           int3: r.data.int3,
           bio: r.data.bio,
           formCompleted: r.data.formCompleted,
-          imgURL: r.data.images,
+          imgURL: r.data.images
+          // userId: r.data.id
         });
       })
       .catch(e => console.log(e));
@@ -329,6 +330,7 @@ class App extends Component {
   ///////////////////END OF JAGA's UPDATE PROFILE FUNCTION/////////////////////
 
   componentWillMount() {
+    console.log('HEEEEEEEELP')
     let user = {}
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -369,7 +371,7 @@ class App extends Component {
 
     // this.graphParameters()
     this.retrieveUser(this.state.uid);
-    console.log(this.state.uid);
+    console.log(this.state);
   }
 
   // Listen to the Firebase Auth state and set the local state.

@@ -48,7 +48,7 @@ const Form = (props) => {
 
       }
       
-      <Button id='submit' onClick={props.storeForm}>Submit</Button>
+      {/* <Button id='submit' onClick={props.storeForm}>Submit</Button> */}
     </>
   )
 }
