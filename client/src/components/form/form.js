@@ -24,7 +24,7 @@ import './form.css'
 const Form = (props) => {
   return (
     <Grid id='container'>
-      <h1 id='greeting'>Welcome Name!</h1>
+      <h1 id='greeting'>Welcome {props.displayName.split(' ')[0]}!</h1>
       <Grid id='formContainer' container spacing={3} >
         <Grid id='dateOfBirth' item xs={6}>
           <DateofBirth key='dateOfBirth' handleInputChange={props.handleInputChange} handleDateChange={props.handleDateChange} selectedDate={props.dob} />
