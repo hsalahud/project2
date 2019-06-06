@@ -47,7 +47,7 @@ import { pink } from "@material-ui/core/colors";
 
 // import placeholder from components
 const styles = theme => ({
-  root: {
+  profileRoot: {
     flexGrow: 1,
     // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     height: "auto",
@@ -126,7 +126,7 @@ function Profile(props, state) {
   console.log('here is the image url:::: ', imageURL)
   console.log(props)
   return (
-    <div className={classes.root}>
+    <div className={classes.profileRoot}>
     <div className = "mainContainer">
       <Paper className={classes.paper}>
         <div className ={classes.slideShow}>
