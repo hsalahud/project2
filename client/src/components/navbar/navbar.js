@@ -81,7 +81,7 @@ function NavBar () {
       <Link to='/stats'>
         {/* <BottomNavigationAction label='Stats' value='stats' icon={<PieChartIcon />} /> */}
       </Link>
-      <Link>
+      <Link to = '/profile'>
         <>
           <BottomNavigationAction label='Profile' value='profile' icon={<PersonIcon />} onClick={toggleDrawer('bottom', true)} />
           {/* <Drawer classes={{ paper: classes.paper }} anchor='bottom' open={state.bottom} onClose={toggleDrawer('bottom', false)}>

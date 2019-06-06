@@ -16,6 +16,7 @@ import RadioButtons from './components/radiobuttons/radiobuttons'
 import SkillInterests from './components/skillInterests/skillInterests'
 import PersonalInterests from './components/personalInterests/personalInterests'
 import UploadButton from './components/uploadbutton/uploadbutton'
+import { Link } from "react-router-dom";
 import PhoneNumber from './components/number/number'
 import Grid from '@material-ui/core/Grid'
 import './form.css'
@@ -48,7 +49,21 @@ const Form = (props) => {
             <UploadButton />
           </Grid>
           <Grid item xs={3}>
+
+          {
+        props.formCompleted ? (
+          <Link to="../profile">
+          <Button id='update' variant = 'contained' onClick = {props.updateProfile}>Update</Button>
+          </Link>
+          
+          ) :
+          
+          (
             <Button variant='contained' id='submit' onClick={props.storeForm}>Submit</Button>
+        )
+
+      }
+            
           </Grid>
         </div>
       </Grid>
