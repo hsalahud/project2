@@ -4,8 +4,8 @@ import { useSprings, animated, interpolate } from 'react-spring'
 import { useGesture } from 'react-use-gesture'
 import Card from './Component/Card'
 import './Deck.css'
-import data from '../../mockDeckData/mockDeckData.js'
-import NavBar from '../navbar'
+// import data from '../../mockDeckData/mockDeckData.js'
+import NavBar from '../navbar';
 
 // const cards = [
 //   'https://upload.wikimedia.org/wikipedia/en/f/f5/RWS_Tarot_08_Strength.jpg',
@@ -22,7 +22,8 @@ const from = i => ({ x: 0, rot: 0, scale: 1.5, y: -1000 })
 // This is being used down there in the view, it interpolates rotation and scale into a css transform
 const trans = (r, s) => `perspective(1500px) rotateX(30deg) rotateY(${r / 10}deg) rotateZ(${r}deg) scale(${s})`
 
-const Deck = () => {
+const  Deck = ({data}) => {
+  
   const [gone] = useState(() => new Set()) // The set flags all the cards that are flicked out
   const [props, set] = useSprings(data.length, i => ({ ...to(i), from: from(i) })) // Create a bunch of springs using the helpers above
   // Create a gesture, we're interested in down-state, delta (current-pos - click-pos), direction and velocity
