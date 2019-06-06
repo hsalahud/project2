@@ -6,6 +6,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers'
+import './dateofbirth.css'
 
 const useStyles = makeStyles({
   grid: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
 const DateofBirth = (props) => {
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
-      <Grid container className={useStyles.grid} justify='space-around'>
+      <Grid id='dateofbirth' container className={useStyles.grid} justify='space-around'>
         <KeyboardDatePicker
           id='dob'
           key='dateOfBirth'
