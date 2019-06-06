@@ -1,7 +1,7 @@
 const db = require('../models')
 const moment = require('moment')
 const Sequelize = require('sequelize')
-const Op = Sequelize.Op;
+const Op = Sequelize.Op
 
 module.exports = app => {
   app.get('/timelog', (req, res) => {

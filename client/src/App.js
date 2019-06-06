@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import NavBar from './components/navbar'
 import Login from './components/login'
 // import Stats from './components/stats'
-// import Profile from './components/profile'
+import Profile from './components/profile'
 // import Matches from './components/matches'
 // import Chat from './components/chat'
 import Form from './components/form'
@@ -273,8 +273,7 @@ class App extends Component {
     Users.deleteOne(this.state.userId)
     Images.deleteOne(this.state.userId)
     Timelog.deleteOne(this.state.userId)
-
-    // this.state.text.forEach(text => {
+      // this.state.text.forEach(text => {
     //   let ref = storage.ref.child(`profileImage/${text}.jpeg`)
 
     //   ref.delete()
@@ -285,18 +284,105 @@ class App extends Component {
     //   })
 
     firebase.auth().signOut()
-    // const sqlId = this.state.userId
-    // const firebaseId = this.state.uid
-    // fetch(`/users/${sqlId}`, {
-    //   method: 'DELETE'
-    // })
-    //   // .then(() => location.pathname = '/login')
-    //   // .catch()
+  
 
 
   }
+    //   /////////////////////////////////////////////////////
+  //This is retrieving user and console logs out all of user info
+  retrieveUser = uniqueId => {
+    console.log(`Retrieving user ${uniqueId}`);
+    Users.getOne(uniqueId)
+      //   .then(({data}) => {
+      //     this.state.dob = data.dob
+      //     this.state['phone_number'] = data.phone_number
+      //     this.state.isMale = data.isMale
+      //     this.state.interestedIn = data.interestedIn
+      //     this.state.skillInterest = data.skillInterest
+      //     this.state.int1 = data.int1
+      //     this.state.int2 = data.int2
+      //     this.state.int3 = data.int3
+      //     this.state.bio = data.bio
+      //     this.state.formCompleted = data.formCompleted
+      // })
+      .then(r => {
+        this.setState({
+          dob: r.data.dob,
+          phone_number: r.data.phone_number,
+          isMale: r.data.isMale ? '1' : '0',
+          interestedIn: r.data.interestedIn ? '1' : '0',
+          skillInterest: r.data.skillInterest,
+          int1: r.data.int1,
+          int2: r.data.int2,
+          int3: r.data.int3,
+          bio: r.data.bio,
+          formCompleted: r.data.formCompleted,
+          imgURL: r.data.images
+          // userId: r.data.id
+        });
+      })
+      .catch(e => console.log(e));
+  };
+  ////////////////////////////////////////////////////
+
+  ////////////////JAGA's UPDATE PROFILE FUNCTION//////////////////////////////
+
+  updateProfile = () => {
+
+    let updateUser = {
+      dob: this.state.dob,
+      isMale: this.state.isMale ? true : false,
+      interestedIn: this.state.interestedIn ? true : false,
+      skillInterest: this.state.skillInterest,
+      int1: this.state.int1,
+      int2: this.state.int2,
+      int3: this.state.int3,
+      bio: this.state.bio,
+    }
+
+    Users.putOne (this.state.userId, updateUser)
+      .then (console.log('Successfully updated user'))
+      .catch(e => console.log(e))
+
+    if (document.querySelector("#contained-button-file").files[0]) {
+      console.log('heyyyyy')
+    const file = document.querySelector("#contained-button-file").files[0];
+    let newFileName = randomString.generate();
+    const newFile = new File([file], newFileName, { type: file.type });
+
+    //Enter variables here
+
+    //process to store newly created file in firebase
+    storage
+      .ref(`profileImage/${newFile.name}`)
+      .put(newFile)
+      .then(() => {
+        //we create an object with the state of our inputs
+        let newImage = {
+          text: newFileName,
+          userId: this.state.userId
+        };
+
+        //Here we create a new row in our mysql db and post the image details there
+        
+        Images.postOne(newImage);
+        //As soon as we submit the form, we get the image URL from firebase
+        this.retrieveImages(newFileName);
+      })
+      .catch(e => console.log(e));
+
+    }
+
+  }
+
+
+  ///////////////////END OF JAGA's UPDATE PROFILE FUNCTION/////////////////////
+ 
+
+  
 
   componentWillMount() {
+    console.log('HEEEEEEEELP')
     let user = {}
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
@@ -323,7 +409,7 @@ class App extends Component {
               this.setState({
                 userId: data.id,
                 currentUser: data,
-                // formCompleted: data.formCompleted
+                formCompleted: data.formCompleted
               })
 
               if (this.state.formCompleted) {
@@ -343,7 +429,9 @@ class App extends Component {
       }
     })
 
-    this.graphParameters()
+    // this.graphParameters()
+    this.retrieveUser(this.state.uid);
+    console.log(this.state);
   }
 
   // Listen to the Firebase Auth state and set the local state.
@@ -382,7 +470,7 @@ class App extends Component {
 
   render() {
     console.log(this.state)
-    const { isSignedIn, displayName, email, uid, bio, dob, radioButton1, skillInterest, int1, int2, int3, phone_number, hrsWorked, timeStamp, matches, dataHrs, label } = this.state
+    const { isSignedIn, displayName, email, uid, bio, dob, radioButton1, skillInterest, int1, int2, int3, phone_number, hrsWorked, timeStamp, imageURL, formCompleted, matches, dataHrs, label } = this.state
     return (
       <>
         <Router>
@@ -432,10 +520,71 @@ class App extends Component {
             (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
           } />
 
+          <Route
+              exact
+              path="/profile"
+              render={() =>
+                isSignedIn  && formCompleted ?(
+                  <>
+                    {/* <Form key='form1' handleInputChange={this.handleInputChange} handleDateChange={this.handleDateChange} handleChangeRb={this.handleChangeRb} handleChangeRb2={this.handleChangeRb2} handleChangeSkills={this.handleChangeSkills} handleInterest1={this.handleInterest1} handleInterest2={this.handleInterest2} handleInterest3={this.handleInterest3} bio={bio} dob={dob} radioButton1={radioButton1} skillInterest={skillInterest} int1={int1} int2={int2} int3={int3} storeForm = {this.storeForm} /> */}
+                    <Profile
+                      uid={uid}
+                      displayName={displayName}
+                      dob={dob}
+                      skillInterest={skillInterest}
+                      int1={int1}
+                      int2={int2}
+                      int3={int3}
+                      bio={bio}
+                      imageURL = {imageURL}
+                      updateProfile = {this.updateProfile}
+                    />
+                    <NavBar key = 'navbarFormToProfile'/>
+                  </>
+                ) : (
+                  <Login uiConfig={uiConfig} isSignedIn={isSignedIn} />
+                )
+              }
+              />
+
+<Route
+            exact
+            path="/form"
+            render={() =>
+              isSignedIn ? (
+                <>
+                  <Form
+                    key="form1"
+                    handleInputChange={this.handleInputChange}
+                    handleDateChange={this.handleDateChange}
+                    handleChangeRb={this.handleChangeRb}
+                    handleChangeRb2={this.handleChangeRb2}
+                    handleChangeSkills={this.handleChangeSkills}
+                    handleInterest1={this.handleInterest1}
+                    handleInterest2={this.handleInterest2}
+                    handleInterest3={this.handleInterest3}
+                    bio={bio}
+                    dob={dob}
+                    radioButton1={radioButton1}
+                    skillInterest={skillInterest}
+                    int1={int1}
+                    int2={int2}
+                    int3={int3}
+                    storeForm={this.storeForm}
+                    formCompleted = {formCompleted}
+                    updateProfile = {this.updateProfile}
+                  />
+                </>
+              ) : (
+                <>
+                  <Login uiConfig={uiConfig} isSignedIn={isSignedIn} />
+                </>
+              )
+            }/>
           <Route exact path='/loghours' render={() => isSignedIn ? (
             <>
               <BarData dataHrs={dataHrs}  label={label}/>
-              {/* <NavBar /> */}
+              <NavBar />
             </>
           ) :
             (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
@@ -460,8 +609,3 @@ class App extends Component {
 }
 
 export default App
-
-
-
-
-
