@@ -1,24 +1,50 @@
+.mainContainer {
+  height: auto;
+  padding: "10px";
+  margin: 3px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+/* Moves the body up to fill in border */
+body{
+  margin-bottom: 100px;
+}
+
+#root {
+  padding: 5px;
+  background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
+  margin: 0 auto;
+  height: auto;
+  /* width: 300px */
+}
+
 .slide-container {
   width: 100%;
   margin: "auto"; 
 }
 
-h3 {
-  text-align: center; }
 
+
+/* This styling is for images */
 .each-slide > div {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-size: cover;
-  height: 300px;
-  width: 100%
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-top: 0px;
+  max-width: 100%;
+  height: 200px;
+  background-position: center;
 }
 
 .each-slide span {
-  padding: 20px;
+  padding: 2px;
   font-size: 20px;
-  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)';
+  /* background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%); */
   text-align: center;
 }
 

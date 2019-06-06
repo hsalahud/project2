@@ -48,8 +48,16 @@ import { pink } from "@material-ui/core/colors";
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
+    // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    // height: 'auto',
+    // padding: "0",
+    // margin: "0",
   },
+  // mainContainer: {
+  //   height: 'auto',
+  //   padding: "0",
+  //   margin: "0",
+  // },
   paper: {
     // padding: theme.spacing(2),
     margin: "1rem",
@@ -69,9 +77,15 @@ const styles = theme => ({
   card: {
     maxWidth: 400,
   },
+  pencil: {
+    position: "relative",
+    marginTop: "30",
+    marginRight: "10"
+  },
   fab: {
     margin: theme.spacing(1),
-    alignItems:"right" 
+    alignItems:"right",
+    float: "right"
   },
   extendedIcon: {
     marginRight: theme.spacing(1)
@@ -90,10 +104,12 @@ const styles = theme => ({
   // height: 300px;
   // },
   slideImg:{
-    width: "100%",
+    maxWidth: "100%",
     height: "auto",
     margin: "auto"
-  }
+
+  },
+  
 });
 function Profile(props, state) {
   const { classes, displayName, bio, skillInterest, int1, int2, int3, imageURL} = props;
@@ -106,8 +122,10 @@ console.log("HIIII" + imageURL)
     indicators: false,
     arrows: false
   }
+  console.log('here is the image url:::: ', imageURL)
   return (
     <div className={classes.root}>
+    <div className = "mainContainer">
       <Paper className={classes.paper}>
         <div className ={classes.slideShow}>
           <Slide {...properties}>
@@ -127,6 +145,13 @@ console.log("HIIII" + imageURL)
               </div>
             </div>
           </Slide>
+            <div className={classes.pencil}>
+          <Link to="../form">
+          <Fab size="small" aria-label="Edit" className={classes.fab}>
+              <Create />
+            </Fab>
+          </Link>
+            </div>
         </div>      
         <Grid container spacing={2}>
           <card className={classes.card}>
@@ -138,19 +163,20 @@ console.log("HIIII" + imageURL)
               <Typography color="textSecondary">I'm Interested in...</Typography>
               <Typography color="textPrimary">{skillInterest}</Typography>
               <Typography color="textSecondary">I like...</Typography>
-              <Breadcrumbs aria-lable="Breadcrumb">
+              {/* <Breadcrumbs aria-lable="Breadcrumb"> */}
                 <Typography color="textPrimary">{int1}</Typography>
                 <Typography color="textPrimary">{int2}</Typography>
                 <Typography color="textPrimary">{int3}</Typography>
-              </Breadcrumbs>
-              <Link to="../form">
+              {/* </Breadcrumbs> */}
+              {/* <Link to="../form">
                 <Fab size="small" aria-label="Edit" className={classes.fab}>
                   <Create />
                 </Fab>
-              </Link>
+              </Link> */}
             </CardContent>
           </card>
         </Grid>
+{/* chart container for hamza */}
         <Grid container spacing={2}>
           <card className={classes.card}>
             <CardContent>
@@ -162,6 +188,7 @@ console.log("HIIII" + imageURL)
         </Grid>
       </Paper>
     </div>
+  </div>
   );
 }
 Profile.propTypes = {
