@@ -27,6 +27,7 @@ import { Carousel } from 'react-responsive-carousel';
 import ReactDOM from 'react-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Slide } from 'react-slideshow-image'
+import { pink } from "@material-ui/core/colors";
 
 
 {
@@ -39,21 +40,20 @@ import { Slide } from 'react-slideshow-image'
   image={props.imageURL[0]}
   alt="trial image"
   title="My Picture"
- />
+/>
 </div> */
 }
 
 // import placeholder from components
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
   },
   paper: {
-    
-    padding: theme.spacing(2),
-    margin: "auto",
-   
-    maxWidth: 500
+    // padding: theme.spacing(2),
+    margin: "1rem",
+    maxWidth: "auto"
   },
 
   image: {
@@ -61,16 +61,17 @@ const styles = theme => ({
     height: 128
   },
   img: {
-    margin: "auto",
-    display: "block",
+    //margin: "auto",
+    //display: "block",
     maxWidth: "100%",
     maxHeight: "100%"
   },
   card: {
-    maxWidth: 400
+    maxWidth: 400,
   },
   fab: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
+    alignItems:"right" 
   },
   extendedIcon: {
     marginRight: theme.spacing(1)
@@ -78,6 +79,7 @@ const styles = theme => ({
   slideShow : {
     height: 300
   },
+  
   // eachSlide:{
   //   height: 150,
   //   width: "80%",
@@ -88,7 +90,7 @@ const styles = theme => ({
   // height: 300px;
   // },
   slideImg:{
-    width: "80%",
+    width: "100%",
     height: "auto",
     margin: "auto"
   }
@@ -97,94 +99,69 @@ function Profile(props, state) {
   const { classes, displayName, bio, skillInterest, int1, int2, int3, imageURL} = props;
 console.log("HIIII" + imageURL)
   
-   
   const properties = {
     duration: 5000,
     transitionDuration: 500,
     infinite: true,
-    indicators: true,
-    arrows: true
+    indicators: false,
+    arrows: false
   }
   return (
-    <>
-    <div className ={classes.slideShow}>
-          <Slide {...properties}>
-        <div className="each-slide">
-          <div style={{'backgroundImage': `url(${imageURL[0]})`}} className = {classes.slideImg}>
-            {/* <span>Slide 1</span> */}
-          </div>
-        </div>
-        <div className="each-slide">
-          <div style={{'backgroundImage': `url(${imageURL[1]})`} } className = {classes.slideImg}>
-            {/* <span>Slide 2</span> */}
-          </div>
-        </div>
-        <div className= "each-slide">
-          <div style={{'backgroundImage': `url(${imageURL[2]})`}} className = {classes.slideImg}>
-            {/* <span>Slide 3</span> */}
-          </div>
-        </div>
-      </Slide>
-      </div>
-      
     <div className={classes.root}>
       <Paper className={classes.paper}>
+        <div className ={classes.slideShow}>
+          <Slide {...properties}>
+            <div className="each-slide">
+              <div style={{'backgroundImage': `url(${imageURL[0]})`}} className = {classes.slideImg}>
+                {/* <span>Slide 1</span> */}
+              </div>
+            </div>
+            <div className="each-slide">
+              <div style={{'backgroundImage': `url(${imageURL[1]})`} } className = {classes.slideImg}>
+                {/* <span>Slide 2</span> */}
+              </div>
+            </div>
+            <div className= "each-slide">
+              <div style={{'backgroundImage': `url(${imageURL[2]})`}} className = {classes.slideImg}>
+                {/* <span>Slide 3</span> */}
+              </div>
+            </div>
+          </Slide>
+        </div>      
         <Grid container spacing={2}>
-          {/* <Card className={classes.card}>
-            
-          </Card> */}
+          <card className={classes.card}>
+            <CardContent>
+              <Typography color="textSecondary">I am...</Typography>  
+              <Typography color="textPrimary">{displayName}</Typography>
+              <Typography color="textSecondary">My bio...</Typography>
+              <Typography color="textPrimary">{bio}</Typography>
+              <Typography color="textSecondary">I'm Interested in...</Typography>
+              <Typography color="textPrimary">{skillInterest}</Typography>
+              <Typography color="textSecondary">I like...</Typography>
+              <Breadcrumbs aria-lable="Breadcrumb">
+                <Typography color="textPrimary">{int1}</Typography>
+                <Typography color="textPrimary">{int2}</Typography>
+                <Typography color="textPrimary">{int3}</Typography>
+              </Breadcrumbs>
+              <Link to="../form">
+                <Fab size="small" aria-label="Edit" className={classes.fab}>
+                  <Create />
+                </Fab>
+              </Link>
+            </CardContent>
+          </card>
+        </Grid>
+        <Grid container spacing={2}>
+          <card className={classes.card}>
+            <CardContent>
+              <>
+                <Typography color="Secondary">Charts</Typography>
+              </>
+            </CardContent>
+          </card>
         </Grid>
       </Paper>
-      <Paper className={classes.paper}>
-        <Grid container spacing={2}>
-          <Breadcrumbs aria-label="Breadcrumb">
-            <Typography color="textPrimary">{displayName}</Typography>
-          </Breadcrumbs>
-        </Grid>
-      </Paper>
-      <Paper className={classes.paper}>
-        <Grid container spacing={2}>
-          <Breadcrumbs aria-label="Breadcrumb">
-            <Typography color="textPrimary">{bio}</Typography>
-          </Breadcrumbs>
-        </Grid>
-      </Paper>
-      <Paper className={classes.paper}>
-        <Grid container spacing={2}>
-          <Breadcrumbs aria-label="Breadcrumb">
-            <Typography color="textPrimary">{skillInterest}</Typography>
-          </Breadcrumbs>
-        </Grid>
-      </Paper>
-      <Paper className={classes.paper}>
-        <Grid container spacing={2}>
-          <Breadcrumbs aria-label="Breadcrumb">
-            <Typography color="textPrimary">{int1}</Typography>
-          </Breadcrumbs>
-        </Grid>
-      </Paper>
-      <Paper className={classes.paper}>
-        <Grid container spacing={2}>
-          <Breadcrumbs aria-label="Breadcrumb">
-            <Typography color="textPrimary">{int2}</Typography>
-          </Breadcrumbs>
-        </Grid>
-      </Paper>
-      <Paper className={classes.paper}>
-        <Grid container spacing={2}>
-          <Breadcrumbs aria-label="Breadcrumb">
-            <Typography color="textPrimary">{int3}</Typography>
-          </Breadcrumbs>
-        </Grid>
-      </Paper>
-      <Link to="../form">
-      <Create />
-        <div>
-            <Fab size="small" aria-label="Edit" className={classes.fab} />
-        </div>
-      </Link>
-      </div>
-    </>
+    </div>
   );
 }
 Profile.propTypes = {

@@ -1,26 +1,30 @@
 .slide-container {
-  width: 70%;
-  margin: auto; }
+  width: 100%;
+  margin: "auto"; 
+}
 
 h3 {
   text-align: center; }
 
 .each-slide > div {
-  /* display: flex; */
+  display: flex;
   align-items: center;
   justify-content: center;
   background-size: cover;
   height: 300px;
+  width: 100%
 }
 
 .each-slide span {
   padding: 20px;
   font-size: 20px;
-  background: #efefef;
+  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)';
   text-align: center;
 }
 
-
+/* .slideShow {
+  height: 300
+} */
 
 /* .each-fade .image-container {
   width: 75%;
