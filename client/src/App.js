@@ -322,7 +322,7 @@ class App extends Component {
       <>
         <Router>
           <div>
-            <Route exact path='/' render={() => isSignedIn ? (
+            <Route exact path='/form' render={() => isSignedIn ? (
               <div id='form'>
                 <Form 
                   key='form1' 
