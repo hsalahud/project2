@@ -47,13 +47,13 @@ import { pink } from "@material-ui/core/colors";
 
 // import placeholder from components
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    height: "auto",
-    // padding: "0",
-    // margin: "0",
-  },
+  // profileRoot: {
+  //   flexGrow: 1,
+  //   // background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  //   height: "auto",
+  //   // padding: "0",
+  //   // margin: "0",
+  // },
   // mainContainer: {
   //   height: 'auto',
   //   padding: "0",
@@ -73,7 +73,8 @@ const styles = theme => ({
     //margin: "auto",
     //display: "block",
     maxWidth: "100%",
-    maxHeight: "100%"
+    maxHeight: "100%",
+    backgroundColor: 'black',
   },
   card: {
     maxWidth: "auto",
@@ -126,7 +127,7 @@ function Profile(props, state) {
   console.log('here is the image url:::: ', imageURL)
   console.log(props)
   return (
-    <div className={classes.root}>
+  <div className='profileRoot'>
     <div className = "mainContainer">
       <Paper className={classes.paper}>
         <div className ={classes.slideShow}>
@@ -147,14 +148,30 @@ function Profile(props, state) {
               </div>
             </div>
           </Slide>
-            <div className={classes.pencil}>
-          {/* <Link to="../form">
+          <div className={classes.pencil}>
+          <Link to="../form">
           <Fab size="small" aria-label="Edit" className={classes.fab}>
               <Create />
             </Fab>
-          </Link> */}
-            </div>
-        </div>      
+          </Link>
+          <Link to="../form">
+          <Fab size="small" aria-label="Delete" className={classes.fab}>
+              <Delete />
+          </Fab> 
+          </Link>
+          </div>
+        </div>
+        {/* <div className={classes.pencil}>
+          <Link to="../form">
+          <Fab size="small" aria-label="Edit" className={classes.fab}>
+              <Create />
+            </Fab>
+          </Link>
+          <Fab size="small" aria-label="Delete" className={classes.fab}>
+              <Delete />
+          </Fab> 
+            </div> */}
+               
         <Grid container spacing={2}>
           <card className={classes.card}>
             <CardContent>
@@ -170,19 +187,19 @@ function Profile(props, state) {
                 {/* <Typography color="textPrimary">{int2}</Typography>
                 <Typography color="textPrimary">{int3}</Typography> */}
               </Breadcrumbs>
-              <Link to="../form">
+              {/* <Link to="../form">
                 <Fab size="small" aria-label="Edit" className={classes.fab}>
                   <Create />
                 </Fab>
               </Link>
               <Fab size="small" aria-label="Delete" className={classes.fab}>
                   <Delete />
-              </Fab>
+              </Fab> */}
             </CardContent>
           </card>
         </Grid>
 {/* chart container for hamza */}
-        <Grid container spacing={2}>
+        {/* <Grid container spacing={2}>
           <card className={classes.card}>
             <CardContent>
               <>
@@ -190,10 +207,11 @@ function Profile(props, state) {
               </>
             </CardContent>
           </card>
-        </Grid>
+        </Grid> */}
       </Paper>
     </div>
   </div>
+  
   );
 }
 Profile.propTypes = {
