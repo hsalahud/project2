@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
+import './number.css'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 const PhoneNumber = (props) => {
   // console.log(props)
   return (
-    <div className={useStyles.container}>
+    <div id='numberInput' className={useStyles.container}>
       <FormControl className={useStyles.formControl}>
         <InputLabel htmlFor='formatted-text-mask-input'>Phone Number</InputLabel>
         <Input
@@ -27,7 +28,6 @@ const PhoneNumber = (props) => {
           id='formatted-text-mask-input'
         />
       </FormControl>
-      />
     </div>
   )
 }

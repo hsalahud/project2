@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem'
 import TextField from '@material-ui/core/TextField'
+import './personalInterests.css'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -20,7 +21,10 @@ const useStyles = makeStyles(theme => ({
 
 const PersonalInterests = (props) => {
   return (
-    <form className={useStyles.container} noValidate autoComplete='off'>
+    <form id='personal' className={useStyles.container} noValidate autoComplete='off'>
+      <div id='title' font-size='16px'>
+        <h4>Personal Interests</h4>
+      </div>
       <div>
         <TextField
           key='personalInterest1'

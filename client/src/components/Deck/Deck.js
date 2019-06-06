@@ -49,17 +49,17 @@ const  Deck = ({data}) => {
     // </animated.div>
 
     <>
-    <Card id='matchCards'
-    i={i}
-    x={x}
-    y={y}
-    rot={rot}
-    scale={scale}
-    trans={trans}
-    data={data}
-    bind={bind}
-  />
-  <NavBar/>
+      <Card id='matchCards'
+        i={i}
+        x={x}
+        y={y}
+        rot={rot}
+        scale={scale}
+        trans={trans}
+        data={data}
+        bind={bind}
+      />
+      <NavBar />
   </>
   ))
 }

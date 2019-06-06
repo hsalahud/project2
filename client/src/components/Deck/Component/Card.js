@@ -1,7 +1,7 @@
-import React, {Component} from "react";
-import PropTypes from "prop-types";
-import { animated, interpolate } from "react-spring";
-import Carousel from "nuka-carousel";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { animated, interpolate } from 'react-spring'
+import Carousel from 'nuka-carousel'
 
 class Card extends Component {
   render() {
@@ -10,7 +10,7 @@ class Card extends Component {
     const { name, bio, images, skillInterest, int1, int2, int3 } = data[i];
 
     return (
-      <animated.div id = "animation1" className = 'damnAnimations'
+      <animated.div id='animation1' className='damnAnimations'
         key={i}
         style={{
           transform: interpolate(
@@ -19,13 +19,13 @@ class Card extends Component {
           )
         }}
       >
-        <animated.div id = "animation2" className = 'damnAnimations'
+        <animated.div id='animation2' className='damnAnimations'
           {...bind(i)}
           style={{
             // transform: interpolate([rot, scale], trans)
           }}
         >
-          <div className="matchCard">
+          <div className='matchCard'>
             <Carousel>
               {images.map((image, index) => (
                 <img src={image} key={index} alt="profilePicture" />
@@ -42,7 +42,7 @@ class Card extends Component {
           </div>
         </animated.div>
       </animated.div>
-    );
+    )
   }
 }
 
@@ -52,6 +52,6 @@ Card.propTypes = {
   distance: PropTypes.string,
   text: PropTypes.string,
   pics: PropTypes.array
-};
+}
 
-export default Card;
+export default Card

@@ -16,9 +16,8 @@ import Images from './utils/Images.js'
 import Timelog from './utils/timelog.js'
 import randomString from 'randomstring'
 import Deck from './components/Deck'
+import DeleteProfile from './components/delete/deleteprofile'
 const moment = require('moment')
-
-
 
 // Configure Firebase.
 // Initialize Firebase
@@ -85,43 +84,49 @@ class App extends Component {
   }
   // handles bio input
   handleInputChange = event => {
+    console.log(this.state)
     this.setState({ [event.target.id]: event.target.value })
-    // console.log(event.target.id)
-    // console.log(event.target.value)
   }
   // handles date of birth
   handleDateChange = event => {
+    console.log(this.state)
     this.setState({ dob: new Date(event._d) })
   }
   // handles 'gender' selection
   handleChangeRb = event => {
+    console.log(event.target.value)
+    this.setState({ isMale: event.target.value})
     this.setState({ isMale: event.target.value })
   }
   // handles 'interested in' selection
   handleChangeRb2 = event => {
+    console.log(this.state)
     this.setState({ interestedIn: event.target.value })
   }
   // handles 'skill interests' selection
   handleChangeSkills = event => {
-    this.setState({ skillInterest: event.target.value })
+    console.log(this.state)
+    this.setState({ ...this.state, skillInterest: event.target.value })
   }
   // handles 'personal interest 1' selection
   handleInterest1 = event => {
-    // console.log(event.target.value)
+    // console.log(this.state)
     this.setState({ int1: event.target.value })
   }
   // handles 'personal interest 2' selection
   handleInterest2 = event => {
+    console.log(this.state)
     this.setState({ int2: event.target.value })
   }
   // handles 'personal interest 3' selection
   handleInterest3 = event => {
+    console.log(this.state)
     this.setState({ int3: event.target.value })
   }
   // handles 'phone number' input
   handlePhoneNumber = (event) => {
-    // console.log('::'.repeat(100), event)
-    // this.setState({ phone_number: event.target.value })
+    // console.log(this.state)
+    this.setState({ phone_number: event.target.value })
   }
 
   handleLogDate = event => {
@@ -146,9 +151,12 @@ class App extends Component {
 
     ////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////
+    if(document.querySelector('#contained-button-file').files[0]
+    ) {
+
     const file = document.querySelector('#contained-button-file').files[0]
     let newFileName = randomString.generate()
-    const newFile = new File([file], newFileName, { type: file.type });
+    const newFile = new File([file], newFileName, { type: file.type })
 
     //process to store newly created file in firebase
     storage.ref(`profileImage/${newFile.name}`).put(newFile)
@@ -169,7 +177,7 @@ class App extends Component {
 
       })
       .catch(e => console.log(e))
-
+    }
     //Enter form data transfer to db here - Kumiko
     let newForm = {
       bio: this.state.bio,
@@ -187,7 +195,6 @@ class App extends Component {
       .then(console.log('Successfully updated form'))
       .catch(e => console.log(e))
   }
-
 
   ////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////
@@ -262,6 +269,17 @@ class App extends Component {
 
   }
 
+  // deleteUser = () => {
+  //   const sqlId = this.state.userId
+  //   const firebaseId = this.state.uid
+  //   fetch(`/users/${sqlId}`, {
+  //     method: 'DELETE'
+  //   })
+  //     .then(() => location.pathname = '/login')
+  //     .catch()
+
+
+  // }
 
   componentWillMount() {
     let user = {}
@@ -350,11 +368,11 @@ class App extends Component {
         <Router>
           <div>
             <Route exact path='/' render={() => isSignedIn ? (
-              <>
-                <Form
-                  key='form1'
-                  handleInputChange={this.handleInputChange}
-                  handleDateChange={this.handleDateChange}
+              <div id='form'>
+                <Form 
+                  key='form1' 
+                  handleInputChange={this.handleInputChange} 
+                  handleDateChange={this.handleDateChange} 
                   handleChangeRb={this.handleChangeRb}
                   handleChangeRb2={this.handleChangeRb2}
                   handleChangeSkills={this.handleChangeSkills}
@@ -366,10 +384,11 @@ class App extends Component {
                   bio={bio}
                   dob={dob}
                   radioButton1={radioButton1}
-                  skillInterest={skillInterest}
-                  int1={int1} int2={int2} int3={int3} storeForm={this.storeForm} />
-                <NavBar />
-              </>
+                  skillInterest={skillInterest} 
+                  int1={int1} int2={int2} int3={int3} 
+                  storeForm={this.storeForm} /> 
+            <NavBar />
+            </div>
             )
               :
               (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
@@ -401,7 +420,13 @@ class App extends Component {
             (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
           } />
 
-
+          <Route exact path='/deleteprofile' render={() => isSignedIn ? (
+            <>
+              <DeleteProfile deleteUser={this.deleteUser} />
+            </>
+          ) :
+            (<Login uiConfig={uiConfig} isSignedIn={isSignedIn} />)
+          } />
 
         </Router>
       </>
