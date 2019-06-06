@@ -1,4 +1,4 @@
-#container {
+#container2 {
   background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
   border: 0;
   border-Radius: 3;
@@ -7,7 +7,7 @@
   padding: 30px;
   height: 100vh;
 }
-#formContainer {
+#formContainer2 {
   background-color: whitesmoke;
   width: 300px;
     color: white;
@@ -17,42 +17,27 @@
     font-size: 16px;
     text-align: center;
     overflow: scroll;
+    height: 90vh;
 }
-#bio  {
-height: 100px;
-margin-bottom: 5px;
-color: black;
-margin: 0 auto;
-position: center;
-}
-#dateOfBirth {
-  margin-top: 0;
-}
-#radioButtons {
+#message {
   color: black;
-  font-size: 10px;
+  width: 250px;
+  font-size: 40px;
+  margin-left: 15px;
 }
-#skillInterests {
-  margin-top: 0;
+#message2 {
+  color: black;
+  width: 250px;
+  font-size: 40px;
+  margin-left: 15px;
 }
-#personalInterests {
-margin-top: 0px;
-}
-
-#phoneNumber {
-  margin-top: 1px
-}
-
-#form-buttons {
+#button {
+  margin-top: 500px;
   width: 100%;
   display: flex;
   flex-direction: row;
   position: fixed;
-  bottom: 65px;
-  margin-left: -10px;
+  bottom: 90px;
+  margin-left: 100px;
 }
-#greeting {
-  margin-top: -25px;
-  margin-left: 50px;
-  font-size: 30px;
-}
+

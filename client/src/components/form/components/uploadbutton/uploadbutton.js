@@ -38,20 +38,6 @@ const UploadButton = (props) => {
         </Button>
       </label>
     </>
-    // <CloudUploadIcon className={useStyles.rightIcon} >
-    //   <input
-    //     accept='image/*'
-    //     className={useStyles.input}.
-    //     key='uploadButton'
-    //     id='contained-button-file'
-    //     value={props.upload}
-    //     multiple
-    //     type='file'
-    //   />
-    //   <Button variant='contained' color='default' className={useStyles.button}>
-    //     Upload
-    //   </Button>
-    // </CloudUploadIcon>
   )
 }
 

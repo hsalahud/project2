@@ -23,10 +23,8 @@ import './form.css'
 const Form = (props) => {
   return (
     <Grid id='container'>
+      <h1 id='greeting'>Welcome Name!</h1>
       <Grid id='formContainer' container spacing={3} >
-        <Grid id='bio' item md={12} >
-          <BioInput key='bioTextfield1' handleInputChange={props.handleInputChange} userBio={props.userBio} />
-        </Grid>
         <Grid id='dateOfBirth' item xs={6}>
           <DateofBirth key='dateOfBirth' handleInputChange={props.handleInputChange} handleDateChange={props.handleDateChange} selectedDate={props.dob} />
         </Grid>
@@ -34,7 +32,7 @@ const Form = (props) => {
           <RadioButtons key='radioButton1' handleInputChange={props.handleInputChange} handleChangeRb={props.handleChangeRb} handleChangeRb2={props.handleChangeRb2} ValueG={props.isMale} ValueI={props.interestedIn} />
         </Grid>
         <Grid id='skillInterests' item xs={6}>
-          <SkillInterests key='skillInterests' handleInputChange={props.handleInputChange} handleChangeSkills={props.handleChangeSkills} Skills={props.skillInterest} />
+          <SkillInterests key='skillInterests' handleInputChange={props.handleInputChange} handleChangeSkills={props.handleChangeSkills} skills={props.skillInterest} />
         </Grid>
         <Grid id='phoneNumber' item xs={6}>
           <PhoneNumber key='phoneNumber' handleInputChange={props.handleInputChange} handlePhoneNumber={props.handlePhoneNumber} phoneNumber={props.phoneNumber} />
@@ -42,12 +40,17 @@ const Form = (props) => {
         <Grid id='personalInterests' item md={12}>
           <PersonalInterests key='personalInterestCollection' handleInputChange={props.handleInputChange} handleInterest1={props.handleInterest1} handleInterest2={props.handleInterest2} handleInterest3={props.handleInterest3} int1={props.int1} int2={props.int2} int3={props.int3} />
         </Grid>
-        <Grid id='buttons' item xs={6}>
-          <UploadButton />
+        <Grid id='bio' item md={12} >
+          <BioInput key='bioTextfield1' handleInputChange={props.handleInputChange} userBio={props.userBio} />
         </Grid>
-        <Grid id='buttons' item xs={3}>
-          <Button id='submit' onClick={props.storeForm}>Submit</Button>
-        </Grid>
+        <div id='form-buttons'>
+          <Grid item xs={6}>
+            <UploadButton />
+          </Grid>
+          <Grid item xs={3}>
+            <Button variant='contained' id='submit' onClick={props.storeForm}>Submit</Button>
+          </Grid>
+        </div>
       </Grid>
     </Grid>
   )
