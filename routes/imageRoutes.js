@@ -7,7 +7,7 @@ module.exports = app => {
       .catch(e => console.log(e))
   })
   app.get('/images/:userId', (req, res) => {
-    db.Image.findAll({ where: { userId: req.params.userId }})
+    db.Image.findAll({where: { userId: req.params.userId }})
       .then(image => res.json(image))
       .catch(e => console.log(e))
   })
@@ -26,8 +26,8 @@ module.exports = app => {
       .then(_ => res.sendStatus(200))
       .catch(e => console.log(e))
   })
-  app.delete('/images/:id', (req, res) => {
-    db.Image.destroy({ where: { id: req.params.id } })
+  app.delete('/images/:userId', (req, res) => {
+    db.Image.destroy({ where: { userId: req.params.userId } })
       .then(_ => res.sendStatus(200))
       .catch(e => console.log(e))
   })

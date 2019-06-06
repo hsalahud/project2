@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import './deleteprofile.css'
+import { Link } from 'react-router-dom'
+import firebase from 'firebase'
+
 
 const DeleteProfile = (props) => {
   return (
@@ -16,7 +19,9 @@ const DeleteProfile = (props) => {
           </h1>
         </Grid>
         <Grid id='button' item xs={3}>
-          <Button variant='contained' id='confirm' onClick={props.deleteUser}>Confirm</Button>
+          <Link exact path='/login' >
+            <Button variant='contained' id='confirm' onClick={props.deleteUser}>Confirm</Button>
+          </Link>
         </Grid>
       </Grid>
     </Grid>

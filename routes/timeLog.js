@@ -1,7 +1,7 @@
 const db = require('../models')
 const moment = require('moment')
 const Sequelize = require('sequelize')
-const Op = Sequelize.Op;
+const Op = Sequelize.Op
 
 module.exports = app => {
   app.get('/timelog', (req, res) => {
@@ -36,8 +36,8 @@ module.exports = app => {
       .then(_ => res.sendStatus(200))
       .catch(e => console.log(e))
   })
-  app.delete('/timelog/:id', (req, res) => {
-    db.Timelog.destroy({ where: { id: req.params.id } })
+  app.delete('/timelog/:userId', (req, res) => {
+    db.Timelog.destroy({ where: { userId: req.params.userId } })
       .then(_ => res.sendStatus(200))
       .catch(e => console.log(e))
   })
