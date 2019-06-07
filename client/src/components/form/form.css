@@ -4,7 +4,7 @@
   border-Radius: 3;
   box-Shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
   opacity: '0.8';
-  padding: 30px;
+  padding: 26px;
   height: 100vh;
 }
 #formContainer {
@@ -48,8 +48,8 @@
   display: flex;
   flex-direction: row;
   position: fixed;
-  bottom: 65px;
-  margin-left: -10px;
+  bottom: 57px;
+  margin-left: -17px;
 }
 #greeting {
   margin-top: -25px;

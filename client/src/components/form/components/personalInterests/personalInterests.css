@@ -1,6 +1,6 @@
 #personal {
-  margin-left: 50px;
-  margin-top: -17px;
+  margin-left: 60px;
+  margin-top: -15px;
 }
 #title {
   color: rgba(0, 0, 0, 0.63);
@@ -8,14 +8,17 @@
 }
 
 #int1 {
-  margin-top: 0px !important;
+  margin-top: 10px !important;
   color: black !important;
+  font-size: 14px !important;
 }
 #int2 {
-  margin-top: 0px !important;
+  margin-top: 10px !important;
   color: black !important;
+  font-size: 14px !important;
 }
 #int3 {
-  margin-top: 0px !important;
+  margin-top: 10px !important;
   color: black !important;
+  font-size: 14px !important;
 }
