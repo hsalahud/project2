@@ -20,11 +20,12 @@ import { Link } from "react-router-dom";
 import PhoneNumber from './components/number/number'
 import Grid from '@material-ui/core/Grid'
 import './form.css'
+import NavBar from '../navbar'
 
 const Form = (props) => {
   return (
     <Grid id='container'>
-      <h1 id='greeting'>Welcome {props.displayName.split(' ')[0]}!</h1>
+      <h1 id='greeting'>Welcome {props.displayName}!</h1>
       <Grid id='formContainer' container spacing={3} >
         <Grid id='dateOfBirth' item xs={6}>
           <DateofBirth key='dateOfBirth' handleInputChange={props.handleInputChange} handleDateChange={props.handleDateChange} selectedDate={props.dob} />
@@ -59,7 +60,9 @@ const Form = (props) => {
           ) :
           
           (
+            <Link to = "../profile">
             <Button variant='contained' id='submit' onClick={props.storeForm}>Submit</Button>
+            </Link>
         )
 
       }
@@ -67,8 +70,13 @@ const Form = (props) => {
           </Grid>
         </div>
       </Grid>
+     
     </Grid>
   )
+
+ 
+
 }
+
 
 export default Form
