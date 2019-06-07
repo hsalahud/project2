@@ -57,8 +57,7 @@ class Login extends Component {
           
           isSignedIn
             ? (
-              <Button color='secondary' onClick={() => firebase.auth().signOut()}>Sign Out</Button>
-            )
+                null            )
             : (
               <StyledFirebaseAuth className={classes.StyledFirebaseAuth} uiConfig={uiConfig} firebaseAuth={firebase.auth()}  />
             )
