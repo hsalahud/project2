@@ -29,6 +29,7 @@ import ReactDOM from 'react-dom';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Slide } from 'react-slideshow-image'
 import { pink } from "@material-ui/core/colors";
+import NavBar from '../navbar'
 
 
 {
@@ -154,7 +155,7 @@ function Profile(props, state) {
               <Create />
             </Fab>
           </Link>
-          <Link to="../form">
+          <Link to="../deleteprofile">
           <Fab size="small" aria-label="Delete" className={classes.fab}>
               <Delete />
           </Fab> 
@@ -210,6 +211,7 @@ function Profile(props, state) {
         </Grid> */}
       </Paper>
     </div>
+
   </div>
   
   );

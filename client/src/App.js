@@ -56,7 +56,7 @@ class App extends Component {
     dob: new Date(),
     phone_number: '',
     isMale: '',
-    interestedIn: 0,
+    interestedIn: 1,
     skillInterest: '',
     int1: '',
     int2: '',
@@ -188,7 +188,7 @@ class App extends Component {
       int1: this.state.int1,
       int2: this.state.int2,
       int3: this.state.int3,
-      formCompleted: this.state.formCompleted
+      formCompleted: true
     }
     // console.log(newForm)
     Users.putOne(this.state.userId, newForm)
@@ -270,7 +270,7 @@ class App extends Component {
   }
 
   deleteUser = () => {
-    Users.deleteOne(this.state.userId)
+    
     Images.deleteOne(this.state.userId)
     Timelog.deleteOne(this.state.userId)
       // this.state.text.forEach(text => {
@@ -282,6 +282,7 @@ class App extends Component {
     //     })
     //       .catch(error => console.log(error))
     //   })
+    Users.deleteOne(this.state.userId)
 
     firebase.auth().signOut()
   
@@ -397,13 +398,14 @@ class App extends Component {
           .then(({ data }) => {
             if (data === null) {
               Users.postOne(user)
+              .then(
               Users.getOne(this.state.uid)
                 .then(({data}) => {
                   this.setState({
                     userId: data.id,
                     currentUser: data    
                 })
-              })
+              }))
 
             } else {
               this.setState({
@@ -412,7 +414,7 @@ class App extends Component {
                 formCompleted: data.formCompleted
               })
 
-              if (this.state.formCompleted) {
+              if (this.state.formCompleted === true) {
                 data.images.forEach(({ text }) => this.retrieveImages(text))
                 this.setState({ text: data.images.map(({ text }) => text) })
               }
@@ -439,9 +441,9 @@ class App extends Component {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
       (user) => this.setState({ isSignedIn: !!user })
     )
-    if (this.state.formCompleted) {
+    if (this.state.formCompleted === true) {
 
-      Users.getInterestedIn(0)
+      Users.getInterestedIn(1)
         .then(({ data }) => {
           console.log('hi')
           let matches = data.map(person => {
@@ -450,15 +452,6 @@ class App extends Component {
 
           })
           this.setState({ matches })
-          // this.setState({matches: data})
-          // console.log(this.state.matches)
-          // this.state.matches.forEach(({images}) => {
-          //   images.forEach(({text}) => {
-          //     this.retrieveImagesMatches(`${text}.jpeg` )
-          //   })
-
-          // })
-          // console.log(this.state.matchesImageURL)
         }).catch(e => console.error(e))
     }
   }
@@ -524,7 +517,7 @@ class App extends Component {
               exact
               path="/profile"
               render={() =>
-                isSignedIn  && formCompleted ?(
+                isSignedIn  && formCompleted ===true ?(
                   <>
                     {/* <Form key='form1' handleInputChange={this.handleInputChange} handleDateChange={this.handleDateChange} handleChangeRb={this.handleChangeRb} handleChangeRb2={this.handleChangeRb2} handleChangeSkills={this.handleChangeSkills} handleInterest1={this.handleInterest1} handleInterest2={this.handleInterest2} handleInterest3={this.handleInterest3} bio={bio} dob={dob} radioButton1={radioButton1} skillInterest={skillInterest} int1={int1} int2={int2} int3={int3} storeForm = {this.storeForm} /> */}
                     <Profile
@@ -539,13 +532,35 @@ class App extends Component {
                       imageURL = {imageURL}
                       updateProfile = {this.updateProfile}
                     />
-                    <NavBar key = 'navbarFormToProfile'/>
+                    <NavBar/>
                   </>
                 ) : (
-                  <Login uiConfig={uiConfig} isSignedIn={isSignedIn} />
-                )
-              }
-              />
+                  <Form
+                    key="form1"
+                    handleInputChange={this.handleInputChange}
+                    handleDateChange={this.handleDateChange}
+                    handleChangeRb={this.handleChangeRb}
+                    handleChangeRb2={this.handleChangeRb2}
+                    handleChangeSkills={this.handleChangeSkills}
+                    handleInterest1={this.handleInterest1}
+                    handleInterest2={this.handleInterest2}
+                    handleInterest3={this.handleInterest3}
+                    bio={bio}
+                    dob={dob}
+                    radioButton1={radioButton1}
+                    skillInterest={skillInterest}
+                    int1={int1}
+                    int2={int2}
+                    int3={int3}
+                    storeForm={this.storeForm}
+                    formCompleted = {formCompleted}
+                    updateProfile = {this.updateProfile}
+                    
+                  />
+                  )
+                }
+                />
+                <NavBar/>
 
 <Route
             exact
@@ -574,6 +589,7 @@ class App extends Component {
                     formCompleted = {formCompleted}
                     updateProfile = {this.updateProfile}
                   />
+                  <NavBar/>
                 </>
               ) : (
                 <>
