@@ -5,7 +5,7 @@ const Op = Sequelize.Op
 
 module.exports = app => {
   app.get('/timelog', (req, res) => {
-    db.Timelog.findAll( {
+    db.Timelog.findAll({
       where: {
         timeStamp: {
           [Op.gte]: moment().subtract(7, 'days').toDate()
@@ -14,15 +14,15 @@ module.exports = app => {
       order: [
         ['timeStamp', 'ASC']
       ]
-      })
-        
-  
-      .then(users => res.json(users))
-      .catch(e => console.log(e))
     })
 
+
+      .then(users => res.json(users))
+      .catch(e => console.log(e))
+  })
+
   app.get('/timelog/:userId', (req, res) => {
-    db.Timelog.findAll({ where: { userId: req.params.userId} })
+    db.Timelog.findAll({ where: { userId: req.params.userId } })
       .then(user => res.json(user))
       .catch(e => console.log(e))
   })

@@ -496,7 +496,6 @@ class App extends Component {
                   int1={int1} int2={int2} int3={int3} 
                   storeForm={this.storeForm} 
                   displayName = {displayName} />
-            <NavBar />
             </div>
             )
               :
