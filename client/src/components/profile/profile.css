@@ -1,19 +1,34 @@
-.mainContainer {
-  height: auto;
-  padding: "10px";
-  margin: 3px;
-  border-radius: 15px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  -ms-border-radius: 15px;
-  -o-border-radius: 15px;
+.profileRoot{
+  /* background-color: whitesmoke; */
+  margin: 0 auto;
+  padding: 10px;
+  margin-top: 30%;
+  height: 280px;
+  width: 100%;
+  opacity: 0.88;
+  border-radius: 30px;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
 }
 /* Moves the body up to fill in border */
 body{
   margin-bottom: 100px;
 }
+/* .MuiCardContent-root {
+  color: black;
+  position: center;
+} */
 
+<<<<<<< HEAD
+/* #root {
+=======
 /* #profileRoot {
+>>>>>>> origin
   padding: 5px;
   background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
   margin: 0 auto;
@@ -23,10 +38,12 @@ body{
 
 .slide-container {
   width: 100%;
-  margin: "auto"; 
 }
 
-
+/* .Profile-slideShow-44 {
+  background-color: rgba(0, 0, 0, 0.801);
+  height: 100px;
+} */
 
 /* This styling is for images */
 .each-slide > div {
@@ -39,6 +56,8 @@ body{
   max-width: 100%;
   height: 200px;
   background-position: center;
+  background-color: black,
+
 }
 
 .each-slide span {
